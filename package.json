@@ -1,22 +1,54 @@
 {
-  "name": "vocully",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@types/node": "18.15.10",
-    "@types/react": "18.0.30",
-    "@types/react-dom": "18.0.11",
-    "eslint": "8.36.0",
-    "eslint-config-next": "13.2.4",
-    "next": "13.2.4",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "typescript": "5.0.2"
-  }
+    "name": "editor",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "yarn pretty && yarn es-lint && next build",
+        "start": "next start",
+        "lint": "next lint",
+        "pretty": "yarn prettier --loglevel='warn' --loglevel='error' --write .",
+        "es-lint": "yarn eslint --fix ."
+    },
+    "dependencies": {
+        "@emotion/server": "11.10.0",
+        "@mantine/core": "5.10.4",
+        "@mantine/form": "5.10.4",
+        "@mantine/hooks": "5.10.4",
+        "@mantine/next": "5.10.4",
+        "@mantine/notifications": "5.10.5",
+        "@mantine/nprogress": "6.0.0",
+        "@tabler/icons": "1.115.0",
+        "date-fns": "^2.29.3",
+        "next": "13.2.1",
+        "react": "18.2.0",
+        "react-dom": "18.2.0",
+        "react-query": "3.39.3",
+        "react-router-dom": "6.8.1",
+        "recoil": "0.7.6",
+        "throttle-debounce": "5.0.0",
+        "universal-cookie": "4.0.4",
+        "use-debounce": "9.0.3",
+        "yup": "^1.0.2"
+    },
+    "devDependencies": {
+        "@emotion/core": "11.0.0",
+        "@emotion/css": "11.10.6",
+        "@emotion/react": "11.10.6",
+        "@emotion/styled": "11.10.6",
+        "@next/eslint-plugin-next": "13.2.3",
+        "@svgr/webpack": "^6.5.1",
+        "@types/node": "18.14.1",
+        "@types/react": "18.0.28",
+        "@types/react-dom": "18.0.11",
+        "@types/throttle-debounce": "^5.0.0",
+        "@typescript-eslint/eslint-plugin": "5.53.0",
+        "@typescript-eslint/parser": "5.53.0",
+        "eslint": "8.34.0",
+        "eslint-config-prettier": "8.6.0",
+        "eslint-plugin-import": "2.27.5",
+        "eslint-plugin-react": "7.32.2",
+        "prettier": "2.8.4",
+        "typescript": "4.9.5"
+    }
 }
