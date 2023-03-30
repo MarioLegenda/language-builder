@@ -7,8 +7,6 @@ export const root = css`
     flex-direction: column;
     gap: 12px;
 
-    min-height: 100vh;
-
     padding: 36px 12px 36px 12px;
 `;
 

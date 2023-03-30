@@ -1,11 +1,9 @@
 import { requiredAndLimited } from '@/lib/validation/requiredAndLimited';
 
-export function getFormOptions(store: DataSource<Deck>) {
+export function getFormOptions(store: DataSource<Deck>, initialValues: EditDeckForm) {
 	return {
-		validateInputOnChange: true,
 		initialValues: {
-			name: '',
-			shortName: '',
+			name: initialValues?.name ? initialValues.name : '',
 		},
 		validate: {
 			name: (value: string) => {

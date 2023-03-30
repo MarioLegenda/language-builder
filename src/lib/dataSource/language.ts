@@ -30,6 +30,11 @@ class ThisStore<T> implements DataSource<T> {
 	has(id: string) {
 		return Boolean(this.get(id));
 	}
+	update(id: string, item: T): void {
+		if (!this.has(id)) throw new Error(`Item with ID ${id} does not exist.`);
+
+		this.set(id, item);
+	}
 	persist() {
 		localStorage.setItem(this.key, JSON.stringify(this.store));
 	}

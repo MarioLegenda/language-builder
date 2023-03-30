@@ -7,4 +7,5 @@ interface DataSource<T> {
     list(): T[];
     has(id: string): boolean;
     persist(): void;
+    update(oldId: string, newId: string, item: T);
 }

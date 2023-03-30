@@ -23,6 +23,7 @@ export default function Home() {
 
 								<Route path="/languages/create" element={<CreateLanguageRoot />} />
 								<Route path="/decks/create" element={<CreateDeckRoot />} />
+								<Route path="/decks/edit/:id" element={<CreateDeckRoot isUpdate />} />
 							</Route>
 						</Routes>
 					</BrowserRouter>

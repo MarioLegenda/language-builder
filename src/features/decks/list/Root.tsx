@@ -1,4 +1,5 @@
 import {Button, Table} from '@mantine/core';
+import {Link} from 'react-router-dom';
 import {DeleteButton} from '@/features/shared/components/DeleteButton';
 import { Header } from '@/features/shared/components/Header';
 import { TableBody } from '@/features/shared/components/TableBody';
@@ -17,7 +18,7 @@ export function Root() {
 			<td>{element.name}</td>
 
 			<td>
-				<Button compact color="gray" variant="outline">
+				<Button to={`/decks/edit/${element.name}`} component={Link} compact color="gray" variant="outline">
 					Edit
 				</Button>
 			</td>
