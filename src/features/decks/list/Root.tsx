@@ -1,10 +1,10 @@
-import {Button, Table} from '@mantine/core';
-import {Link} from 'react-router-dom';
-import {DeleteButton} from '@/features/shared/components/DeleteButton';
+import { Button, Table } from '@mantine/core';
+import { Link } from 'react-router-dom';
+import { DeleteButton } from '@/features/shared/components/DeleteButton';
 import { Header } from '@/features/shared/components/Header';
 import { TableBody } from '@/features/shared/components/TableBody';
 import { useDeck } from '@/lib/dataSource/hooks/useDeck';
-import {useRemove} from '@/lib/dataSource/hooks/useRemove';
+import { useRemove } from '@/lib/dataSource/hooks/useRemove';
 import * as styles from '@/styles/languages/Root.styles';
 
 export function Root() {
@@ -19,7 +19,7 @@ export function Root() {
 
 			<td>
 				<Button to={`/decks/edit/${element.name}`} component={Link} compact color="gray" variant="outline">
-					Edit
+                    Edit
 				</Button>
 			</td>
 			<td>

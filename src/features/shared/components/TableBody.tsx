@@ -4,7 +4,17 @@ interface Props {
     rows: EmotionJSX.Element[];
 }
 export function TableBody({ rows }: Props) {
-	return <tbody>{rows.length ? rows : <tr>
-		<td><p css={styles.nothingFound}>Nothing found</p></td>
-	</tr>}</tbody>;
+	return (
+		<tbody>
+			{rows.length ? (
+				rows
+			) : (
+				<tr>
+					<td>
+						<p css={styles.nothingFound}>Nothing found</p>
+					</td>
+				</tr>
+			)}
+		</tbody>
+	);
 }

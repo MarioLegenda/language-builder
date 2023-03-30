@@ -1,7 +1,7 @@
 import { CloseButton, TextInput, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useCallback } from 'react';
-import {Link, useNavigate, useParams} from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getFormOptions } from '@/features/decks/create/helpers/getFormOptions';
 import { ContentElement } from '@/features/shared/components/ContentElement';
 import { FieldRow } from '@/features/shared/components/forms/FieldRow';
@@ -10,16 +10,18 @@ import { useDeck } from '@/lib/dataSource/hooks/useDeck';
 import * as utilStyles from '@/styles/shared/Util.styles';
 
 interface Props {
-	isUpdate?: boolean;
+    isUpdate?: boolean;
 }
 
-export function Root({isUpdate = false}: Props) {
+export function Root({ isUpdate = false }: Props) {
 	const params = useParams();
 	const navigate = useNavigate();
 	const { store, persist } = useDeck();
-	const form = useForm<CreateDeckForm>(getFormOptions(store, {
-		name: params.id,
-	}));
+	const form = useForm<CreateDeckForm>(
+		getFormOptions(store, {
+			name: params.id,
+		}),
+	);
 
 	const onSubmit = useCallback(
 		(data: CreateDeckForm) => {
@@ -55,9 +57,7 @@ export function Root({isUpdate = false}: Props) {
 				</FieldRow>
 
 				<FieldRow>
-					<SubmitButton group={{ position: 'right' }}>
-						{isUpdate ? 'Update' : 'Create'}
-					</SubmitButton>
+					<SubmitButton group={{ position: 'right' }}>{isUpdate ? 'Update' : 'Create'}</SubmitButton>
 				</FieldRow>
 			</form>
 		</ContentElement>

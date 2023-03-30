@@ -47,9 +47,7 @@ export function Root() {
 				</FieldRow>
 
 				<FieldRow>
-					<SubmitButton group={{ position: 'right' }}>
-						Create
-					</SubmitButton>
+					<SubmitButton group={{ position: 'right' }}>Create</SubmitButton>
 				</FieldRow>
 			</form>
 		</ContentElement>
