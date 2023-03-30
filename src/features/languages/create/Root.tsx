@@ -1,23 +1,31 @@
 import { CloseButton, TextInput, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useCallback } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getFormOptions } from '@/features/languages/create/helpers/getFormOptions';
 import { ContentElement } from '@/features/shared/components/ContentElement';
 import { FieldRow } from '@/features/shared/components/forms/FieldRow';
 import { SubmitButton } from '@/features/shared/components/forms/SubmitButton';
 import { useLanguage } from '@/lib/dataSource/hooks/useLanguage';
 import * as utilStyles from '@/styles/shared/Util.styles';
-
-export function Root() {
+interface Props {
+    isUpdate?: boolean;
+}
+export function Root({ isUpdate = false }: Props) {
+	const params = useParams();
 	const navigate = useNavigate();
 	const { store, persist } = useLanguage();
-	const form = useForm<CreateLanguageForm>(getFormOptions(store));
+	const form = useForm<CreateLanguageForm>(getFormOptions(store, { ...store.get(params.id as string) }));
 
 	const onSubmit = useCallback(
 		(data: CreateLanguageForm) => {
 			if (store) {
-				store.set(data.shortName, data);
+				if (isUpdate && params.id) {
+					store.update(params.id, data.shortName, data);
+				} else {
+					store.set(data.name, data);
+				}
+
 				persist();
 				navigate('/languages');
 			}
@@ -47,7 +55,7 @@ export function Root() {
 				</FieldRow>
 
 				<FieldRow>
-					<SubmitButton group={{ position: 'right' }}>Create</SubmitButton>
+					<SubmitButton group={{ position: 'right' }}>{isUpdate ? 'Update' : 'Create'}</SubmitButton>
 				</FieldRow>
 			</form>
 		</ContentElement>

@@ -1,11 +1,11 @@
 import { requiredAndLimited } from '@/lib/validation/requiredAndLimited';
 
-export function getFormOptions(store: DataSource<Language>) {
+export function getFormOptions(store: DataSource<Language>, initialValue?: EditLanguageForm) {
 	return {
 		validateInputOnChange: true,
 		initialValues: {
-			name: '',
-			shortName: '',
+			name: initialValue?.name ? initialValue.name : '',
+			shortName: initialValue?.shortName ? initialValue.shortName : '',
 		},
 		validate: {
 			name: (value: string) => requiredAndLimited('name', value, 1, 200),
