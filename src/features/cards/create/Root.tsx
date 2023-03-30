@@ -17,7 +17,8 @@ interface Props {
 export function Root({ isUpdate = false }: Props) {
 	const params = useParams();
 	const navigate = useNavigate();
-	const form = useForm<CreateCardForm>(getFormOptions({ ...CardStore.get(params.id as string) }));
+	const existing = CardStore.get(params.id as string);
+	const form = useForm<CreateCardForm>(getFormOptions({ ...existing }));
 
 	const onSubmit = useCallback((data: CreateCardForm) => {
 		if (isUpdate && params.id) {

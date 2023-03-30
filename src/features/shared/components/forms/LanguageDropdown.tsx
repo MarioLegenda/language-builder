@@ -1,5 +1,4 @@
 import { Select } from '@mantine/core';
-import { useEffect, useState } from 'react';
 
 import { LanguageStore } from '@/lib/dataSource/language';
 import type { SelectItem } from '@mantine/core';
@@ -24,24 +23,10 @@ function createValues(): SelectItem[] {
 	return values;
 }
 
-export function LanguageDropdown<T>({ defaultValue, form, name, label }: Props<T>) {
-	const [value, setValue] = useState<string | undefined>();
-
-	useEffect(() => {
-		if (defaultValue) {
-			setValue(defaultValue);
-		}
-	}, [defaultValue]);
-
+export function LanguageDropdown<T>({ form, name, label }: Props<T>) {
 	return (
 		<div>
-			<Select
-				label={label}
-				{...form.getInputProps(name)}
-				value={value}
-				placeholder="Pick one"
-				data={createValues()}
-			/>
+			<Select label={label} {...form.getInputProps(name)} placeholder="Pick one" data={createValues()} />
 		</div>
 	);
 }

@@ -28,7 +28,6 @@ class ThisStore<T> implements DataSource<T> {
 		return Object.values(this.store);
 	}
 	has(id: string) {
-		console.log(id, this.store);
 		return Boolean(this.get(id));
 	}
 	update(oldId: string, newId: string, item: T): void {

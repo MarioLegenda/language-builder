@@ -81,6 +81,7 @@ export function FormFields({ form }: Props) {
 
 					<div css={styles.column(12)}>
 						<Checkbox
+							checked={form.values.translations[index].isMain}
 							label="Is main translation?"
 							sx={{ flex: 1 }}
 							{...form.getInputProps(`translations.${index}.isMain`)}

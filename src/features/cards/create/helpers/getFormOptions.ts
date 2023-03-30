@@ -1,3 +1,4 @@
+import { getDefaultTranslationValues } from '@/features/cards/create/helpers/getDefaultTranslationValues';
 import { DeckStore } from '@/lib/dataSource/deck';
 import { LanguageStore } from '@/lib/dataSource/language';
 import { limited } from '@/lib/validation/limited';
@@ -10,17 +11,7 @@ export function getFormOptions(initialValue?: EditCardForm) {
 			deck: initialValue?.deck ? initialValue.deck : '',
 			fromLanguage: initialValue?.fromLanguage ? initialValue.fromLanguage : '',
 			toLanguage: initialValue?.toLanguage ? initialValue.toLanguage : '',
-			translations: [
-				{
-					name: '',
-					type: '',
-					gender: '',
-					language: '',
-					example: '',
-					hint: '',
-					isMain: false,
-				},
-			],
+			translations: initialValue?.translations ? initialValue.translations : getDefaultTranslationValues(),
 		},
 		validate: {
 			name: (value: string) => requiredAndLimited('name', value, 1, 200),

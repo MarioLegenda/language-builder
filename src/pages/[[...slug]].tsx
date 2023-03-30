@@ -25,10 +25,13 @@ export default function Home() {
 								<Route path="/cards" element={<CardsRoot />} />
 
 								<Route path="/languages/create" element={<CreateLanguageRoot />} />
+								<Route path="/languages/edit/:id" element={<CreateLanguageRoot isUpdate />} />
+
 								<Route path="/cards/create" element={<CreateCardRoot />} />
+								<Route path="/cards/edit/:id" element={<CreateCardRoot isUpdate />} />
+
 								<Route path="/decks/create" element={<CreateDeckRoot />} />
 								<Route path="/decks/edit/:id" element={<CreateDeckRoot isUpdate />} />
-								<Route path="/languages/edit/:id" element={<CreateLanguageRoot isUpdate />} />
 							</Route>
 						</Routes>
 					</BrowserRouter>
