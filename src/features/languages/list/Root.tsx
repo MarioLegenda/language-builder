@@ -38,7 +38,7 @@ export function Root() {
 		<div css={styles.root}>
 			<Header createTo="/languages/create" title="Languages" />
 
-			{rows && (
+			{Boolean(rows.length) && (
 				<Table>
 					<thead>
 						<tr>
@@ -53,6 +53,8 @@ export function Root() {
 					<TableBody rows={rows} />
 				</Table>
 			)}
+
+			{!rows.length && <p css={styles.nothingFound}>Nothing found</p>}
 		</div>
 	);
 }
