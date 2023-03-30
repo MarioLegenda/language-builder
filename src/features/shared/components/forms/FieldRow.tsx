@@ -12,7 +12,7 @@ export function FieldRow({
 	children,
 	column = 12,
 	startColumnAt = 0,
-	bottomSpacing = 32,
+	bottomSpacing = 16,
 	topSpacing = 0,
 }: Props & PropsWithChildren) {
 	return (

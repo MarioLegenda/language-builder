@@ -1,5 +1,5 @@
 class ThisStore<T> implements DataSource<T> {
-	private key = 'languages';
+	private key = 'cards';
 	private store: Store<T>;
 	constructor() {
 		if (typeof localStorage === 'undefined') {
@@ -13,7 +13,7 @@ class ThisStore<T> implements DataSource<T> {
 			localStorage.setItem(this.key, JSON.stringify({}));
 		}
 
-		this.store = JSON.parse(localStorage.getItem(this.key) as string) as Store<T>;
+		this.store = (JSON.parse(localStorage.getItem(this.key) as string) as Store<T>) || {};
 	}
 	set(id: string, item: T): void {
 		this.store[id] = item;
@@ -28,7 +28,6 @@ class ThisStore<T> implements DataSource<T> {
 		return Object.values(this.store);
 	}
 	has(id: string) {
-		console.log(id, this.store);
 		return Boolean(this.get(id));
 	}
 	update(oldId: string, newId: string, item: T): void {
@@ -40,4 +39,4 @@ class ThisStore<T> implements DataSource<T> {
 	}
 }
 
-export const LanguageStore = new ThisStore<Language>();
+export const CardStore = new ThisStore<Card>();

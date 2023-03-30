@@ -3,7 +3,10 @@ import { css } from '@emotion/react';
 export const grid = css`
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
-    gap: 12px;
+`;
+
+export const gap = (value: number) => css`
+    gap: ${value}px;
 `;
 
 export const column = (num: number) => css`

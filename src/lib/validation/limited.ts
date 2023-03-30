@@ -5,8 +5,8 @@ export function limited(name: string, value: unknown, min: number, max: number) 
 	const viewName = ucFirst(name);
 	const schema = object({
 		[name]: string()
-			.min(1, `${viewName} must have between ${min} and ${max} characters`)
-			.max(200, `${viewName} must have between ${min} and ${max} characters`),
+			.min(min, `${viewName} must have between ${min} and ${max} characters`)
+			.max(max, `${viewName} must have between ${min} and ${max} characters`),
 	});
 
 	try {

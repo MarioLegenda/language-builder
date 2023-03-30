@@ -1,6 +1,7 @@
+import { LanguageStore } from '@/lib/dataSource/language';
 import { requiredAndLimited } from '@/lib/validation/requiredAndLimited';
 
-export function getFormOptions(store: DataSource<Language>, initialValue?: EditLanguageForm) {
+export function getFormOptions(initialValue?: EditLanguageForm) {
 	return {
 		validateInputOnChange: true,
 		initialValues: {
@@ -16,7 +17,7 @@ export function getFormOptions(store: DataSource<Language>, initialValue?: EditL
 					return invalid;
 				}
 
-				if (store.has(value)) {
+				if (LanguageStore.has(value)) {
 					return `'${value}' language already exists`;
 				}
 			},

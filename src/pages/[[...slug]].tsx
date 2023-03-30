@@ -1,4 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Root as CreateCardRoot } from '@/features/cards/create/Root';
+import { Root as CardsRoot } from '@/features/cards/list/Root';
 import { Root as CreateDeckRoot } from '@/features/decks/create/Root';
 import { Root as DecksRoot } from '@/features/decks/list/Root';
 import { Root as CreateLanguageRoot } from '@/features/languages/create/Root';
@@ -20,8 +22,10 @@ export default function Home() {
 							<Route path="/" element={<Layout navigation={<Navigation />} content={<Content />} />}>
 								<Route path="/languages" element={<LanguageRoot />} />
 								<Route path="/decks" element={<DecksRoot />} />
+								<Route path="/cards" element={<CardsRoot />} />
 
 								<Route path="/languages/create" element={<CreateLanguageRoot />} />
+								<Route path="/cards/create" element={<CreateCardRoot />} />
 								<Route path="/decks/create" element={<CreateDeckRoot />} />
 								<Route path="/decks/edit/:id" element={<CreateDeckRoot isUpdate />} />
 								<Route path="/languages/edit/:id" element={<CreateLanguageRoot isUpdate />} />

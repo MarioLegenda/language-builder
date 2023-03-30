@@ -1,6 +1,7 @@
+import { DeckStore } from '@/lib/dataSource/deck';
 import { requiredAndLimited } from '@/lib/validation/requiredAndLimited';
 
-export function getFormOptions(store: DataSource<Deck>, initialValues: EditDeckForm) {
+export function getFormOptions(initialValues: EditDeckForm) {
 	return {
 		initialValues: {
 			name: initialValues?.name ? initialValues.name : '',
@@ -10,7 +11,7 @@ export function getFormOptions(store: DataSource<Deck>, initialValues: EditDeckF
 				const invalid = requiredAndLimited('name', value, 1, 200);
 				if (invalid) return invalid;
 
-				if (store.has(value)) return `Deck with name ${value} already exists.`;
+				if (DeckStore.has(value)) return `Deck with name ${value} already exists.`;
 			},
 		},
 	};

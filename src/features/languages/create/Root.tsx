@@ -6,7 +6,7 @@ import { getFormOptions } from '@/features/languages/create/helpers/getFormOptio
 import { ContentElement } from '@/features/shared/components/ContentElement';
 import { FieldRow } from '@/features/shared/components/forms/FieldRow';
 import { SubmitButton } from '@/features/shared/components/forms/SubmitButton';
-import { useLanguage } from '@/lib/dataSource/hooks/useLanguage';
+import { LanguageStore } from '@/lib/dataSource/language';
 import * as utilStyles from '@/styles/shared/Util.styles';
 interface Props {
     isUpdate?: boolean;
@@ -14,28 +14,22 @@ interface Props {
 export function Root({ isUpdate = false }: Props) {
 	const params = useParams();
 	const navigate = useNavigate();
-	const { store, persist } = useLanguage();
-	const form = useForm<CreateLanguageForm>(getFormOptions(store, { ...store.get(params.id as string) }));
+	const form = useForm<CreateLanguageForm>(getFormOptions({ ...LanguageStore.get(params.id as string) }));
 
-	const onSubmit = useCallback(
-		(data: CreateLanguageForm) => {
-			if (store) {
-				if (isUpdate && params.id) {
-					store.update(params.id, data.shortName, data);
-				} else {
-					store.set(data.name, data);
-				}
+	const onSubmit = useCallback((data: CreateLanguageForm) => {
+		if (isUpdate && params.id) {
+			LanguageStore.update(params.id, data.shortName, data);
+		} else {
+			LanguageStore.set(data.shortName, data);
+		}
 
-				persist();
-				navigate('/languages');
-			}
-		},
-		[store],
-	);
+		LanguageStore.persist();
+		navigate('/languages');
+	}, []);
 
 	return (
 		<ContentElement>
-			<form onSubmit={form.onSubmit(onSubmit)} css={utilStyles.grid}>
+			<form onSubmit={form.onSubmit(onSubmit)} css={[utilStyles.grid, utilStyles.gap(4)]}>
 				<FieldRow>
 					<div css={utilStyles.flex('space-between')}>
 						<Title order={3}>Create new language</Title>

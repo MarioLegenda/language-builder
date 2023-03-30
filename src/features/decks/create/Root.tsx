@@ -6,7 +6,7 @@ import { getFormOptions } from '@/features/decks/create/helpers/getFormOptions';
 import { ContentElement } from '@/features/shared/components/ContentElement';
 import { FieldRow } from '@/features/shared/components/forms/FieldRow';
 import { SubmitButton } from '@/features/shared/components/forms/SubmitButton';
-import { useDeck } from '@/lib/dataSource/hooks/useDeck';
+import { DeckStore } from '@/lib/dataSource/deck';
 import * as utilStyles from '@/styles/shared/Util.styles';
 
 interface Props {
@@ -16,28 +16,22 @@ interface Props {
 export function Root({ isUpdate = false }: Props) {
 	const params = useParams();
 	const navigate = useNavigate();
-	const { store, persist } = useDeck();
 	const form = useForm<CreateDeckForm>(
-		getFormOptions(store, {
+		getFormOptions({
 			name: params.id,
 		}),
 	);
 
-	const onSubmit = useCallback(
-		(data: CreateDeckForm) => {
-			if (store) {
-				if (isUpdate && params.id) {
-					store.update(params.id, data.name, data);
-				} else {
-					store.set(data.name, data);
-				}
+	const onSubmit = useCallback((data: CreateDeckForm) => {
+		if (isUpdate && params.id) {
+			DeckStore.update(params.id, data.name, data);
+		} else {
+			DeckStore.set(data.name, data);
+		}
 
-				persist();
-				navigate('/decks');
-			}
-		},
-		[store],
-	);
+		DeckStore.persist();
+		navigate('/decks');
+	}, []);
 
 	return (
 		<ContentElement>
