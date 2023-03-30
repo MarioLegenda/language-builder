@@ -25,7 +25,7 @@ export function Root({isUpdate = false}: Props) {
 		(data: CreateDeckForm) => {
 			if (store) {
 				if (isUpdate && params.id) {
-					store.update(params.id, data.name, data);g;
+					store.update(params.id, data.name, data);
 				} else {
 					store.set(data.name, data);
 				}
