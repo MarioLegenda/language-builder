@@ -1,9 +1,29 @@
-import { useParams } from 'react-router-dom';
-import { useDeck } from '@/lib/dataSource/hooks/useDeck';
+import { Button, Group } from '@mantine/core';
+import { useState } from 'react';
+import { Item } from '@/features/games/engine/pickOne/Item';
+import { usePickOne } from '@/features/games/engine/pickOne/usePickOne';
 import * as utilStyles from '@/styles/shared/Util.styles';
 export function Root() {
-	const { store } = useDeck();
-	const { deckId } = useParams();
+	const { engine, reset } = usePickOne();
+	const [isDone, setIsDone] = useState(false);
 
-	return <div css={[utilStyles.grid]}>Pick one</div>;
+	return (
+		<div css={[utilStyles.grid]}>
+			{!isDone && <Item onDone={() => setIsDone(true)} engine={engine} />}
+
+			{isDone && (
+				<div css={utilStyles.column(12)}>
+					<Group position="center">
+						<Button
+							onClick={() => {
+								reset();
+								setIsDone(false);
+							}}>
+                            Try again
+						</Button>
+					</Group>
+				</div>
+			)}
+		</div>
+	);
 }

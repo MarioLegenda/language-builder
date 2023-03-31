@@ -7,14 +7,14 @@ import { requiredAndLimited } from '@/lib/validation/requiredAndLimited';
 export function getFormOptions(initialValue?: EditCardForm) {
 	return {
 		initialValues: {
-			name: initialValue?.name ? initialValue.name : '',
+			word: initialValue?.word ? initialValue.word : '',
 			deck: initialValue?.deck ? initialValue.deck : '',
 			fromLanguage: initialValue?.fromLanguage ? initialValue.fromLanguage : '',
 			toLanguage: initialValue?.toLanguage ? initialValue.toLanguage : '',
 			translations: initialValue?.translations ? initialValue.translations : [getDefaultTranslationValues()],
 		},
 		validate: {
-			name: (value: string) => requiredAndLimited('name', value, 1, 200),
+			word: (value: string) => requiredAndLimited('word', value, 1, 200),
 			deck: (value: string) => {
 				const invalid = requiredAndLimited('deck', value, 2, 2);
 				if (invalid) return invalid;
@@ -31,7 +31,6 @@ export function getFormOptions(initialValue?: EditCardForm) {
 				if (!LanguageStore.has(value)) return `'${value}' language does not exist.`;
 			},
 			translations: {
-				word: (value: string) => requiredAndLimited('word', value, 1, 200),
 				name: (value: string) => requiredAndLimited('translation', value, 1, 200),
 				type: (value: string) => requiredAndLimited('type', value, 1, 100),
 				language: (value: string) => requiredAndLimited('language', value, 2, 2),

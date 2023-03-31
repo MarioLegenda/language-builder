@@ -7,7 +7,13 @@ export function getTranslations(lang: string): Translation[] {
 	let translations: Translation[] = [];
 	const cardsArray = Object.values(cards);
 
-	for (let i = 0, j = cardsArray.length - 1; i < j; i++, j--) {
+	for (let i = 0, j = cardsArray.length - 1; i <= j; i++, j--) {
+		if (i === j) {
+			translations = [...translations, ...cardsArray[i].translations];
+
+			break;
+		}
+
 		if (cardsArray[i].toLanguage === lang) {
 			translations = [...translations, ...cardsArray[i].translations];
 		}
@@ -19,13 +25,42 @@ export function getTranslations(lang: string): Translation[] {
 
 	return translations;
 }
-
-export function getEqual(translation: Translation, translations: Translation[]) {
-	let i = 0;
-	let j = translations.length;
-
-	while (i < j) {
-		i++;
-		j--;
+export function getRandomTranslations(num: number, translations: Translation[], exclude: string[]) {
+	const chosenIndexes: number[] = [];
+	const withoutExclude = translations.filter((item) => !exclude.includes(item.name));
+	const possibilities: number[] = [];
+	for (let i = 0; i < withoutExclude.length; i++) {
+		possibilities.push(i);
 	}
+
+	let shuffled = shuffle<number>(possibilities);
+	let count = shuffled.length;
+	while (count > 0 && num > 0) {
+		shuffled = shuffle<number>(possibilities);
+		chosenIndexes.push(shuffled[0]);
+		shuffled.splice(0, 1);
+
+		num--;
+		count--;
+	}
+
+	const chosenTranslations: Translation[] = [];
+	for (const idx of chosenIndexes) {
+		chosenTranslations.push(withoutExclude[idx]);
+	}
+
+	return chosenTranslations;
+}
+function shuffle<T>(array: T[]) {
+	let currentIndex = array.length;
+	let randomIndex = 0;
+
+	while (currentIndex !== 0) {
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex--;
+
+		[array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+	}
+
+	return array;
 }

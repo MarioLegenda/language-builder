@@ -13,20 +13,20 @@ export function Root() {
 		persist();
 	});
 
-	const rows = store?.list().map((element) => (
-		<tr key={element.name}>
-			<td>{element.name}</td>
+	const rows = store?.list().map((element, i) => (
+		<tr key={i}>
+			<td>{element.word}</td>
 			<td>{element.fromLanguage}</td>
 			<td>{element.toLanguage}</td>
 			<td>{element.translations.find((item) => item.isMain)?.name}</td>
 
 			<td>
-				<Button to={`/cards/edit/${element.name}`} component={Link} compact color="gray" variant="outline">
+				<Button to={`/cards/edit/${element.word}`} component={Link} compact color="gray" variant="outline">
                     Edit
 				</Button>
 			</td>
 			<td>
-				<DeleteButton onRemove={() => onRemove(element.name)} />
+				<DeleteButton onRemove={() => onRemove(element.word)} />
 			</td>
 		</tr>
 	));

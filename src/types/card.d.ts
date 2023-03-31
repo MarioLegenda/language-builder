@@ -1,5 +1,5 @@
 interface Card {
-    name: string;
+    word: string;
     deck: string;
     fromLanguage: string;
     toLanguage: string;
@@ -7,7 +7,6 @@ interface Card {
 }
 
 interface Translation {
-    word: string;
     name: string;
     language: string;
     hint: string;
@@ -18,7 +17,7 @@ interface Translation {
 }
 
 interface CreateCardForm {
-    name: string;
+    word: string;
     deck: string;
     fromLanguage: string;
     toLanguage: string;
@@ -26,7 +25,6 @@ interface CreateCardForm {
 }
 
 interface CreateTranslationForm {
-    word: string;
     name: string;
     language: string;
     hint: string;
@@ -37,7 +35,7 @@ interface CreateTranslationForm {
 }
 
 interface EditCardForm {
-    name: string;
+    word: string;
     deck: string;
     fromLanguage: string;
     toLanguage: string;
@@ -45,7 +43,6 @@ interface EditCardForm {
 }
 
 interface EditTranslationForm {
-    word: string;
     name: string;
     language: string;
     hint: string;

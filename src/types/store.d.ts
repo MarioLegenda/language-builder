@@ -8,5 +8,6 @@ interface DataSource<T> {
     has(id: string): boolean;
     persist(): void;
     all(): Store<T>;
+    findBy(filterFn: (item: T, idx: number) => void): T[];
     update(oldId: string, newId: string, item: T);
 }

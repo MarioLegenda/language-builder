@@ -23,9 +23,9 @@ export function Root({ isUpdate = false }: Props) {
 
 	const onSubmit = useCallback((data: CreateCardForm) => {
 		if (isUpdate && params.id) {
-			CardStore.update(params.id, data.name, data as Card);
+			CardStore.update(params.id, data.word, data as Card);
 		} else {
-			CardStore.set(data.name, data as Card);
+			CardStore.set(data.word, data as Card);
 		}
 
 		CardStore.persist();
@@ -46,7 +46,7 @@ export function Root({ isUpdate = false }: Props) {
 				</FieldRow>
 
 				<FieldRow>
-					<TextInput autoFocus placeholder="Name" {...form.getInputProps('name')} />
+					<TextInput autoFocus placeholder="Name" {...form.getInputProps('word')} />
 				</FieldRow>
 
 				<FieldRow>

@@ -1,6 +1,5 @@
 export function getDefaultTranslationValues() {
 	return {
-		word: '',
 		name: '',
 		type: '',
 		gender: '',
