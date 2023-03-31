@@ -11,26 +11,27 @@ export function getFormOptions(initialValue?: EditCardForm) {
 			deck: initialValue?.deck ? initialValue.deck : '',
 			fromLanguage: initialValue?.fromLanguage ? initialValue.fromLanguage : '',
 			toLanguage: initialValue?.toLanguage ? initialValue.toLanguage : '',
-			translations: initialValue?.translations ? initialValue.translations : getDefaultTranslationValues(),
+			translations: initialValue?.translations ? initialValue.translations : [getDefaultTranslationValues()],
 		},
 		validate: {
 			name: (value: string) => requiredAndLimited('name', value, 1, 200),
 			deck: (value: string) => {
-				const invalid = requiredAndLimited('name', value, 2, 2);
+				const invalid = requiredAndLimited('deck', value, 2, 2);
 				if (invalid) return invalid;
 				if (!DeckStore.has(value)) return `'${value}' language does not exist.`;
 			},
 			fromLanguage: (value: string) => {
-				const invalid = requiredAndLimited('name', value, 2, 2);
+				const invalid = requiredAndLimited('fromLanguage', value, 2, 2);
 				if (invalid) return invalid;
 				if (!LanguageStore.has(value)) return `'${value}' language does not exist.`;
 			},
 			toLanguage: (value: string) => {
-				const invalid = requiredAndLimited('name', value, 2, 2);
+				const invalid = requiredAndLimited('toLanguage', value, 2, 2);
 				if (invalid) return invalid;
 				if (!LanguageStore.has(value)) return `'${value}' language does not exist.`;
 			},
 			translations: {
+				word: (value: string) => requiredAndLimited('word', value, 1, 200),
 				name: (value: string) => requiredAndLimited('translation', value, 1, 200),
 				type: (value: string) => requiredAndLimited('type', value, 1, 100),
 				language: (value: string) => requiredAndLimited('language', value, 2, 2),

@@ -3,6 +3,8 @@ import { Root as CreateCardRoot } from '@/features/cards/create/Root';
 import { Root as CardsRoot } from '@/features/cards/list/Root';
 import { Root as CreateDeckRoot } from '@/features/decks/create/Root';
 import { Root as DecksRoot } from '@/features/decks/list/Root';
+import { Root as GamesRoot } from '@/features/games/Root';
+import { Root as PickOneRoot } from '@/features/games/pickOne/Root';
 import { Root as CreateLanguageRoot } from '@/features/languages/create/Root';
 import { Root as LanguageRoot } from '@/features/languages/list/Root';
 import { Layout } from '@/features/shared/Layout';
@@ -23,6 +25,9 @@ export default function Home() {
 								<Route path="/languages" element={<LanguageRoot />} />
 								<Route path="/decks" element={<DecksRoot />} />
 								<Route path="/cards" element={<CardsRoot />} />
+								<Route path="/games" element={<GamesRoot />} />
+
+								<Route path="/games/pick-one/:deckId" element={<PickOneRoot />} />
 
 								<Route path="/languages/create" element={<CreateLanguageRoot />} />
 								<Route path="/languages/edit/:id" element={<CreateLanguageRoot isUpdate />} />

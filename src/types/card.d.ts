@@ -7,6 +7,7 @@ interface Card {
 }
 
 interface Translation {
+    word: string;
     name: string;
     language: string;
     hint: string;
@@ -25,6 +26,7 @@ interface CreateCardForm {
 }
 
 interface CreateTranslationForm {
+    word: string;
     name: string;
     language: string;
     hint: string;
@@ -43,6 +45,7 @@ interface EditCardForm {
 }
 
 interface EditTranslationForm {
+    word: string;
     name: string;
     language: string;
     hint: string;

@@ -24,6 +24,15 @@ export function FormFields({ form }: Props) {
 					]}>
 					<div css={styles.column(12)}>
 						<TextInput
+							placeholder="Word"
+							withAsterisk
+							sx={{ flex: 1 }}
+							{...form.getInputProps(`translations.${index}.word`)}
+						/>
+					</div>
+
+					<div css={styles.column(12)}>
+						<TextInput
 							placeholder="Translation"
 							withAsterisk
 							sx={{ flex: 1 }}

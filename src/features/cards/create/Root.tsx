@@ -3,6 +3,7 @@ import { useForm } from '@mantine/form';
 import { useCallback } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { FormFields } from '@/features/cards/create/components/FormFields';
+import { getDefaultTranslationValues } from '@/features/cards/create/helpers/getDefaultTranslationValues';
 import { getFormOptions } from '@/features/cards/create/helpers/getFormOptions';
 import { ContentElement } from '@/features/shared/components/ContentElement';
 import { DeckDropdown } from '@/features/shared/components/forms/DeckDropdown';
@@ -67,17 +68,7 @@ export function Root({ isUpdate = false }: Props) {
 
 					<Group position="right">
 						<Button
-							onClick={() =>
-								form.insertListItem('translations', {
-									name: '',
-									type: '',
-									gender: '',
-									language: '',
-									example: '',
-									hint: '',
-									isMain: false,
-								})
-							}
+							onClick={() => form.insertListItem('translations', getDefaultTranslationValues())}
 							variant="default">
                             Add
 						</Button>

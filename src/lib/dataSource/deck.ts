@@ -18,6 +18,9 @@ class ThisStore<T> implements DataSource<T> {
 	set(id: string, item: T): void {
 		this.store[id] = item;
 	}
+	all(): Store<T> {
+		return this.store;
+	}
 	remove(id: string) {
 		delete this.store[id];
 	}
