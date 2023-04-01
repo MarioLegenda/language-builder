@@ -6,9 +6,10 @@ import * as utilStyles from '@/styles/shared/Util.styles';
 
 interface Props {
     route: string;
+	title: string;
 }
 
-export function Item({ route }: Props) {
+export function Item({ route, title }: Props) {
 	const navigate = useNavigate();
 	const [deck, setDeck] = useState<string>();
 
@@ -19,7 +20,7 @@ export function Item({ route }: Props) {
 	return (
 		<Card shadow="sm" css={utilStyles.column(6)}>
 			<Title order={4} align="center" css={utilStyles.spacing('bottom', 64)}>
-                Pick one
+				{title}
 			</Title>
 
 			<DeckDropdown onChange={(deck) => setDeck(deck)} />
