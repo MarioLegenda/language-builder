@@ -28,3 +28,7 @@ export const status = (status: boolean) => css`
     color: ${status ? 'green' : 'red'};
     text-align: center;
 `;
+
+export const timer = (time: number) => css`
+    color: ${time <= 2 ? 'red' : 'green'};
+`;

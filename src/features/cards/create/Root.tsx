@@ -50,7 +50,7 @@ export function Root({ isUpdate = false }: Props) {
 				</FieldRow>
 
 				<FieldRow>
-					<DeckDropdown form={form} name="deck" />
+					<DeckDropdown topLevelForm={form} name="deck" />
 				</FieldRow>
 
 				<div css={[utilStyles.column(12), utilStyles.grid, utilStyles.gap(12)]}>

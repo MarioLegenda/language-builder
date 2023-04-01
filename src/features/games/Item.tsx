@@ -6,7 +6,7 @@ import * as utilStyles from '@/styles/shared/Util.styles';
 
 interface Props {
     route: string;
-	title: string;
+    title: string;
 }
 
 export function Item({ route, title }: Props) {
@@ -18,7 +18,7 @@ export function Item({ route, title }: Props) {
 	}, [deck]);
 
 	return (
-		<Card shadow="sm" css={utilStyles.column(6)}>
+		<Card shadow="sm" css={utilStyles.column(4)}>
 			<Title order={4} align="center" css={utilStyles.spacing('bottom', 64)}>
 				{title}
 			</Title>

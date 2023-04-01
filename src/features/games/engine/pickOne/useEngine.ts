@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { createEngine } from '@/features/games/engine/pickOne/pickOneEngine';
+import { createEngine } from '@/features/games/engine/pickOne/engine';
 import { useDeck } from '@/lib/dataSource/hooks/useDeck';
 
-export function usePickOne() {
+export function useEngine() {
 	const { store } = useDeck();
 	const { deckId } = useParams();
 	const engineRef = useRef<PickOneEngine>();

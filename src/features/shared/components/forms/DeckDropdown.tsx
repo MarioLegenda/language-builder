@@ -1,11 +1,11 @@
 import { Select } from '@mantine/core';
 
 import { DeckStore } from '@/lib/dataSource/deck';
-import type { SelectItem } from '@mantine/core';
+import type { SelectItem, SelectProps } from '@mantine/core';
 import type { UseFormReturnType } from '@mantine/form';
 
-interface Props<T> {
-    form: UseFormReturnType<T>;
+interface Props<T> extends Omit<SelectProps, 'data'> {
+    topLevelForm: UseFormReturnType<T>;
     name: string;
 }
 
@@ -21,10 +21,14 @@ function createValues(): SelectItem[] {
 	return values;
 }
 
-export function DeckDropdown<T>({ form, name }: Props<T>) {
+export function DeckDropdown<T>({ topLevelForm, name, ...rest }: Props<T>) {
 	return (
-		<div>
-			<Select label="Choose a deck" {...form.getInputProps(name)} placeholder="Pick one" data={createValues()} />
-		</div>
+		<Select
+			{...rest}
+			label="Choose a deck"
+			{...topLevelForm.getInputProps(name)}
+			placeholder="Pick one"
+			data={createValues()}
+		/>
 	);
 }

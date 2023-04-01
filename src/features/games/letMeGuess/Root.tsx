@@ -1,23 +1,25 @@
 import { Button, Group } from '@mantine/core';
 import { useState } from 'react';
-import { useEngine } from '@/features/games/engine/pickOne/useEngine';
-import { Item } from '@/features/games/engine/timeEscape/Item';
+import { useParams } from 'react-router-dom';
+import { Item } from '@/features/games/engine/letMeGuess/Item';
+import { createEngine } from '@/features/games/engine/letMeGuess/engine';
 import * as utilStyles from '@/styles/shared/Util.styles';
 export function Root() {
-	const { engine, reset } = useEngine();
+	const { deckId } = useParams();
+	const [decks, setDecks] = useState(createEngine(deckId as string));
 	const [isDone, setIsDone] = useState(false);
 
 	return (
 		<div css={[utilStyles.grid]}>
-			{!isDone && <Item onDone={() => setIsDone(true)} engine={engine} />}
+			{!isDone && <Item onDone={() => setIsDone(true)} engine={decks} />}
 
 			{isDone && (
 				<div css={utilStyles.column(12)}>
 					<Group position="center">
 						<Button
 							onClick={() => {
-								reset();
 								setIsDone(false);
+								setDecks(createEngine(deckId as string));
 							}}>
                             Try again
 						</Button>

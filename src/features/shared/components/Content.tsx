@@ -3,7 +3,7 @@ import * as styles from '@/styles/shared/Util.styles';
 export function Content() {
 	return (
 		<div css={styles.grid}>
-			<div css={[styles.column(6), styles.startAt(4), styles.spacing('top', 64)]}>
+			<div css={[styles.column(10), styles.startAt(2), styles.spacing('top', 64)]}>
 				<Outlet />
 			</div>
 		</div>

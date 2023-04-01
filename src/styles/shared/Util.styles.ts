@@ -5,6 +5,10 @@ export const grid = css`
     grid-template-columns: repeat(12, minmax(0, 1fr));
 `;
 
+export const fullWidth = css`
+    width: 100%;
+`;
+
 export const gap = (value: number) => css`
     gap: ${value}px;
 `;
@@ -17,10 +21,14 @@ export const startAt = (num: number) => css`
     grid-column-start: ${num};
 `;
 
-export const flex = (justifyContent: 'space-between' | 'left' | 'right' | 'space-around', gap = 'auto') => css`
+export const flex = (
+	justifyContent: 'space-between' | 'left' | 'right' | 'space-around',
+	gap = 'auto',
+	align = 'center',
+) => css`
     display: flex;
     justify-content: ${justifyContent};
-    align-items: center;
+    align-items: ${align};
     gap: ${gap};
 `;
 

@@ -1,10 +1,10 @@
 import { Button, Group } from '@mantine/core';
 import { useState } from 'react';
 import { Item } from '@/features/games/engine/pickOne/Item';
-import { usePickOne } from '@/features/games/engine/pickOne/usePickOne';
+import { useEngine } from '@/features/games/engine/pickOne/useEngine';
 import * as utilStyles from '@/styles/shared/Util.styles';
 export function Root() {
-	const { engine, reset } = usePickOne();
+	const { engine, reset } = useEngine();
 	const [isDone, setIsDone] = useState(false);
 
 	return (
