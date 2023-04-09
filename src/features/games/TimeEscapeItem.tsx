@@ -8,7 +8,7 @@ export function TimeEscapeItem() {
 	const navigate = useNavigate();
 
 	return (
-		<Card shadow="sm" css={utilStyles.column(4)}>
+		<Card shadow="sm" css={[utilStyles.column(4), utilStyles.overflow('inherit')]}>
 			<Title order={4} align="center" css={utilStyles.spacing('bottom', 64)}>
                 Time escape
 			</Title>
@@ -17,7 +17,7 @@ export function TimeEscapeItem() {
 				validateInputOnChange={true}
 				initialValues={{
 					deck: '',
-					timer: '',
+					timer: '4',
 				}}
 				validate={{
 					deck: (value: string) => requiredAndLimited('deck', value, 1, 200),

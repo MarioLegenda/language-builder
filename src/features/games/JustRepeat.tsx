@@ -4,13 +4,13 @@ import { DeckDropdown } from '@/features/shared/components/forms/DeckDropdown';
 import { Form } from '@/features/shared/components/forms/Form';
 import { requiredAndLimited } from '@/lib/validation/requiredAndLimited';
 import * as utilStyles from '@/styles/shared/Util.styles';
-export function LetMeGuess() {
+export function JustRepeat() {
 	const navigate = useNavigate();
 
 	return (
 		<Card shadow="sm" css={[utilStyles.column(4), utilStyles.overflow('inherit')]}>
 			<Title order={4} align="center" css={utilStyles.spacing('bottom', 64)}>
-                Let me guess
+                Just repeat
 			</Title>
 
 			<Form
@@ -22,7 +22,7 @@ export function LetMeGuess() {
 					deck: (value: string) => requiredAndLimited('deck', value, 1, 200),
 				}}
 				onSubmit={(data) => {
-					navigate(`/games/let-me-guess/${data.deck}`);
+					navigate(`/games/just-repeat/${data.deck}`);
 				}}
 				fields={(form) => (
 					<>

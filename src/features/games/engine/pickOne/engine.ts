@@ -5,7 +5,7 @@ import { shuffle } from '@/lib/helpers/shuffle';
 function createVisualCards(cardName: string, exclude: string[]): Translation[] {
 	const card = CardStore.get(cardName);
 
-	return getRandomTranslations(10, getTranslations(card.toLanguage), exclude);
+	return getRandomTranslations(5, getTranslations(card.toLanguage), exclude);
 }
 
 export function createEngine(deckName: string): PickOneEngineWord[] {

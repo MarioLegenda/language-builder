@@ -8,7 +8,7 @@ export function PickOneItem() {
 	const navigate = useNavigate();
 
 	return (
-		<Card shadow="sm" css={[utilStyles.column(4)]}>
+		<Card shadow="sm" css={[utilStyles.column(4), utilStyles.overflow('inherit')]}>
 			<Title order={4} align="center" css={utilStyles.spacing('bottom', 64)}>
                 Pick one
 			</Title>

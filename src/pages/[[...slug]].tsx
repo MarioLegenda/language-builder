@@ -4,6 +4,7 @@ import { Root as CardsRoot } from '@/features/cards/list/Root';
 import { Root as CreateDeckRoot } from '@/features/decks/create/Root';
 import { Root as DecksRoot } from '@/features/decks/list/Root';
 import { Root as GamesRoot } from '@/features/games/Root';
+import { Root as JustRepeat } from '@/features/games/justRepeat/Root';
 import { Root as JustShowMe } from '@/features/games/justShowMe/Root';
 import { Root as LetMeGuess } from '@/features/games/letMeGuess/Root';
 import { Root as PickOneRoot } from '@/features/games/pickOne/Root';
@@ -34,6 +35,7 @@ export default function Home() {
 								<Route path="/games/time-escape/:deckId/:timer" element={<TimeEscapeRoot />} />
 								<Route path="/games/just-show-me/:deckId" element={<JustShowMe />} />
 								<Route path="/games/let-me-guess/:deckId" element={<LetMeGuess />} />
+								<Route path="/games/just-repeat/:deckId" element={<JustRepeat />} />
 
 								<Route path="/languages/create" element={<CreateLanguageRoot />} />
 								<Route path="/languages/edit/:id" element={<CreateLanguageRoot isUpdate />} />

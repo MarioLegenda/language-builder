@@ -1,5 +1,5 @@
 import { Title } from '@mantine/core';
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useInterval } from '@/lib/helpers/useInterval';
 import * as styles from '@/styles/games/PickOne.styles';
@@ -21,6 +21,7 @@ interface Status {
 export function Item({ engine, onDone }: Props) {
 	const { timer } = useParams();
 	const seconds = parseInt(timer as string);
+	const timeoutRef = useRef<NodeJS.Timeout>();
 
 	const [status, setStatus] = useState<Status>({
 		isCorrect: false,
@@ -51,7 +52,12 @@ export function Item({ engine, onDone }: Props) {
 			onDone();
 		},
 		onQuit() {
-			setTimeout(() => {
+			if (timeoutRef.current) {
+				clearTimeout(timeoutRef.current);
+				timeoutRef.current = undefined;
+			}
+
+			timeoutRef.current = setTimeout(() => {
 				setStatus((s) => ({
 					isCorrect: false,
 					isTried: false,

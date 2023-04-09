@@ -47,6 +47,11 @@ export const pointer = css`
     cursor: pointer;
 `;
 
+export const overflow = (value: 'hidden' | 'auto' | 'inherit') =>
+	css`
+        overflow: ${value};
+    `;
+
 export const divider = css`
     border-bottom: 1px solid var(--color-lighterBackground);
 `;

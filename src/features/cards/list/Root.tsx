@@ -15,6 +15,7 @@ export function Root() {
 
 	const rows = store?.list().map((element, i) => (
 		<tr key={i}>
+			<td>{i + 1}</td>
 			<td>{element.word}</td>
 			<td>{element.fromLanguage}</td>
 			<td>{element.toLanguage}</td>
@@ -39,6 +40,7 @@ export function Root() {
 				<Table>
 					<thead>
 						<tr>
+							<th>ID</th>
 							<th>Name</th>
 							<th>From language</th>
 							<th>To language</th>
