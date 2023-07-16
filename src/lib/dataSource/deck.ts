@@ -18,6 +18,14 @@ class ThisStore<T> implements DataSource<T> {
 	set(id: string, item: T): void {
 		this.store[id] = item;
 	}
+	count(): number {
+		return Object.values(this.store).length;
+	}
+	paginate(offset: number, limit: number): T[] {
+		const values = Object.values(this.store);
+
+		return values.slice((offset - 1) * limit, (offset - 1) * limit + limit);
+	}
 	all(): Store<T> {
 		return this.store;
 	}

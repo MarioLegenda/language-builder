@@ -29,7 +29,7 @@ export function Root() {
 	));
 
 	return (
-		<div css={styles.root}>
+		<div>
 			<Header createTo="/decks/create" title="Decks" />
 
 			{Boolean(rows.length) && (

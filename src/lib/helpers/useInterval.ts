@@ -11,16 +11,16 @@ export function useInterval({
 	exit,
 }: UseInterval) {
 	/**
-	 * Used to store return value of setInterval() so that it can be cleaned.
-	 */
+     * Used to store return value of setInterval() so that it can be cleaned.
+     */
 	const subscriberRef = useRef<NodeJS.Timer | null>(null);
 	const stopRef = useRef(false);
 	const [numOfRepeats, setNumOfRepeats] = useState<number>(0);
 
 	/**
-	 * On startup, just in case, clear subscribing interval if an interval is running so we
-	 * have a clean initial state.
-	 */
+     * On startup, just in case, clear subscribing interval if an interval is running so we
+     * have a clean initial state.
+     */
 	useEffect(
 		() => () => {
 			if (subscriberRef.current) clearInterval(subscriberRef.current);
@@ -38,9 +38,9 @@ export function useInterval({
 	}, [numOfRepeats, maxInterval]);
 
 	/**
-	 * If a quit signal is sent, stop interval and return to initial state.
-	 * The interval can start again if restart signal is sent.
-	 */
+     * If a quit signal is sent, stop interval and return to initial state.
+     * The interval can start again if restart signal is sent.
+     */
 	useEffect(() => {
 		if (exit) {
 			if (subscriberRef.current) {

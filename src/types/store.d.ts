@@ -5,7 +5,7 @@ interface DataSource<T> {
     remove(id: string): void;
     get(id: string): T;
     list(): T[];
-    paginate(offset: number, limit: number, orderBy?: string): T[];
+    paginate(offset: number, limit: number): T[];
     has(id: string): boolean;
     persist(): void;
     count(): number;

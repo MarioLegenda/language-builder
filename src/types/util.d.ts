@@ -27,5 +27,3 @@ interface TimerInfo {
 type VoidFn = () => void;
 type InfoFn = () => TimerInfo;
 type UpdatePropsFn = (interval: number, maxTicks: number) => void;
-
-

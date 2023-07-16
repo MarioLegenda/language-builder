@@ -1,5 +1,4 @@
 import { Title } from '@mantine/core';
-import {useAdvancedTimer} from 'advanced-react-timer';
 import { useCallback, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useInterval } from '@/lib/helpers/useInterval';

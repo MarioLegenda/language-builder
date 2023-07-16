@@ -35,7 +35,7 @@ export function Root() {
 	));
 
 	return (
-		<div css={styles.root}>
+		<div>
 			<Header createTo="/languages/create" title="Languages" />
 
 			{Boolean(rows.length) && (

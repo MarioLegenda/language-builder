@@ -1,17 +1,17 @@
-import {Button, Pagination, Select, Table} from '@mantine/core';
-import React, {useState} from 'react';
+import { Button, Pagination, Select, Table } from '@mantine/core';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DeleteButton } from '@/features/shared/components/DeleteButton';
 import { Header } from '@/features/shared/components/Header';
 import { TableBody } from '@/features/shared/components/TableBody';
 import { useCard } from '@/lib/dataSource/hooks/useCard';
-import {useLanguage} from '@/lib/dataSource/hooks/useLanguage';
+import { useLanguage } from '@/lib/dataSource/hooks/useLanguage';
 import { useRemove } from '@/lib/dataSource/hooks/useRemove';
 import * as styles from '@/styles/languages/Root.styles';
 
 export function Root() {
 	const { store, persist } = useCard();
-	const {store: languageStore} = useLanguage();
+	const { store: languageStore } = useLanguage();
 	const onRemove = useRemove<Card>(store, () => {
 		persist();
 	});
@@ -21,11 +21,11 @@ export function Root() {
 
 	let listing = store?.paginate(offset, 15);
 	if (toLanguageFilter) {
-		listing = listing.filter((val => toLanguageFilter && val.toLanguage === toLanguageFilter));
+		listing = listing.filter((val) => toLanguageFilter && val.toLanguage === toLanguageFilter);
 	}
 
 	if (fromLanguageFilter) {
-		listing = listing.filter((val => fromLanguageFilter && val.fromLanguage === fromLanguageFilter));
+		listing = listing.filter((val) => fromLanguageFilter && val.fromLanguage === fromLanguageFilter);
 	}
 
 	const rows = listing.map((element, i) => (
@@ -58,7 +58,7 @@ export function Root() {
 					<Select
 						label="To language"
 						placeholder="To language"
-						data={languageStore.list().map(item => ({
+						data={languageStore.list().map((item) => ({
 							value: item.shortName,
 							label: item.name,
 						}))}
@@ -70,7 +70,7 @@ export function Root() {
 					<Select
 						label="From language"
 						placeholder="From language"
-						data={languageStore.list().map(item => ({
+						data={languageStore.list().map((item) => ({
 							value: item.shortName,
 							label: item.name,
 						}))}
