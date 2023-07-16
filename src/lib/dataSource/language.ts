@@ -33,6 +33,14 @@ class ThisStore<T> implements DataSource<T> {
 	list(): T[] {
 		return Object.values(this.store);
 	}
+	paginate(offset: number, limit: number): T[] {
+		const values = Object.values(this.store);
+
+		return values.slice((offset - 1) * limit, (offset - 1) * limit + limit);
+	}
+	count(): number {
+		return Object.values(this.store).length;
+	}
 	has(id: string) {
 		return Boolean(this.get(id));
 	}
