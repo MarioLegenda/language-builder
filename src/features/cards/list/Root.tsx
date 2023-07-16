@@ -1,4 +1,5 @@
-import { Button, Table } from '@mantine/core';
+import {Button, Pagination, Table} from '@mantine/core';
+import {useState} from 'react';
 import { Link } from 'react-router-dom';
 import { DeleteButton } from '@/features/shared/components/DeleteButton';
 import { Header } from '@/features/shared/components/Header';
@@ -12,10 +13,11 @@ export function Root() {
 	const onRemove = useRemove<Card>(store, () => {
 		persist();
 	});
+	const [offset, setOffset] = useState(1);
 
-	const rows = store?.list().map((element, i) => (
+	const rows = store?.paginate(offset, 15).map((element, i) => (
 		<tr key={i}>
-			<td>{i + 1}</td>
+			<td>{element.id}</td>
 			<td>{element.word}</td>
 			<td>{element.fromLanguage}</td>
 			<td>{element.toLanguage}</td>
@@ -33,7 +35,7 @@ export function Root() {
 	));
 
 	return (
-		<div css={styles.root}>
+		<div>
 			<Header createTo="/cards/create" title="Cards" />
 
 			{Boolean(rows.length) && (
@@ -56,6 +58,10 @@ export function Root() {
 			)}
 
 			{!rows.length && <p css={styles.nothingFound}>Nothing found</p>}
+
+			<div css={styles.pagination}>
+				<Pagination page={offset} onChange={setOffset} total={Math.ceil(store.count() / 15)} />
+			</div>
 		</div>
 	);
 }

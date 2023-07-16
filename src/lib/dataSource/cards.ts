@@ -18,6 +18,9 @@ class ThisStore<T> implements DataSource<T> {
 	set(id: string, item: T): void {
 		this.store[id] = item;
 	}
+	count(): number {
+		return Object.values(this.store).length;
+	}
 	findBy(filterFn: (item: T, idx: number) => void): T[] {
 		return Object.values(this.all()).filter(filterFn);
 	}
@@ -32,6 +35,11 @@ class ThisStore<T> implements DataSource<T> {
 	}
 	list(): T[] {
 		return Object.values(this.store);
+	}
+	paginate(offset: number, limit: number, orderBy?: string): T[] {
+		const values = Object.values(this.store);
+
+		return values.slice((offset - 1) * limit, (offset - 1) * limit + limit);
 	}
 	has(id: string) {
 		return Boolean(this.get(id));

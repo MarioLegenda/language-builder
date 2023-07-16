@@ -1,4 +1,5 @@
 import { Title } from '@mantine/core';
+import {useAdvancedTimer} from 'advanced-react-timer';
 import { useCallback, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useInterval } from '@/lib/helpers/useInterval';
@@ -51,7 +52,7 @@ export function Item({ engine, onDone }: Props) {
 		onStop() {
 			onDone();
 		},
-		onQuit() {
+		onExit() {
 			if (timeoutRef.current) {
 				clearTimeout(timeoutRef.current);
 				timeoutRef.current = undefined;
@@ -70,7 +71,7 @@ export function Item({ engine, onDone }: Props) {
 		},
 		repeatInterval: 1000,
 		maxInterval: seconds,
-		quit: status.isTried,
+		exit: status.isTried || status.currentIndex === engine.words.length,
 		restart: status.restartInterval,
 		stop: status.currentIndex === engine.words.length,
 	});

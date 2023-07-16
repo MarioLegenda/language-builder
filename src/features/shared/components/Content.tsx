@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router';
 import * as styles from '@/styles/shared/Util.styles';
+
 export function Content() {
 	return (
 		<div css={styles.grid}>

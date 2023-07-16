@@ -1,4 +1,5 @@
 interface Card {
+    id: number;
     word: string;
     deck: string;
     fromLanguage: string;
