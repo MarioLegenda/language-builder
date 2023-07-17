@@ -7,6 +7,7 @@ interface Deck {
 interface CreateDeckForm {
     name: string;
     language: string;
+    id?: number;
 }
 
 interface EditDeckForm {

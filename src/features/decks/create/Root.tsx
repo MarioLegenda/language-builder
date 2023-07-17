@@ -30,6 +30,10 @@ export function Root({ isUpdate = false }: Props) {
 
 	const onSubmit = useCallback((data: CreateDeckForm) => {
 		if (isUpdate && params.id) {
+			const existingDeck = store.findBy((item) => item.name === params.id);
+			if (existingDeck.length !== 0) {
+				(data as Deck).id = existingDeck[0].id;
+			}
 			DeckStore.update(params.id, data.name, data as Deck);
 		} else {
 			(data as Deck).id = DeckStore.createNextID();
