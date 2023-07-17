@@ -18,6 +18,17 @@ class ThisStore<T> implements DataSource<T> {
 	set(id: string, item: T): void {
 		this.store[id] = item;
 	}
+	createNextID(): number {
+		const list = this.list();
+
+		if (list.length === 0) return 1;
+
+		list.sort(function (a, b) {
+			return (a as Card).id - (b as Card).id;
+		});
+
+		return (list[list.length - 1] as Card).id + 1;
+	}
 	count(): number {
 		return Object.values(this.store).length;
 	}

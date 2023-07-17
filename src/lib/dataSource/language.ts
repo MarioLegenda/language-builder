@@ -21,6 +21,9 @@ class ThisStore<T> implements DataSource<T> {
 	findBy(filterFn: (item: T, idx: number) => void): T[] {
 		return Object.values(this.all()).filter(filterFn);
 	}
+	createNextID(): number {
+		return 0;
+	}
 	all(): Store<T> {
 		return this.store;
 	}

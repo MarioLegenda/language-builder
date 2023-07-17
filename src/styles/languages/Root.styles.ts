@@ -7,7 +7,7 @@ export const nothingFound = css`
     margin-top: 48px;
 `;
 export const pagination = css`
-    margin-top: 24px;
+    margin-top: 64px;
 `;
 export const filters = css`
     margin: 24px 0 24px 0;

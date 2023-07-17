@@ -102,9 +102,11 @@ export function Root() {
 
 			{!rows.length && <p css={styles.nothingFound}>Nothing found</p>}
 
-			<div css={styles.pagination}>
-				<Pagination page={offset} onChange={setOffset} total={Math.ceil(store.count() / 15)} />
-			</div>
+			{store.count() > 15 && (
+				<div css={styles.pagination}>
+					<Pagination page={offset} onChange={setOffset} total={Math.ceil(store.count() / 15)} />
+				</div>
+			)}
 		</div>
 	);
 }

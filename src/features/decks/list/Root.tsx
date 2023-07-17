@@ -15,7 +15,9 @@ export function Root() {
 
 	const rows = store?.list().map((element) => (
 		<tr key={element.name}>
+			<td>{element.id}</td>
 			<td>{element.name}</td>
+			<td>{element.language}</td>
 
 			<td>
 				<Button to={`/decks/edit/${element.name}`} component={Link} compact color="gray" variant="outline">
@@ -36,7 +38,9 @@ export function Root() {
 				<Table>
 					<thead>
 						<tr>
+							<th>ID</th>
 							<th>Name</th>
+							<th>Language</th>
 
 							<th>Edit</th>
 							<th>Delete</th>

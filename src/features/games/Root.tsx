@@ -1,3 +1,4 @@
+import { Drill } from '@/features/games/Drill';
 import { JustRepeat } from '@/features/games/JustRepeat';
 import { JustShowMe } from '@/features/games/JustShowMe';
 import { LetMeGuess } from '@/features/games/LetMeGuess';
@@ -12,8 +13,7 @@ export function Root() {
 			<TimeEscapeItem />
 			<JustShowMe />
 			<LetMeGuess />
-			{/*			<Item title="Party mix" route="party-mix" />
-			<Item title="Drill" route="drill" />*/}
+			<Drill />
 		</div>
 	);
 }

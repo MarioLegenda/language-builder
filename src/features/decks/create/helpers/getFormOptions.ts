@@ -5,6 +5,7 @@ export function getFormOptions(initialValues: EditDeckForm) {
 	return {
 		initialValues: {
 			name: initialValues?.name ? initialValues.name : '',
+			language: initialValues?.language ? initialValues.language : '',
 		},
 		validate: {
 			name: (value: string) => {

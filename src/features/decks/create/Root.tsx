@@ -5,8 +5,10 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getFormOptions } from '@/features/decks/create/helpers/getFormOptions';
 import { ContentElement } from '@/features/shared/components/ContentElement';
 import { FieldRow } from '@/features/shared/components/forms/FieldRow';
+import { LanguageDropdown } from '@/features/shared/components/forms/LanguageDropdown';
 import { SubmitButton } from '@/features/shared/components/forms/SubmitButton';
 import { DeckStore } from '@/lib/dataSource/deck';
+import { useDeck } from '@/lib/dataSource/hooks/useDeck';
 import * as utilStyles from '@/styles/shared/Util.styles';
 
 interface Props {
@@ -16,17 +18,22 @@ interface Props {
 export function Root({ isUpdate = false }: Props) {
 	const params = useParams();
 	const navigate = useNavigate();
+	const { store } = useDeck();
+	const deck = store.findBy((item) => item.name === params.id);
+
 	const form = useForm<CreateDeckForm>(
 		getFormOptions({
 			name: params.id,
+			language: isUpdate ? deck[0].language : '',
 		}),
 	);
 
 	const onSubmit = useCallback((data: CreateDeckForm) => {
 		if (isUpdate && params.id) {
-			DeckStore.update(params.id, data.name, data);
+			DeckStore.update(params.id, data.name, data as Deck);
 		} else {
-			DeckStore.set(data.name, data);
+			(data as Deck).id = DeckStore.createNextID();
+			DeckStore.set(data.name, data as Deck);
 		}
 
 		DeckStore.persist();
@@ -48,6 +55,10 @@ export function Root({ isUpdate = false }: Props) {
 
 				<FieldRow>
 					<TextInput autoFocus placeholder="Name" {...form.getInputProps('name')} />
+				</FieldRow>
+
+				<FieldRow>
+					<LanguageDropdown label="Language" name="language" form={form} />
 				</FieldRow>
 
 				<FieldRow>
