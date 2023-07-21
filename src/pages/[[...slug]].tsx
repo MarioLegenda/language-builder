@@ -33,6 +33,7 @@ export default function Home() {
 
 								<Route path="/games/pick-one/:deckId" element={<PickOneRoot />} />
 								<Route path="/games/time-escape/:deckId/:timer" element={<TimeEscapeRoot />} />
+								<Route path="/games/just-show-me/:deckId/:infinite" element={<JustShowMe />} />
 								<Route path="/games/just-show-me/:deckId" element={<JustShowMe />} />
 								<Route path="/games/let-me-guess/:deckId" element={<LetMeGuess />} />
 								<Route path="/games/just-repeat/:deckId/:shuffle" element={<JustRepeat />} />

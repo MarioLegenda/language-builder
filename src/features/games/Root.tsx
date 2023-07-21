@@ -8,12 +8,14 @@ import * as utilStyles from '@/styles/shared/Util.styles';
 export function Root() {
 	return (
 		<div css={[utilStyles.grid, utilStyles.gap(12)]}>
-			<JustRepeat />
-			<PickOneItem />
-			<TimeEscapeItem />
 			<JustShowMe />
 			<LetMeGuess />
+			<PickOneItem />
+			<JustRepeat />
+			<TimeEscapeItem />
+			{/*
 			<Drill />
+*/}
 		</div>
 	);
 }
