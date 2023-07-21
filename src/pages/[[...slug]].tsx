@@ -1,3 +1,4 @@
+import {useEffect, useState} from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Root as CreateCardRoot } from '@/features/cards/create/Root';
 import { Root as CardsRoot } from '@/features/cards/list/Root';
@@ -14,15 +15,24 @@ import { Root as LanguageRoot } from '@/features/languages/list/Root';
 import { Layout } from '@/features/shared/Layout';
 import { Content } from '@/features/shared/components/Content';
 import { Navigation } from '@/features/shared/components/Navigation';
+import {initializeFirebase} from '@/lib/dataSource/firebase';
 import { useRunInBrowser } from '@/lib/helpers/useRunInBrowser';
 
 export default function Home() {
 	const isBrowser = useRunInBrowser();
+	const [isReady, setIsReady] = useState(false);
+	
+	useEffect(() => {
+		if (isBrowser) {
+			initializeFirebase();
+			setIsReady(true);
+		}
+	}, [isBrowser]);
 
 	return (
 		<>
 			<main>
-				{isBrowser && (
+				{isBrowser && isReady && (
 					<BrowserRouter>
 						<Routes>
 							<Route path="/" element={<Layout navigation={<Navigation />} content={<Content />} />}>
