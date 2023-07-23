@@ -1,13 +1,14 @@
 import { Button, Title } from '@mantine/core';
 import { Link } from 'react-router-dom';
+import { Loading } from '@/features/shared/components/Loading';
 import * as utilStyles from '@/styles/shared/Util.styles';
 
 interface Props {
     createTo: string;
     title: string;
+    showLoading?: boolean;
 }
-
-export function Header({ createTo, title }: Props) {
+export function Header({ createTo, title, showLoading = false }: Props) {
 	return (
 		<div
 			css={[
@@ -16,7 +17,10 @@ export function Header({ createTo, title }: Props) {
 				utilStyles.padding(0, 0, 12, 0),
 				utilStyles.divider,
 			]}>
-			<Title order={2}>{title}</Title>
+			<div css={[utilStyles.flex('space-between', '12px')]}>
+				<Title order={2}>{title}</Title>
+				<Loading visible={showLoading} />
+			</div>
 
 			<Button to={createTo} component={Link}>
                 Create

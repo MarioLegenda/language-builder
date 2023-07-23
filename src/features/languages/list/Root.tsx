@@ -1,22 +1,19 @@
-import { Button, Table } from '@mantine/core';
+import { Button } from '@mantine/core';
 import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { DeleteButton } from '@/features/shared/components/DeleteButton';
-import { Header } from '@/features/shared/components/Header';
-import { Loading } from '@/features/shared/components/Loading';
-import { TableBody } from '@/features/shared/components/TableBody';
+import { Listing } from '@/features/shared/components/Listing';
+import { ReactiveButton } from '@/features/shared/components/ReactiveButton';
 import { FirestoreMetadata } from '@/lib/dataSource/firestoreMetadata';
 import { QueryKeys } from '@/lib/dataSource/queryKeys';
 import { useDeleteDocument } from '@/lib/dataSource/useDeleteDocument';
 import { useListDocuments } from '@/lib/dataSource/useListDocuments';
-import * as styles from '@/styles/languages/Root.styles';
 
 export function Root() {
-	const { isFetching, data } = useListDocuments<Language>('languages');
-	const { mutateAsync, isLoading, invalidateRelated } = useDeleteDocument();
+	const { isFetching, isRefetching, data } = useListDocuments<Language>('languages');
+	const { mutateAsync, invalidateRelated } = useDeleteDocument();
 
 	const renderRows = useCallback(() => {
-		if (!isFetching && data) {
+		if (data) {
 			return data.map((item) => (
 				<tr key={item.shortName}>
 					<td>{item.name}</td>
@@ -33,8 +30,8 @@ export function Root() {
 						</Button>
 					</td>
 					<td>
-						<DeleteButton
-							onRemove={async () => {
+						<ReactiveButton
+							onAction={async () => {
 								await mutateAsync({
 									path: FirestoreMetadata.languageCollection.name,
 									segment: item.shortName,
@@ -42,9 +39,11 @@ export function Root() {
 
 								setTimeout(() => {
 									invalidateRelated([QueryKeys.LANGUAGE_LISTING]);
-								}, 100);
+								}, 500);
 							}}
-						/>
+							timeout={2}>
+                            Delete me
+						</ReactiveButton>
 					</td>
 				</tr>
 			));
@@ -54,28 +53,21 @@ export function Root() {
 	}, [isFetching, data]);
 
 	return (
-		<div>
-			<Header createTo="/languages/create" title="Languages" />
-
-			<Loading visible={isFetching} />
-
-			{!isFetching && data && (
-				<Table>
-					<thead>
-						<tr>
-							<th>Name</th>
-							<th>Short name</th>
-
-							<th>Edit</th>
-							<th>Delete</th>
-						</tr>
-					</thead>
-
-					<TableBody rows={renderRows()} />
-				</Table>
-			)}
-
-			{!isFetching && !data && <p css={styles.nothingFound}>Nothing found</p>}
-		</div>
+		<>
+			<Listing
+				showTable={Boolean(data)}
+				showNothing={!isFetching && !data}
+				rows={renderRows}
+				header={{
+					createTo: '/languages/create',
+					title: 'Languages',
+					showLoading: isRefetching,
+				}}
+				globalLoader={{
+					isLoading: isFetching && !isRefetching,
+				}}
+				tableRows={['Name', 'Short name', 'Edit', 'Delete']}
+			/>
+		</>
 	);
 }
