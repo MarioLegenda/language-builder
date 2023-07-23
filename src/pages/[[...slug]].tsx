@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Root as CreateCardRoot } from '@/features/cards/create/Root';
 import { Root as CardsRoot } from '@/features/cards/list/Root';
@@ -11,17 +11,18 @@ import { Root as LetMeGuess } from '@/features/games/letMeGuess/Root';
 import { Root as PickOneRoot } from '@/features/games/pickOne/Root';
 import { Root as TimeEscapeRoot } from '@/features/games/timeEscape/Root';
 import { Root as CreateLanguageRoot } from '@/features/languages/create/Root';
+import { Root as EditLanguageRoot } from '@/features/languages/edit/Root';
 import { Root as LanguageRoot } from '@/features/languages/list/Root';
 import { Layout } from '@/features/shared/Layout';
 import { Content } from '@/features/shared/components/Content';
 import { Navigation } from '@/features/shared/components/Navigation';
-import {initializeFirebase} from '@/lib/dataSource/firebase';
+import { initializeFirebase } from '@/lib/dataSource/firebase';
 import { useRunInBrowser } from '@/lib/helpers/useRunInBrowser';
 
 export default function Home() {
 	const isBrowser = useRunInBrowser();
 	const [isReady, setIsReady] = useState(false);
-	
+
 	useEffect(() => {
 		if (isBrowser) {
 			initializeFirebase();
@@ -49,7 +50,7 @@ export default function Home() {
 								<Route path="/games/just-repeat/:deckId/:shuffle" element={<JustRepeat />} />
 
 								<Route path="/languages/create" element={<CreateLanguageRoot />} />
-								<Route path="/languages/edit/:id" element={<CreateLanguageRoot isUpdate />} />
+								<Route path="/languages/edit/:id" element={<EditLanguageRoot />} />
 
 								<Route path="/cards/create" element={<CreateCardRoot />} />
 								<Route path="/cards/edit/:id" element={<CreateCardRoot isUpdate />} />

@@ -2,6 +2,7 @@ import '@/styles/globals.css';
 import '@/styles/reset.css';
 import { MantineProvider } from '@mantine/core';
 import { NotificationsProvider } from '@mantine/notifications';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot, RecoilEnv } from 'recoil';
 import type { AppProps } from 'next/app';
 
@@ -18,7 +19,9 @@ export default function App({ Component, pageProps }: AppProps) {
 			}}>
 			<NotificationsProvider position="top-right">
 				<RecoilRoot>
-					<Component {...pageProps} />
+					<QueryClientProvider client={new QueryClient({})}>
+						<Component {...pageProps} />
+					</QueryClientProvider>
 				</RecoilRoot>
 			</NotificationsProvider>
 		</MantineProvider>

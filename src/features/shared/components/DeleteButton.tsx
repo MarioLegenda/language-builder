@@ -26,7 +26,13 @@ export function DeleteButton({ onRemove }: Props) {
 					<Button onClick={() => setOpen(false)} color="gray" variant="outline">
                         Cancel
 					</Button>
-					<Button onClick={onRemove} color="red" variant="default">
+					<Button
+						disabled={true}
+						onClick={() => {
+							onRemove();
+							setOpen(false);
+						}}
+						variant="default">
                         Remove
 					</Button>
 				</Group>

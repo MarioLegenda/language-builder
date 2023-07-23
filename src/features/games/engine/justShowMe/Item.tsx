@@ -1,6 +1,6 @@
 import { Button, Group, Title } from '@mantine/core';
 import { useEffect, useState } from 'react';
-import {useParams} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Translation } from '@/features/games/engine/justShowMe/Translation';
 import * as utilStyles from '@/styles/shared/Util.styles';
 
@@ -17,7 +17,7 @@ export function Item({ engine, onDone }: Props) {
 		if (index === engine.length) {
 			if (isInfinite) {
 				setIndex(0);
-				
+
 				return;
 			}
 

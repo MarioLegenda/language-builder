@@ -1,44 +1,65 @@
 import { Button, Table } from '@mantine/core';
+import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { DeleteButton } from '@/features/shared/components/DeleteButton';
 import { Header } from '@/features/shared/components/Header';
+import { Loading } from '@/features/shared/components/Loading';
 import { TableBody } from '@/features/shared/components/TableBody';
-import { useLanguage } from '@/lib/dataSource/hooks/useLanguage';
-import { useRemove } from '@/lib/dataSource/hooks/useRemove';
+import { FirestoreMetadata } from '@/lib/dataSource/firestoreMetadata';
+import { QueryKeys } from '@/lib/dataSource/queryKeys';
+import { useDeleteDocument } from '@/lib/dataSource/useDeleteDocument';
+import { useListDocuments } from '@/lib/dataSource/useListDocuments';
 import * as styles from '@/styles/languages/Root.styles';
 
 export function Root() {
-	const { store, persist } = useLanguage();
-	const onRemove = useRemove<Language>(store, () => {
-		persist();
-	});
+	const { isFetching, data } = useListDocuments<Language>('languages');
+	const { mutateAsync, isLoading, invalidateRelated } = useDeleteDocument();
 
-	const rows = store?.list().map((element) => (
-		<tr key={element.shortName}>
-			<td>{element.name}</td>
-			<td>{element.shortName}</td>
+	const renderRows = useCallback(() => {
+		if (!isFetching && data) {
+			return data.map((item) => (
+				<tr key={item.shortName}>
+					<td>{item.name}</td>
+					<td>{item.shortName}</td>
 
-			<td>
-				<Button
-					to={`/languages/edit/${element.shortName}`}
-					component={Link}
-					compact
-					color="gray"
-					variant="outline">
-                    Edit
-				</Button>
-			</td>
-			<td>
-				<DeleteButton onRemove={() => onRemove(element.shortName)} />
-			</td>
-		</tr>
-	));
+					<td>
+						<Button
+							to={`/languages/edit/${item.shortName}`}
+							component={Link}
+							compact
+							color="gray"
+							variant="outline">
+                            Edit
+						</Button>
+					</td>
+					<td>
+						<DeleteButton
+							onRemove={async () => {
+								await mutateAsync({
+									path: FirestoreMetadata.languageCollection.name,
+									segment: item.shortName,
+								});
+
+								setTimeout(() => {
+									invalidateRelated([QueryKeys.LANGUAGE_LISTING]);
+								}, 100);
+							}}
+						/>
+					</td>
+				</tr>
+			));
+		}
+
+		return [];
+	}, [isFetching, data]);
 
 	return (
 		<div>
 			<Header createTo="/languages/create" title="Languages" />
 
-			{Boolean(rows.length) && (
+			<Loading visible={isFetching} />
+
+			{!isFetching && data && (
 				<Table>
 					<thead>
 						<tr>
@@ -50,11 +71,11 @@ export function Root() {
 						</tr>
 					</thead>
 
-					<TableBody rows={rows} />
+					<TableBody rows={renderRows()} />
 				</Table>
 			)}
 
-			{!rows.length && <p css={styles.nothingFound}>Nothing found</p>}
+			{!isFetching && !data && <p css={styles.nothingFound}>Nothing found</p>}
 		</div>
 	);
 }

@@ -1,6 +1,8 @@
 interface Language {
     name: string;
     shortName: string;
+    createdAt: Date;
+    updatedAt: Date | null;
 }
 
 interface CreateLanguageForm {

@@ -1,4 +1,4 @@
-import {Button, Card, Checkbox, Title} from '@mantine/core';
+import { Button, Card, Checkbox, Title } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import { DeckDropdown } from '@/features/shared/components/forms/DeckDropdown';
 import { Form } from '@/features/shared/components/forms/Form';

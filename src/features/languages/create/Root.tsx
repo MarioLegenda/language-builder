@@ -1,29 +1,39 @@
 import { CloseButton, TextInput, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useCallback } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { getFormOptions } from '@/features/languages/create/helpers/getFormOptions';
+import { Link, useNavigate } from 'react-router-dom';
+import { getFormOptions } from '@/features/languages/edit/helpers/getFormOptions';
 import { ContentElement } from '@/features/shared/components/ContentElement';
 import { FieldRow } from '@/features/shared/components/forms/FieldRow';
 import { SubmitButton } from '@/features/shared/components/forms/SubmitButton';
-import { LanguageStore } from '@/lib/dataSource/language';
+import { FirestoreMetadata } from '@/lib/dataSource/firestoreMetadata';
+import { QueryKeys } from '@/lib/dataSource/queryKeys';
+import { useMutateDocument } from '@/lib/dataSource/useMutateDocument';
 import * as utilStyles from '@/styles/shared/Util.styles';
-interface Props {
-    isUpdate?: boolean;
-}
-export function Root({ isUpdate = false }: Props) {
-	const params = useParams();
+export function Root() {
 	const navigate = useNavigate();
-	const form = useForm<CreateLanguageForm>(getFormOptions({ ...LanguageStore.get(params.id as string) }));
+	const form = useForm<CreateLanguageForm>(getFormOptions());
 
-	const onSubmit = useCallback((data: CreateLanguageForm) => {
-		if (isUpdate && params.id) {
-			LanguageStore.update(params.id, data.shortName, data);
-		} else {
-			LanguageStore.set(data.shortName, data);
+	const { mutateAsync, isLoading, invalidateRelated } = useMutateDocument<Language>(
+		FirestoreMetadata.languageCollection.name,
+	);
+
+	const onSubmit = useCallback(async (data: CreateLanguageForm) => {
+		try {
+			await mutateAsync({
+				segment: data.shortName,
+				model: {
+					...data,
+					createdAt: new Date(),
+					updatedAt: null,
+				},
+			});
+		} catch {
+			// a trick not to crash the program, useMutateDocument already handles errors
 		}
 
-		LanguageStore.persist();
+		invalidateRelated([QueryKeys.LANGUAGE_LISTING]);
+
 		navigate('/languages');
 	}, []);
 
@@ -49,7 +59,13 @@ export function Root({ isUpdate = false }: Props) {
 				</FieldRow>
 
 				<FieldRow>
-					<SubmitButton group={{ position: 'right' }}>{isUpdate ? 'Update' : 'Create'}</SubmitButton>
+					<SubmitButton
+						group={{ position: 'right' }}
+						button={{
+							disabled: isLoading,
+						}}>
+                        Create
+					</SubmitButton>
 				</FieldRow>
 			</form>
 		</ContentElement>
