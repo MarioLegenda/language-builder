@@ -42,7 +42,7 @@ export function Root() {
 								}, 500);
 							}}
 							timeout={2}>
-                            Delete me
+                            Delete
 						</ReactiveButton>
 					</td>
 				</tr>
@@ -53,21 +53,19 @@ export function Root() {
 	}, [isFetching, data]);
 
 	return (
-		<>
-			<Listing
-				showTable={Boolean(data)}
-				showNothing={!isFetching && !data}
-				rows={renderRows}
-				header={{
-					createTo: '/languages/create',
-					title: 'Languages',
-					showLoading: isRefetching,
-				}}
-				globalLoader={{
-					isLoading: isFetching && !isRefetching,
-				}}
-				tableRows={['Name', 'Short name', 'Edit', 'Delete']}
-			/>
-		</>
+		<Listing
+			showTable={Boolean(data)}
+			showNothing={!isFetching && !data}
+			rows={renderRows}
+			header={{
+				createTo: '/languages/create',
+				title: 'Languages',
+				showLoading: isRefetching,
+			}}
+			globalLoader={{
+				isLoading: isFetching && !isRefetching,
+			}}
+			tableRows={['Name', 'Short name', 'Edit', 'Delete']}
+		/>
 	);
 }

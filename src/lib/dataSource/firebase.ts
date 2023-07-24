@@ -1,4 +1,4 @@
-import { doc, getFirestore, setDoc, collection, getDocs, getDoc } from '@firebase/firestore';
+import { doc, getFirestore, setDoc, collection, getDocs, getDoc, addDoc } from '@firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import type { Firestore, WithFieldValue, DocumentData, PartialWithFieldValue } from '@firebase/firestore';
 import type { FirebaseApp } from 'firebase/app';
@@ -27,10 +27,16 @@ export const useFirestore = () => firestore;
 export function useDocumentMutator<T extends DocumentData>() {
 	const db = useFirestore();
 
-	return (path: string, segment: string, model: WithFieldValue<T> | PartialWithFieldValue<T>, update: boolean) =>
-		setDoc(doc(db, path, segment), model, {
-			merge: update,
-		});
+	return {
+		set: (path: string, segment: string, model: WithFieldValue<T> | PartialWithFieldValue<T>, update: boolean) =>
+			setDoc(doc(db, path, segment), model, {
+				merge: update,
+			}),
+		add: (path: string, model: WithFieldValue<T> | PartialWithFieldValue<T>) =>
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
+			addDoc(collection(db, path), model),
+	};
 }
 export function useGetDocuments<T>(path: string) {
 	const db = useFirestore();
@@ -46,16 +52,16 @@ export function useGetDocuments<T>(path: string) {
 	};
 }
 
-export function useGetDocument<T extends DocumentData>(path: string, segment: string) {
+export function useGetDocument<T extends DocumentData>() {
 	const db = useFirestore();
 
-	return async () => {
+	return async (path: string, segment: string) => {
 		const snapshot = await getDoc(doc(db, path, segment));
 
 		if (snapshot.exists()) {
 			return snapshot.data() as T;
 		}
 
-		throw new Error(`Document ${path}/${segment} does not exist.`);
+		return null;
 	};
 }

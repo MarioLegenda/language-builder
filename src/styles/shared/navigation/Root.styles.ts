@@ -14,7 +14,7 @@ export const item = (isActive = false) => css`
     width: 100%;
     display: block;
     text-decoration: none;
-    color: ${isActive ? 'white' : 'var(--color-lightText)'};
+    color: ${isActive ? 'white' : 'gray'};
 
     border-bottom: 1px solid ${isActive ? 'white' : 'var(--color-lighterBackground)'};
     padding: 4px 8px 4px 0;
