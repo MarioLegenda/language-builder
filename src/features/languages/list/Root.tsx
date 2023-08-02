@@ -3,13 +3,13 @@ import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Listing } from '@/features/shared/components/Listing';
 import { ReactiveButton } from '@/features/shared/components/ReactiveButton';
-import { FirestoreMetadata } from '@/lib/dataSource/firestoreMetadata';
+import { FirestoreMetadata } from '@/lib/dataSource/firebase/firestoreMetadata';
 import { QueryKeys } from '@/lib/dataSource/queryKeys';
 import { useDeleteDocument } from '@/lib/dataSource/useDeleteDocument';
 import { useListDocuments } from '@/lib/dataSource/useListDocuments';
 
 export function Root() {
-	const { isFetching, isRefetching, data } = useListDocuments<Language>('languages');
+	const { isFetching, isRefetching, data } = useListDocuments<Language>(QueryKeys.LANGUAGE_LISTING, 'languages');
 	const { mutateAsync, invalidateRelated } = useDeleteDocument();
 
 	const renderRows = useCallback(() => {

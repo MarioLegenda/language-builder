@@ -1,8 +1,8 @@
 import { doc, deleteDoc } from 'firebase/firestore';
 import { useMutation, useQueryClient } from 'react-query';
-import { useFirestore } from '@/lib/dataSource/firebase';
+import {getFirestoreDB} from '@/lib/dataSource/firebase/firebase';
 export const useDeleteDocument = () => {
-	const db = useFirestore();
+	const db = getFirestoreDB();
 	const queryClient = useQueryClient();
 
 	const mutation = useMutation<void, unknown, DeleteDocument>(

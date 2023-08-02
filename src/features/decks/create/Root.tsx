@@ -1,74 +1,105 @@
 import { CloseButton, TextInput, Title } from '@mantine/core';
-import { useForm } from '@mantine/form';
-import { useCallback } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { getFormOptions } from '@/features/decks/create/helpers/getFormOptions';
-import { ContentElement } from '@/features/shared/components/ContentElement';
+import { useCallback, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { GlobalError } from '@/features/shared/components/GlobalError';
 import { FieldRow } from '@/features/shared/components/forms/FieldRow';
+import { Form } from '@/features/shared/components/forms/Form';
 import { LanguageDropdown } from '@/features/shared/components/forms/LanguageDropdown';
 import { SubmitButton } from '@/features/shared/components/forms/SubmitButton';
-import { DeckStore } from '@/lib/dataSource/deck';
-import { useDeck } from '@/lib/dataSource/hooks/useDeck';
+import { useGetDocument } from '@/lib/dataSource/firebase/firebase';
+import { FirestoreMetadata } from '@/lib/dataSource/firebase/firestoreMetadata';
+import { QueryKeys } from '@/lib/dataSource/queryKeys';
+import { useMutateDocument } from '@/lib/dataSource/useMutateDocument';
+import { requiredAndLimited } from '@/lib/validation/requiredAndLimited';
 import * as utilStyles from '@/styles/shared/Util.styles';
-
-interface Props {
-    isUpdate?: boolean;
-}
-
-export function Root({ isUpdate = false }: Props) {
-	const params = useParams();
+export function Root() {
 	const navigate = useNavigate();
-	const { store } = useDeck();
-	const deck = store.findBy((item) => item.name === params.id);
-
-	const form = useForm<CreateDeckForm>(
-		getFormOptions({
-			name: params.id,
-			language: isUpdate ? deck[0].language : '',
-		}),
+	const [existsError, setExistsError] = useState(false);
+	const { mutateAsync, isLoading, invalidateRelated } = useMutateDocument<Deck>(
+		FirestoreMetadata.deckCollection.name,
+		'add',
 	);
+	const getDocument = useGetDocument();
 
-	const onSubmit = useCallback((data: CreateDeckForm) => {
-		if (isUpdate && params.id) {
-			const existingDeck = store.findBy((item) => item.name === params.id);
-			if (existingDeck.length !== 0) {
-				(data as Deck).id = existingDeck[0].id;
-			}
-			DeckStore.update(params.id, data.name, data as Deck);
-		} else {
-			(data as Deck).id = DeckStore.createNextID();
-			DeckStore.set(data.name, data as Deck);
+	const onSubmit = useCallback(async (data: CreateDeckForm) => {
+		setExistsError(false);
+
+		const exists = await getDocument('decks', data.language);
+		if (exists) {
+			setExistsError(true);
+			return;
 		}
 
-		DeckStore.persist();
+		try {
+			await mutateAsync({
+				model: {
+					...data,
+					createdAt: new Date(),
+					updatedAt: null,
+				},
+			});
+		} catch {
+			// a trick not to crash the program, useMutateDocument already handles errors
+		}
+
+		invalidateRelated([QueryKeys.DECK_LISTING]);
+
 		navigate('/decks');
 	}, []);
 
 	return (
-		<ContentElement>
-			<form onSubmit={form.onSubmit(onSubmit)} css={utilStyles.grid}>
-				<FieldRow>
-					<div css={utilStyles.flex('space-between')}>
-						<Title order={3}>Create new decks</Title>
-						{/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-						{/*
+		<Form
+			onSubmit={onSubmit}
+			fields={(form) => (
+				<>
+					<FieldRow>
+						<div css={utilStyles.flex('space-between')}>
+							<Title order={3}>Create new decks</Title>
+							{/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+							{/*
 						// @ts-ignore */}
-						<CloseButton component={Link} to="/decks" />
-					</div>
-				</FieldRow>
+							<CloseButton component={Link} to="/decks" />
+						</div>
 
-				<FieldRow>
-					<TextInput autoFocus placeholder="Name" {...form.getInputProps('name')} />
-				</FieldRow>
+						{existsError && <GlobalError>Language with this short name already exists</GlobalError>}
+					</FieldRow>
 
-				<FieldRow>
-					<LanguageDropdown label="Language" name="language" form={form} />
-				</FieldRow>
+					<FieldRow>
+						<TextInput autoFocus placeholder="Name" {...form.getInputProps('name')} />
+					</FieldRow>
 
-				<FieldRow>
-					<SubmitButton group={{ position: 'right' }}>{isUpdate ? 'Update' : 'Create'}</SubmitButton>
-				</FieldRow>
-			</form>
-		</ContentElement>
+					<FieldRow>
+						<LanguageDropdown label="Language" name="language" form={form} />
+					</FieldRow>
+
+					<FieldRow>
+						<SubmitButton
+							button={{
+								disabled: isLoading,
+							}}
+							group={{ position: 'right' }}>
+                            Create
+						</SubmitButton>
+					</FieldRow>
+				</>
+			)}
+			validate={{
+				name: (value: string) => {
+					const invalid = requiredAndLimited('name', value, 1, 200);
+					if (invalid) return invalid;
+				},
+				language: (value: string) => {
+					const invalid = requiredAndLimited('language', value, 1, 200);
+
+					if (invalid) {
+						return invalid;
+					}
+				},
+			}}
+			initialValues={{
+				name: '',
+				language: '',
+			}}
+		/>
 	);
 }

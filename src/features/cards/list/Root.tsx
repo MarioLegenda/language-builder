@@ -52,9 +52,9 @@ export function Root() {
 			<Header createTo="/cards/create" title="Cards" />
 
 			<div css={styles.filters}>
-				<label css={styles.filtersLabel}>Filter by:</label>
 
 				<div css={styles.filtersList}>
+					<label css={styles.filtersLabel}>Filter by:</label>
 					<Select
 						label="To language"
 						placeholder="To language"

@@ -27,3 +27,13 @@ interface TimerInfo {
 type VoidFn = () => void;
 type InfoFn = () => TimerInfo;
 type UpdatePropsFn = (interval: number, maxTicks: number) => void;
+
+interface ResponseOrError<T> {
+    response?: T | null;
+    error?: Error;
+}
+
+interface OrderBy {
+    name: string;
+    direction: 'desc' | 'asc';
+}

@@ -14,10 +14,13 @@ export const filters = css`
 `;
 export const filtersLabel = css`
     display: block;
-    margin-bottom: 12px;
+  margin-right: 24px;
 `;
 export const filtersList = css`
     display: flex;
     justify-content: left;
+  align-items: center;
     gap: 12px;
+  
+  margin-bottom: 64px;
 `;

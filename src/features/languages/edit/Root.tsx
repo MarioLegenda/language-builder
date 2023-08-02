@@ -6,8 +6,8 @@ import { Loading } from '@/features/shared/components/Loading';
 import { FieldRow } from '@/features/shared/components/forms/FieldRow';
 import { Form } from '@/features/shared/components/forms/Form';
 import { SubmitButton } from '@/features/shared/components/forms/SubmitButton';
-import { useGetDocument as useGetFirebaseDocument } from '@/lib/dataSource/firebase';
-import { FirestoreMetadata } from '@/lib/dataSource/firestoreMetadata';
+import { FirestoreMetadata } from '@/lib/dataSource/firebase/firestoreMetadata';
+import { useGetDocument as useGetFirebaseDocument } from '@/lib/dataSource/firebase/useGetDocument';
 import { QueryKeys } from '@/lib/dataSource/queryKeys';
 import { useGetDocument } from '@/lib/dataSource/useGetDocument';
 import { useMutateDocument } from '@/lib/dataSource/useMutateDocument';
@@ -23,7 +23,11 @@ export function Root() {
 		'set',
 	);
 
-	const { isFetching, data } = useGetDocument<Language>('languages', params.id ? params.id : '');
+	const { isFetching, data } = useGetDocument<Language>(
+		QueryKeys.LANGUAGE_SINGLE_DOCUMENT,
+		'languages',
+		params.id ? params.id : '',
+	);
 	const getDocument = useGetFirebaseDocument<Language>();
 
 	const onSubmit = useCallback(

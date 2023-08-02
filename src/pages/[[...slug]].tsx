@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Root as CreateCardRoot } from '@/features/cards/create/Root';
 import { Root as CardsRoot } from '@/features/cards/list/Root';
 import { Root as CreateDeckRoot } from '@/features/decks/create/Root';
+import { Root as EditDeckRoot } from '@/features/decks/edit/Root';
 import { Root as DecksRoot } from '@/features/decks/list/Root';
 import { Root as GamesRoot } from '@/features/games/Root';
 import { Root as JustRepeat } from '@/features/games/justRepeat/Root';
@@ -16,7 +17,7 @@ import { Root as LanguageRoot } from '@/features/languages/list/Root';
 import { Layout } from '@/features/shared/Layout';
 import { Content } from '@/features/shared/components/Content';
 import { Navigation } from '@/features/shared/components/Navigation';
-import { initializeFirebase } from '@/lib/dataSource/firebase';
+import { initializeFirebase } from '@/lib/dataSource/firebase/firebase';
 import { useRunInBrowser } from '@/lib/helpers/useRunInBrowser';
 
 export default function Home() {
@@ -56,7 +57,7 @@ export default function Home() {
 								<Route path="/cards/edit/:id" element={<CreateCardRoot isUpdate />} />
 
 								<Route path="/decks/create" element={<CreateDeckRoot />} />
-								<Route path="/decks/edit/:id" element={<CreateDeckRoot isUpdate />} />
+								<Route path="/decks/edit/:id" element={<EditDeckRoot />} />
 							</Route>
 						</Routes>
 					</BrowserRouter>
