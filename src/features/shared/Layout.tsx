@@ -9,9 +9,9 @@ interface Props {
 export function Layout({ navigation, content }: Props) {
 	return (
 		<div css={utilStyles.grid}>
-			<div css={utilStyles.column(2)}>{navigation}</div>
+			<div css={utilStyles.column(1)}>{navigation}</div>
 
-			<div css={utilStyles.column(10)}>{content}</div>
+			<div css={utilStyles.column(11)}>{content}</div>
 		</div>
 	);
 }

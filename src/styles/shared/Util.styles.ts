@@ -17,6 +17,12 @@ export const column = (num: number) => css`
     grid-column: span ${num} / span ${num};
 `;
 
+export const resizeOn = (px: number, column: number) => css`
+		@media (max-width: ${px}px) {
+			grid-column: span ${column} / span ${column};
+		}
+	`;
+
 export const startAt = (num: number) => css`
     grid-column-start: ${num};
 `;

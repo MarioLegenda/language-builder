@@ -8,7 +8,7 @@ export function JustShowMe() {
 	const navigate = useNavigate();
 
 	return (
-		<Card shadow="sm" css={[utilStyles.column(4), utilStyles.overflow('inherit')]}>
+		<Card shadow="sm" css={[utilStyles.column(6), utilStyles.overflow('inherit'), utilStyles.resizeOn(680, 12)]}>
 			<Title order={4} align="center" css={utilStyles.spacing('bottom', 64)}>
                 Just show me
 			</Title>
