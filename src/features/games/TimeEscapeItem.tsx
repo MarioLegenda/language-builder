@@ -33,7 +33,7 @@ export function TimeEscapeItem() {
 					},
 				}}
 				onSubmit={(data) => {
-					navigate(`/games/time-escape/${data.deck}/${data.timer}`);
+					navigate(`/admin/games/time-escape/${data.deck}/${data.timer}`);
 				}}
 				fields={(form) => (
 					<>

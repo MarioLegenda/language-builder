@@ -22,7 +22,7 @@ export function PickOneItem() {
 					deck: (value: string) => requiredAndLimited('deck', value, 1, 200),
 				}}
 				onSubmit={(data) => {
-					navigate(`/games/pick-one/${data.deck}`);
+					navigate(`/admin/games/pick-one/${data.deck}`);
 				}}
 				fields={(form) => (
 					<>

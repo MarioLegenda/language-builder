@@ -23,7 +23,7 @@ export function JustRepeat() {
 					deck: (value: string) => requiredAndLimited('deck', value, 1, 200),
 				}}
 				onSubmit={(data) => {
-					navigate(`/games/just-repeat/${data.deck}${data.shuffle ? '/shuffle' : '/no-shuffle'}`);
+					navigate(`/admin/games/just-repeat/${data.deck}${data.shuffle ? '/shuffle' : '/no-shuffle'}`);
 				}}
 				fields={(form) => (
 					<>

@@ -22,7 +22,7 @@ export function LetMeGuess() {
 					deck: (value: string) => requiredAndLimited('deck', value, 1, 200),
 				}}
 				onSubmit={(data) => {
-					navigate(`/games/let-me-guess/${data.deck}`);
+					navigate(`/admin/games/let-me-guess/${data.deck}`);
 				}}
 				fields={(form) => (
 					<>

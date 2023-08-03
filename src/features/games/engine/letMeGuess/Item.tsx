@@ -17,6 +17,8 @@ export function Item({ engine, onDone }: Props) {
 		}
 	}, [index]);
 
+	const translations = engine[index] && engine[index].translationsArray ? engine[index].translationsArray : [];
+
 	return (
 		<>
 			<div css={[utilStyles.column(12), utilStyles.spacing('bottom', 64)]}>
@@ -33,8 +35,8 @@ export function Item({ engine, onDone }: Props) {
 				]}>
 				<div css={[utilStyles.column(12), utilStyles.spacing('bottom', 32)]}>
 					{isShown &&
-                        engine[index] &&
-                        engine[index].translations.map((item, i) => <Translation key={i} translation={item} />)}
+                        engine[index] && translations &&
+                        translations.map((item, i) => <Translation key={i} translation={item} />)}
 				</div>
 
 				<div css={utilStyles.column(12)}>
