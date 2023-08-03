@@ -45,6 +45,7 @@ export function Root() {
 					<td>{item.word}</td>
 					<td>{item.fromLanguage}</td>
 					<td>{item.toLanguage}</td>
+					<td>{item.deck}</td>
 					<td>{Object.values(item.translations).find((item) => item.isMain)?.name}</td>
 
 					<td>
@@ -100,7 +101,7 @@ export function Root() {
 				globalLoader={{
 					isLoading: isFetching && !isRefetching,
 				}}
-				tableRows={['ID', 'Word', 'From language', 'To language', 'Edit', 'Delete']}
+				tableRows={['ID', 'Word', 'From language', 'To language', 'Deck ID', 'Edit', 'Delete']}
 			/>
 		</>
 	);
