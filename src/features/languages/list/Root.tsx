@@ -1,5 +1,5 @@
 import { Button } from '@mantine/core';
-import { useCallback } from 'react';
+import {useCallback} from 'react';
 import { Link } from 'react-router-dom';
 import { Listing } from '@/features/shared/components/Listing';
 import { ReactiveButton } from '@/features/shared/components/ReactiveButton';

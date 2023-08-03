@@ -1,6 +1,10 @@
 import { Select } from '@mantine/core';
 
-import { LanguageStore } from '@/lib/dataSource/language';
+import {Loading} from '@/features/shared/components/Loading';
+import {FirestoreMetadata} from '@/lib/dataSource/firebase/firestoreMetadata';
+import {QueryKeys} from '@/lib/dataSource/queryKeys';
+import {useListDocuments} from '@/lib/dataSource/useListDocuments';
+import {ifLoading} from '@/styles/shared/LanguageDropdown.styles';
 import type { SelectItem } from '@mantine/core';
 import type { UseFormReturnType } from '@mantine/form';
 
@@ -11,9 +15,9 @@ interface Props<T> {
     name: string;
 }
 
-function createValues(): SelectItem[] {
+function createValues(languages: Language[]): SelectItem[] {
 	const values: SelectItem[] = [];
-	for (const lang of LanguageStore.list()) {
+	for (const lang of languages) {
 		values.push({
 			value: lang.shortName,
 			label: lang.name,
@@ -24,9 +28,12 @@ function createValues(): SelectItem[] {
 }
 
 export function LanguageDropdown<T>({ form, name, label }: Props<T>) {
+	const {isFetching, data} = useListDocuments<Language>(QueryKeys.LANGUAGE_LISTING, FirestoreMetadata.languageCollection.name);
+
 	return (
-		<div>
-			<Select label={label} {...form.getInputProps(name)} placeholder="Pick one" data={createValues()} />
+		<div css={ifLoading(isFetching)}>
+			<Loading visible={isFetching} />
+			{!isFetching && data && <Select label={label} {...form.getInputProps(name)} placeholder="Pick one" data={createValues(data)}/>}
 		</div>
 	);
 }

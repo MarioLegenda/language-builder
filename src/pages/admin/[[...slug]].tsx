@@ -17,6 +17,7 @@ import { Root as LanguageRoot } from '@/features/languages/list/Root';
 import { Layout } from '@/features/shared/Layout';
 import { Content } from '@/features/shared/components/Content';
 import { Navigation } from '@/features/shared/components/Navigation';
+import {authChangeListener} from '@/lib/dataSource/firebase/authChangeListener';
 import { initializeFirebase } from '@/lib/dataSource/firebase/firebase';
 import { useRunInBrowser } from '@/lib/helpers/useRunInBrowser';
 
@@ -27,7 +28,14 @@ export default function Home() {
 	useEffect(() => {
 		if (isBrowser) {
 			initializeFirebase();
-			setIsReady(true);
+			authChangeListener({
+				onSuccess() {
+					setIsReady(true);
+				},
+				onError() {
+					console.error('FUCK OFF');
+				}
+			});
 		}
 	}, [isBrowser]);
 
@@ -37,27 +45,27 @@ export default function Home() {
 				{isBrowser && isReady && (
 					<BrowserRouter>
 						<Routes>
-							<Route path="/" element={<Layout navigation={<Navigation />} content={<Content />} />}>
-								<Route path="/languages" element={<LanguageRoot />} />
-								<Route path="/decks" element={<DecksRoot />} />
-								<Route path="/cards" element={<CardsRoot />} />
-								<Route path="/games" element={<GamesRoot />} />
+							<Route path="/admin" element={<Layout navigation={<Navigation />} content={<Content />} />}>
+								<Route path="/admin/languages" element={<LanguageRoot />} />
+								<Route path="/admin/decks" element={<DecksRoot />} />
+								<Route path="/admin/cards" element={<CardsRoot />} />
+								<Route path="/admin/games" element={<GamesRoot />} />
 
-								<Route path="/games/pick-one/:deckId" element={<PickOneRoot />} />
-								<Route path="/games/time-escape/:deckId/:timer" element={<TimeEscapeRoot />} />
-								<Route path="/games/just-show-me/:deckId/:infinite" element={<JustShowMe />} />
-								<Route path="/games/just-show-me/:deckId" element={<JustShowMe />} />
-								<Route path="/games/let-me-guess/:deckId" element={<LetMeGuess />} />
-								<Route path="/games/just-repeat/:deckId/:shuffle" element={<JustRepeat />} />
+								<Route path="/admin/games/pick-one/:deckId" element={<PickOneRoot />} />
+								<Route path="/admin/games/time-escape/:deckId/:timer" element={<TimeEscapeRoot />} />
+								<Route path="/admin/games/just-show-me/:deckId/:infinite" element={<JustShowMe />} />
+								<Route path="/admin/games/just-show-me/:deckId" element={<JustShowMe />} />
+								<Route path="/admin/games/let-me-guess/:deckId" element={<LetMeGuess />} />
+								<Route path="/admin/games/just-repeat/:deckId/:shuffle" element={<JustRepeat />} />
 
-								<Route path="/languages/create" element={<CreateLanguageRoot />} />
-								<Route path="/languages/edit/:id" element={<EditLanguageRoot />} />
+								<Route path="/admin/languages/create" element={<CreateLanguageRoot />} />
+								<Route path="/admin/languages/edit/:id" element={<EditLanguageRoot />} />
 
-								<Route path="/cards/create" element={<CreateCardRoot />} />
-								<Route path="/cards/edit/:id" element={<CreateCardRoot isUpdate />} />
+								<Route path="/admin/cards/create" element={<CreateCardRoot />} />
+								<Route path="/admin/cards/edit/:id" element={<CreateCardRoot />} />
 
-								<Route path="/decks/create" element={<CreateDeckRoot />} />
-								<Route path="/decks/edit/:id" element={<EditDeckRoot />} />
+								<Route path="/admin/decks/create" element={<CreateDeckRoot />} />
+								<Route path="/admin/decks/edit/:id" element={<EditDeckRoot />} />
 							</Route>
 						</Routes>
 					</BrowserRouter>

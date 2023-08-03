@@ -1,112 +1,98 @@
-import { Button, Pagination, Select, Table } from '@mantine/core';
-import React, { useState } from 'react';
+import { Button } from '@mantine/core';
+import React, {useCallback, useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
-import { DeleteButton } from '@/features/shared/components/DeleteButton';
-import { Header } from '@/features/shared/components/Header';
-import { TableBody } from '@/features/shared/components/TableBody';
-import { useCard } from '@/lib/dataSource/hooks/useCard';
-import { useLanguage } from '@/lib/dataSource/hooks/useLanguage';
-import { useRemove } from '@/lib/dataSource/hooks/useRemove';
-import * as styles from '@/styles/languages/Root.styles';
+import {Listing} from '@/features/shared/components/Listing';
+import {ReactiveButton} from '@/features/shared/components/ReactiveButton';
+import {FirestoreMetadata} from '@/lib/dataSource/firebase/firestoreMetadata';
+import {QueryKeys} from '@/lib/dataSource/queryKeys';
+import {useDeleteDocument} from '@/lib/dataSource/useDeleteDocument';
+import {usePagination} from '@/lib/dataSource/usePagination';
 
 export function Root() {
-	const { store, persist } = useCard();
-	const { store: languageStore } = useLanguage();
-	const onRemove = useRemove<Card>(store, () => {
-		persist();
-	});
-	const [offset, setOffset] = useState(1);
 	const [toLanguageFilter, setToLanguageFilter] = useState<string>('');
 	const [fromLanguageFilter, setFromLanguageFilter] = useState<string>('');
+	const [listing, setListing] = useState<Card[] | null>(null);
 
-	let listing = store?.paginate(offset, 15);
-	if (toLanguageFilter) {
-		listing = listing.filter((val) => toLanguageFilter && val.toLanguage === toLanguageFilter);
-	}
+	const {data, isFetching, isRefetching} = usePagination<Card>(QueryKeys.CARDS_LISTING, FirestoreMetadata.cardsCollection.name);
+	const { mutateAsync, invalidateRelated } = useDeleteDocument();
 
-	if (fromLanguageFilter) {
-		listing = listing.filter((val) => fromLanguageFilter && val.fromLanguage === fromLanguageFilter);
-	}
+	console.log(isFetching, isRefetching);
 
-	const rows = listing.map((element, i) => (
-		<tr key={i}>
-			<td>{element.id}</td>
-			<td>{element.word}</td>
-			<td>{element.fromLanguage}</td>
-			<td>{element.toLanguage}</td>
-			<td>{element.translations.find((item) => item.isMain)?.name}</td>
+	useEffect(() => {
+		if (!isFetching && !isRefetching && Boolean(data?.length) && data) {
+			setListing(data);
+		} else if (!isFetching && !isRefetching && data && !data?.length) {
+			setListing(null);
+		}
+	}, [data, isFetching]);
 
-			<td>
-				<Button to={`/cards/edit/${element.word}`} component={Link} compact color="gray" variant="outline">
-                    Edit
-				</Button>
-			</td>
-			<td>
-				<DeleteButton onRemove={() => onRemove(element.word)} />
-			</td>
-		</tr>
-	));
+	useEffect(() => {
+		if (toLanguageFilter) {
+			// to language filter
+		}
+
+		if (fromLanguageFilter) {
+			// from language filter
+		}
+	}, [toLanguageFilter, fromLanguageFilter]);
+
+	const rows = useCallback(() => {
+		if (listing) {
+			return listing.map((item) => (
+				<tr key={item.id}>
+					<td>{item.id}</td>
+					<td>{item.word}</td>
+					<td>{item.fromLanguage}</td>
+					<td>{item.toLanguage}</td>
+					<td>{Object.values(item.translations).find((item) => item.isMain)?.name}</td>
+
+					<td>
+						<Button to={`/cards/edit/${item.word}`} component={Link} compact color="gray" variant="outline">
+							Edit
+						</Button>
+					</td>
+
+					<td>
+						<ReactiveButton
+							onAction={async () => {
+								if (typeof item.id !== 'string') return;
+
+								await mutateAsync({
+									path: FirestoreMetadata.cardsCollection.name,
+									segment: item.id,
+								});
+
+								setTimeout(() => {
+									invalidateRelated([QueryKeys.CARDS_LISTING, FirestoreMetadata.cardsCollection.name]);
+								}, 500);
+							}}
+							timeout={2}>
+							Delete me
+						</ReactiveButton>
+					</td>
+				</tr>
+			));
+		}
+
+		return [];
+	}, [listing]);
 
 	return (
-		<div>
-			<Header createTo="/cards/create" title="Cards" />
-
-			<div css={styles.filters}>
-
-				<div css={styles.filtersList}>
-					<label css={styles.filtersLabel}>Filter by:</label>
-					<Select
-						label="To language"
-						placeholder="To language"
-						data={languageStore.list().map((item) => ({
-							value: item.shortName,
-							label: item.name,
-						}))}
-						onChange={(value) => {
-							if (value) setToLanguageFilter(value);
-						}}
-					/>
-
-					<Select
-						label="From language"
-						placeholder="From language"
-						data={languageStore.list().map((item) => ({
-							value: item.shortName,
-							label: item.name,
-						}))}
-						onChange={(value) => {
-							if (value) setFromLanguageFilter(value);
-						}}
-					/>
-				</div>
-			</div>
-
-			{Boolean(rows.length) && (
-				<Table>
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>Name</th>
-							<th>From language</th>
-							<th>To language</th>
-							<th>Main translation</th>
-
-							<th>Edit</th>
-							<th>Delete</th>
-						</tr>
-					</thead>
-
-					<TableBody rows={rows} />
-				</Table>
-			)}
-
-			{!rows.length && <p css={styles.nothingFound}>Nothing found</p>}
-
-			{store.count() > 15 && (
-				<div css={styles.pagination}>
-					<Pagination page={offset} onChange={setOffset} total={Math.ceil(store.count() / 15)} />
-				</div>
-			)}
-		</div>
+		<>
+			<Listing
+				showTable={Boolean(listing)}
+				showNothing={!isFetching && !listing}
+				rows={rows}
+				header={{
+					createTo: '/cards/create',
+					title: 'Cards',
+					showLoading: isRefetching,
+				}}
+				globalLoader={{
+					isLoading: isFetching && !isRefetching,
+				}}
+				tableRows={['ID', 'Word', 'From language', 'To language', 'Edit', 'Delete']}
+			/>
+		</>
 	);
 }

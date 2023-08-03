@@ -4,4 +4,7 @@ export enum QueryKeys {
 
     DECK_LISTING = 'decks.listing',
     DECK_SINGLE_DOCUMENT = 'decks.single_document',
+
+    CARDS_LISTING = 'cards.listing',
+    CARDS_SINGLE_DOCUMENT = 'cards.single_document',
 }

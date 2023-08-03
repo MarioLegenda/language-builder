@@ -1,5 +1,5 @@
 export function getDefaultTranslationValues() {
-	return {
+	return [{
 		name: '',
 		type: '',
 		gender: '',
@@ -7,5 +7,5 @@ export function getDefaultTranslationValues() {
 		example: '',
 		hint: '',
 		isMain: false,
-	};
+	}];
 }

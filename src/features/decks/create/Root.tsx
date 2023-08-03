@@ -6,8 +6,8 @@ import { FieldRow } from '@/features/shared/components/forms/FieldRow';
 import { Form } from '@/features/shared/components/forms/Form';
 import { LanguageDropdown } from '@/features/shared/components/forms/LanguageDropdown';
 import { SubmitButton } from '@/features/shared/components/forms/SubmitButton';
-import { useGetDocument } from '@/lib/dataSource/firebase/firebase';
 import { FirestoreMetadata } from '@/lib/dataSource/firebase/firestoreMetadata';
+import { useGetDocument } from '@/lib/dataSource/firebase/useGetDocument';
 import { QueryKeys } from '@/lib/dataSource/queryKeys';
 import { useMutateDocument } from '@/lib/dataSource/useMutateDocument';
 import { requiredAndLimited } from '@/lib/validation/requiredAndLimited';
@@ -54,7 +54,7 @@ export function Root() {
 				<>
 					<FieldRow>
 						<div css={utilStyles.flex('space-between')}>
-							<Title order={3}>Create new decks</Title>
+							<Title order={3}>Create new deck</Title>
 							{/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
 							{/*
 						// @ts-ignore */}

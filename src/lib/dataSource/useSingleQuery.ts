@@ -1,4 +1,4 @@
-import { useQuery } from '@/lib/dataSource/firebase/firebase';
+import { useQuery } from '@/lib/dataSource/firebase/useQuery';
 
 export function useSingleQuery<T>() {
 	const query = useQuery<T>();

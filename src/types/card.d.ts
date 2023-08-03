@@ -1,10 +1,18 @@
 interface Card {
-    id: number;
+    id?: string;
     word: string;
     deck: string;
     fromLanguage: string;
     toLanguage: string;
-    translations: Translation[];
+    translations: {
+        [key: string]: Translation;
+    };
+    createdAt?: Date;
+    updatedAt?: Date | null;
+}
+
+type Translations = {
+    [key: string]: Translation;
 }
 
 interface Translation {

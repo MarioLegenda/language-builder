@@ -5,4 +5,7 @@ export class FirestoreMetadata {
 	static deckCollection = {
 		name: 'decks',
 	};
+	static cardsCollection = {
+		name: 'cards',
+	};
 }

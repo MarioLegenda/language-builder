@@ -1,8 +1,8 @@
 import { useQuery } from 'react-query';
-import { useGetDocuments } from '@/lib/dataSource/firebase/useGetDocuments';
+import { usePagination } from '@/lib/dataSource/firebase/usePagination';
 
 export function useListDocuments<T>(key: string, path: string) {
-	const list = useGetDocuments<T>(path);
+	const list = usePagination<T>(path);
 
 	return useQuery([key, path], async () => await list(), {
 		retry: 0,
