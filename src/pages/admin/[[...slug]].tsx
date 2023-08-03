@@ -40,7 +40,7 @@ export default function Home() {
 		if (isBrowser && Auth.isAuthenticated()) {
 			initializeFirebase();
 			authChangeListener({
-				onSuccess() {
+				onSuccess(user) {
 					Promise.allSettled([
 						getAllDecks(FirestoreMetadata.deckCollection.name),
 						getAllCards(FirestoreMetadata.cardsCollection.name),
@@ -77,7 +77,7 @@ export default function Home() {
 	return (
 		<>
 			<main>
-				{isBrowser && isReady && (
+				{isBrowser && isReady && Auth.isAuthenticated() && (
 					<BrowserRouter>
 						<Routes>
 							<Route path="/admin" element={<Layout navigation={<Navigation />} content={<Content />} />}>
