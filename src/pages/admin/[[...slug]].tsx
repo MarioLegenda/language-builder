@@ -17,15 +17,15 @@ import { Root as LanguageRoot } from '@/features/languages/list/Root';
 import { Layout } from '@/features/shared/Layout';
 import { Content } from '@/features/shared/components/Content';
 import { Navigation } from '@/features/shared/components/Navigation';
-import {Auth} from '@/lib/auth/auth';
-import {authChangeListener} from '@/lib/dataSource/firebase/authChangeListener';
+import { Auth } from '@/lib/auth/auth';
+import { authChangeListener } from '@/lib/dataSource/firebase/authChangeListener';
 import { initializeFirebase } from '@/lib/dataSource/firebase/firebase';
-import {FirestoreMetadata} from '@/lib/dataSource/firebase/firestoreMetadata';
-import {useGetAll} from '@/lib/dataSource/firebase/useGetAll';
-import {useCard} from '@/lib/dataSource/hooks/useCard';
-import {useDeck} from '@/lib/dataSource/hooks/useDeck';
-import {isCard} from '@/lib/dataSource/typeCheck/isCard';
-import {isDeck} from '@/lib/dataSource/typeCheck/isDeck';
+import { FirestoreMetadata } from '@/lib/dataSource/firebase/firestoreMetadata';
+import { useGetAll } from '@/lib/dataSource/firebase/useGetAll';
+import { useCard } from '@/lib/dataSource/hooks/useCard';
+import { useDeck } from '@/lib/dataSource/hooks/useDeck';
+import { isCard } from '@/lib/dataSource/typeCheck/isCard';
+import { isDeck } from '@/lib/dataSource/typeCheck/isDeck';
 import { useRunInBrowser } from '@/lib/helpers/useRunInBrowser';
 
 export default function Home() {
@@ -33,15 +33,18 @@ export default function Home() {
 	const [isReady, setIsReady] = useState(false);
 	const getAllDecks = useGetAll<DeckWithID>();
 	const getAllCards = useGetAll<CardWithID>();
-	const {store: deckStore} = useDeck();
-	const {store: cardStore} = useCard();
+	const { store: deckStore } = useDeck();
+	const { store: cardStore } = useCard();
 
 	useEffect(() => {
 		if (isBrowser && Auth.isAuthenticated()) {
 			initializeFirebase();
 			authChangeListener({
 				onSuccess() {
-					Promise.allSettled([getAllDecks(FirestoreMetadata.deckCollection.name), getAllCards(FirestoreMetadata.cardsCollection.name)]).then((data) => {
+					Promise.allSettled([
+						getAllDecks(FirestoreMetadata.deckCollection.name),
+						getAllCards(FirestoreMetadata.cardsCollection.name),
+					]).then((data) => {
 						for (const item of data) {
 							if (item.status === 'fulfilled' && isDeck(item.value)) {
 								for (const part of item.value) {
@@ -66,7 +69,7 @@ export default function Home() {
 				onError() {
 					console.error('FUCK OFF');
 					Auth.logout();
-				}
+				},
 			});
 		}
 	}, [isBrowser]);

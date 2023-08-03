@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
-import {useGetAll} from '@/lib/dataSource/firebase/useGetAll';
-import type {DocumentData} from '@firebase/firestore';
+import { useGetAll } from '@/lib/dataSource/firebase/useGetAll';
+import type { DocumentData } from '@firebase/firestore';
 
 export function useGetAllDocuments<T extends DocumentData>(key: string, path: string) {
 	const getAll = useGetAll<T>();

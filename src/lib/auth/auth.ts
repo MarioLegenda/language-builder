@@ -1,4 +1,4 @@
-import type {User} from '@firebase/auth';
+import type { User } from '@firebase/auth';
 
 export class auth {
 	private user: User | undefined;

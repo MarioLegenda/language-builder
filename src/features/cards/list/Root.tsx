@@ -48,7 +48,12 @@ export function Root() {
 					<td>{Object.values(item.translations).find((item) => item.isMain)?.name}</td>
 
 					<td>
-						<Button to={`/admin/cards/edit/${item.word}`} component={Link} compact color="gray" variant="outline">
+						<Button
+							to={`/admin/cards/edit/${item.word}`}
+							component={Link}
+							compact
+							color="gray"
+							variant="outline">
                             Edit
 						</Button>
 					</td>

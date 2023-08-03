@@ -1,6 +1,6 @@
 import { getAuth, GoogleAuthProvider, signInWithPopup } from '@firebase/auth';
 import { IconBrandGoogle } from '@tabler/icons';
-import {Auth} from '@/lib/auth/auth';
+import { Auth } from '@/lib/auth/auth';
 import * as styles from '@/styles/shared/GoogleSignIn.styles';
 
 interface Props {

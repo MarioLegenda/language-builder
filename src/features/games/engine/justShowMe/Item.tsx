@@ -42,7 +42,8 @@ export function Item({ engine, onDone }: Props) {
 					utilStyles.fullWidth,
 				]}>
 				<div css={[utilStyles.column(12), utilStyles.spacing('bottom', 32)]}>
-					{engine[index] && translations &&
+					{engine[index] &&
+                        translations &&
                         translations.map((item, i) => <Translation key={i} translation={item} />)}
 				</div>
 

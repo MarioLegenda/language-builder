@@ -19,7 +19,12 @@ export function Root() {
 					<td>{item.language}</td>
 
 					<td>
-						<Button to={`/admin/decks/edit/${item.id}`} component={Link} compact color="gray" variant="outline">
+						<Button
+							to={`/admin/decks/edit/${item.id}`}
+							component={Link}
+							compact
+							color="gray"
+							variant="outline">
                             Edit
 						</Button>
 					</td>
