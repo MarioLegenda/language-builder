@@ -19,7 +19,7 @@ export function Root() {
 					<td>{item.language}</td>
 
 					<td>
-						<Button to={`/decks/edit/${item.id}`} component={Link} compact color="gray" variant="outline">
+						<Button to={`/admin/decks/edit/${item.id}`} component={Link} compact color="gray" variant="outline">
                             Edit
 						</Button>
 					</td>
@@ -53,7 +53,7 @@ export function Root() {
 				showNothing={!isFetching && !data}
 				rows={rows}
 				header={{
-					createTo: '/decks/create',
+					createTo: '/admin/decks/create',
 					title: 'Decks',
 					showLoading: isRefetching,
 				}}

@@ -51,7 +51,7 @@ export function Root() {
 		});
 
 		invalidateRelated([QueryKeys.CARDS_LISTING]);
-		navigate('/cards');
+		navigate('/admin/cards');
 	}, []);
 
 	return (

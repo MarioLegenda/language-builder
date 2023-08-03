@@ -26,14 +26,16 @@ export function createEngine(deckName: string, doShuffle: boolean): PickOneEngin
 			const card = shuffledCards[i];
 
 			const foundCard = CardStore.get(card);
-			const mainTranslation = foundCard.translations.filter((item) => item.isMain)[0];
+			if (foundCard) {
+				const mainTranslation = foundCard.translations.filter((item) => item.isMain)[0];
 
-			for (let a = 0; a < numOfRepeats; a++) {
-				words.push({
-					word: CardStore.get(card).word,
-					choices: shuffle([...createVisualCards(card, [mainTranslation.name]), mainTranslation]),
-					correctTranslation: mainTranslation,
-				});
+				for (let a = 0; a < numOfRepeats; a++) {
+					words.push({
+						word: CardStore.get(card).word,
+						choices: shuffle([...createVisualCards(card, [mainTranslation.name]), mainTranslation]),
+						correctTranslation: mainTranslation,
+					});
+				}
 			}
 		}
 

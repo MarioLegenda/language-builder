@@ -23,7 +23,7 @@ export function JustShowMe() {
 					deck: (value: string) => requiredAndLimited('deck', value, 1, 200),
 				}}
 				onSubmit={(data) => {
-					navigate(`/games/just-show-me/${data.deck}${data.infinite ? '/infinite' : ''}`);
+					navigate(`/admin/games/just-show-me/${data.deck}${data.infinite ? '/infinite' : ''}`);
 				}}
 				fields={(form) => (
 					<>

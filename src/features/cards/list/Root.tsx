@@ -19,8 +19,6 @@ export function Root() {
 	);
 	const { mutateAsync, invalidateRelated } = useDeleteDocument();
 
-	console.log(isFetching, isRefetching);
-
 	useEffect(() => {
 		if (!isFetching && !isRefetching && Boolean(data?.length) && data) {
 			setListing(data);
@@ -50,7 +48,7 @@ export function Root() {
 					<td>{Object.values(item.translations).find((item) => item.isMain)?.name}</td>
 
 					<td>
-						<Button to={`/cards/edit/${item.word}`} component={Link} compact color="gray" variant="outline">
+						<Button to={`/admin/cards/edit/${item.word}`} component={Link} compact color="gray" variant="outline">
                             Edit
 						</Button>
 					</td>
@@ -90,7 +88,7 @@ export function Root() {
 				showNothing={!isFetching && !listing}
 				rows={rows}
 				header={{
-					createTo: '/cards/create',
+					createTo: '/admin/cards/create',
 					title: 'Cards',
 					showLoading: isRefetching,
 				}}

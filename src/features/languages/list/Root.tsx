@@ -21,7 +21,7 @@ export function Root() {
 
 					<td>
 						<Button
-							to={`/languages/edit/${item.shortName}`}
+							to={`/admin/languages/edit/${item.shortName}`}
 							component={Link}
 							compact
 							color="gray"
@@ -58,7 +58,7 @@ export function Root() {
 			showNothing={!isFetching && !data}
 			rows={renderRows}
 			header={{
-				createTo: '/languages/create',
+				createTo: '/admin/languages/create',
 				title: 'Languages',
 				showLoading: isRefetching,
 			}}

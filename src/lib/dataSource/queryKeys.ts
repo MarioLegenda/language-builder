@@ -3,6 +3,7 @@ export enum QueryKeys {
     LANGUAGE_SINGLE_DOCUMENT = 'languages.single_document',
 
     DECK_LISTING = 'decks.listing',
+    DECKS_ALL = 'decks.all',
     DECK_SINGLE_DOCUMENT = 'decks.single_document',
 
     CARDS_LISTING = 'cards.listing',

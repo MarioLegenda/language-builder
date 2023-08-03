@@ -44,7 +44,7 @@ export function Root() {
 
 		invalidateRelated([QueryKeys.LANGUAGE_LISTING]);
 
-		navigate('/languages');
+		navigate('/admin/languages');
 	}, []);
 
 	return (

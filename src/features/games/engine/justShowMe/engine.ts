@@ -5,7 +5,8 @@ export function createEngine(deckName: string) {
 	const cards = CardStore.findBy((item) => item.deck === deckName);
 
 	for (const card of cards) {
-		card.translations.sort((a) => {
+		card.translationsArray = Object.values(card.translations);
+		card.translationsArray.sort((a) => {
 			if (a.isMain) return -1;
 			return 1;
 		});

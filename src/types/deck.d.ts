@@ -17,3 +17,4 @@ interface EditDeckForm {
 }
 
 type DeckWithID = Deck & WithID;
+type CardWithID = Card & WithID;

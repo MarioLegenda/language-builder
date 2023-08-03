@@ -3,7 +3,6 @@ type Store<T> = Record<string, T>;
 interface DataSource<T> {
     set(id: string, item: T): void;
     remove(id: string): void;
-    createNextID(): number;
     get(id: string): T;
     list(): T[];
     paginate(offset: number, limit: number): T[];

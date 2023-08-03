@@ -15,6 +15,7 @@ class ThisStore<T> implements DataSource<T> {
 
 		this.store = (JSON.parse(localStorage.getItem(this.key) as string) as Store<T>) || {};
 	}
+
 	set(id: string, item: T): void {
 		this.store[id] = item;
 	}
@@ -40,17 +41,6 @@ class ThisStore<T> implements DataSource<T> {
 	}
 	list(): T[] {
 		return Object.values(this.store);
-	}
-	createNextID(): number {
-		const list = this.list();
-
-		if (list.length === 0) return 1;
-
-		list.sort(function (a, b) {
-			return (a as Deck).id - (b as Deck).id;
-		});
-
-		return (list[list.length - 1] as Deck).id + 1;
 	}
 	has(id: string) {
 		return Boolean(this.get(id));

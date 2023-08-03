@@ -44,7 +44,7 @@ export function Root() {
 
 		invalidateRelated([QueryKeys.DECK_LISTING]);
 
-		navigate('/decks');
+		navigate('/admin/decks');
 	}, []);
 
 	return (

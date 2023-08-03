@@ -7,6 +7,7 @@ interface Card {
     translations: {
         [key: string]: Translation;
     };
+    translationsArray?: Translation[];
     createdAt?: Date;
     updatedAt?: Date | null;
 }

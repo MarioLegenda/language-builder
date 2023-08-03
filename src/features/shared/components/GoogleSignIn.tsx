@@ -1,5 +1,6 @@
 import { getAuth, GoogleAuthProvider, signInWithPopup } from '@firebase/auth';
 import { IconBrandGoogle } from '@tabler/icons';
+import {Auth} from '@/lib/auth/auth';
 import * as styles from '@/styles/shared/GoogleSignIn.styles';
 
 interface Props {
@@ -17,6 +18,7 @@ export function GoogleSignIn({ onSuccess, onError }: Props) {
 				// This gives you a Google Access Token. You can use it to access the Google API.
 				const credential = GoogleAuthProvider.credentialFromResult(result);
 				if (credential) {
+					Auth.login(result.user);
 					onSuccess?.();
 				}
 			})
