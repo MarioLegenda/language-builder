@@ -9,13 +9,14 @@ function createVisualCards(cardName: string, exclude: string[]): Translation[] {
 }
 
 export function createEngine(deckName: string): PickOneEngineWord[] {
-	const cardNames = CardStore.findBy((item) => item.deck === deckName).map((item) => item.word);
+	const cardNames = CardStore.findBy((item) => item.deck === deckName).map((item) => item.id) as string[];
 	const shuffledCards = shuffle<string>(cardNames);
 
 	const words: PickOneEngineWord[] = [];
 	for (const card of shuffledCards) {
 		const foundCard = CardStore.get(card);
-		const mainTranslation = foundCard.translations.filter((item) => item.isMain)[0];
+		const translations = Object.values(foundCard.translations);
+		const mainTranslation = translations.filter((item) => item.isMain)[0];
 
 		words.push({
 			word: CardStore.get(card).word,

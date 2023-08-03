@@ -1,4 +1,5 @@
 interface Deck {
+    id?: string;
     name: string;
     language: string;
 

@@ -9,17 +9,20 @@ export function getTranslations(lang: string): Translation[] {
 
 	for (let i = 0, j = cardsArray.length - 1; i <= j; i++, j--) {
 		if (i === j) {
-			translations = [...translations, ...cardsArray[i].translations];
+			const arr = Object.values(cardsArray[i].translations);
+			translations = [...translations, ...arr];
 
 			break;
 		}
 
 		if (cardsArray[i].toLanguage === lang) {
-			translations = [...translations, ...cardsArray[i].translations];
+			const arr = Object.values(cardsArray[i].translations);
+			translations = [...translations, ...arr];
 		}
 
 		if (cardsArray[j].toLanguage === lang) {
-			translations = [...translations, ...cardsArray[j].translations];
+			const arr = Object.values(cardsArray[i].translations);
+			translations = [...translations, ...arr];
 		}
 	}
 

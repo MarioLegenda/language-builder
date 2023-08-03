@@ -23,7 +23,7 @@ export function useEngine() {
 
 	engineRef.current = {
 		deck: deck,
-		words: createEngine(deck.name),
+		words: createEngine(deck.id as string),
 	};
 
 	return {
