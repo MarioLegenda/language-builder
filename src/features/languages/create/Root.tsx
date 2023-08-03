@@ -74,7 +74,7 @@ export function Root() {
 								{/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
 								{/*
 						// @ts-ignore */}
-								<CloseButton component={Link} to="/languages" />
+								<CloseButton component={Link} to="/admin/languages" />
 							</div>
 
 							{existsError && <GlobalError>Language with this short name already exists</GlobalError>}

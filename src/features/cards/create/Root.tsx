@@ -66,7 +66,7 @@ export function Root() {
 							{/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
 							{/*
 						// @ts-ignore */}
-							<CloseButton component={Link} to="/cards" />
+							<CloseButton component={Link} to="/admin/cards" />
 						</div>
 					</FieldRow>
 

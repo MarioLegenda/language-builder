@@ -96,7 +96,7 @@ export function Root() {
 									{/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
 									{/*
 						// @ts-ignore */}
-									<CloseButton component={Link} to="/decks" />
+									<CloseButton component={Link} to="/admin/decks" />
 								</div>
 
 								{existsError && <GlobalError>Deck with these values already exists</GlobalError>}
