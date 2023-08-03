@@ -13,7 +13,7 @@ interface Card {
 
 type Translations = {
     [key: string]: Translation;
-}
+};
 
 interface Translation {
     name: string;

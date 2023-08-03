@@ -4,7 +4,7 @@ interface Props {
     onSuccess: VoidFn;
     onError: VoidFn;
 }
-export function authChangeListener({onSuccess, onError}: Props) {
+export function authChangeListener({ onSuccess, onError }: Props) {
 	const auth = getAuth();
 	onAuthStateChanged(auth, (user) => {
 		if (user) {

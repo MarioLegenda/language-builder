@@ -1,6 +1,6 @@
-import {collection, getDocs, query, where} from '@firebase/firestore';
-import {FirebaseError} from 'firebase/app';
-import {useFirestore} from '@/lib/dataSource/firebase/firebase';
+import { collection, getDocs, query, where } from '@firebase/firestore';
+import { FirebaseError } from 'firebase/app';
+import { useFirestore } from '@/lib/dataSource/firebase/firebase';
 
 export function useQuery<T>() {
 	const db = useFirestore();

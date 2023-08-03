@@ -1,4 +1,4 @@
-import {getAuth, GoogleAuthProvider, signInWithPopup} from '@firebase/auth';
+import { getAuth, GoogleAuthProvider, signInWithPopup } from '@firebase/auth';
 import { IconBrandGoogle } from '@tabler/icons';
 import * as styles from '@/styles/shared/GoogleSignIn.styles';
 
@@ -19,7 +19,8 @@ export function GoogleSignIn({ onSuccess, onError }: Props) {
 				if (credential) {
 					onSuccess?.();
 				}
-			}).catch(() => {
+			})
+			.catch(() => {
 				onError?.();
 			});
 	};

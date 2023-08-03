@@ -6,7 +6,7 @@ export const root = css`
     justify-content: left;
     align-items: center;
     gap: 12px;
-  padding: 4px;
+    padding: 4px;
 
     border: 1px solid white;
     transition: border 0.3s;

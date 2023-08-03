@@ -1,19 +1,22 @@
 import { Button } from '@mantine/core';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import {Listing} from '@/features/shared/components/Listing';
-import {ReactiveButton} from '@/features/shared/components/ReactiveButton';
-import {FirestoreMetadata} from '@/lib/dataSource/firebase/firestoreMetadata';
-import {QueryKeys} from '@/lib/dataSource/queryKeys';
-import {useDeleteDocument} from '@/lib/dataSource/useDeleteDocument';
-import {usePagination} from '@/lib/dataSource/usePagination';
+import { Listing } from '@/features/shared/components/Listing';
+import { ReactiveButton } from '@/features/shared/components/ReactiveButton';
+import { FirestoreMetadata } from '@/lib/dataSource/firebase/firestoreMetadata';
+import { QueryKeys } from '@/lib/dataSource/queryKeys';
+import { useDeleteDocument } from '@/lib/dataSource/useDeleteDocument';
+import { usePagination } from '@/lib/dataSource/usePagination';
 
 export function Root() {
 	const [toLanguageFilter, setToLanguageFilter] = useState<string>('');
 	const [fromLanguageFilter, setFromLanguageFilter] = useState<string>('');
 	const [listing, setListing] = useState<Card[] | null>(null);
 
-	const {data, isFetching, isRefetching} = usePagination<Card>(QueryKeys.CARDS_LISTING, FirestoreMetadata.cardsCollection.name);
+	const { data, isFetching, isRefetching } = usePagination<Card>(
+		QueryKeys.CARDS_LISTING,
+		FirestoreMetadata.cardsCollection.name,
+	);
 	const { mutateAsync, invalidateRelated } = useDeleteDocument();
 
 	console.log(isFetching, isRefetching);
@@ -48,7 +51,7 @@ export function Root() {
 
 					<td>
 						<Button to={`/cards/edit/${item.word}`} component={Link} compact color="gray" variant="outline">
-							Edit
+                            Edit
 						</Button>
 					</td>
 
@@ -63,11 +66,14 @@ export function Root() {
 								});
 
 								setTimeout(() => {
-									invalidateRelated([QueryKeys.CARDS_LISTING, FirestoreMetadata.cardsCollection.name]);
+									invalidateRelated([
+										QueryKeys.CARDS_LISTING,
+										FirestoreMetadata.cardsCollection.name,
+									]);
 								}, 500);
 							}}
 							timeout={2}>
-							Delete me
+                            Delete me
 						</ReactiveButton>
 					</td>
 				</tr>

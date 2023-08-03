@@ -1,15 +1,15 @@
 import { Notification } from '@mantine/core';
-import {useRouter} from 'next/navigation';
-import {useEffect, useState} from 'react';
-import {GoogleSignIn} from '@/features/shared/components/GoogleSignIn';
-import {initializeFirebase} from '@/lib/dataSource/firebase/firebase';
-import {useIsBrowser} from '@/lib/helpers/useIsBrowser';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { GoogleSignIn } from '@/features/shared/components/GoogleSignIn';
+import { initializeFirebase } from '@/lib/dataSource/firebase/firebase';
+import { useIsBrowser } from '@/lib/helpers/useIsBrowser';
 import * as styles from '@/styles/shared/login/Login.styles';
 
 export default function Index() {
 	const [isError, setIsError] = useState(false);
 	const isBrowser = useIsBrowser();
-	const {push} = useRouter();
+	const { push } = useRouter();
 
 	useEffect(() => {
 		if (isBrowser) {
@@ -25,7 +25,7 @@ export default function Index() {
 
 					{isError && (
 						<Notification css={styles.error} color="red" disallowClose>
-              An error occurred. Please, try again later.
+                            An error occurred. Please, try again later.
 						</Notification>
 					)}
 				</div>

@@ -1,6 +1,6 @@
-import {doc, getDoc} from '@firebase/firestore';
-import {useFirestore} from '@/lib/dataSource/firebase/firebase';
-import type { DocumentData} from '@firebase/firestore';
+import { doc, getDoc } from '@firebase/firestore';
+import { useFirestore } from '@/lib/dataSource/firebase/firebase';
+import type { DocumentData } from '@firebase/firestore';
 
 export function useGetDocument<T extends DocumentData>() {
 	const db = useFirestore();

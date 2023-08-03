@@ -1,10 +1,10 @@
 import { Select } from '@mantine/core';
 
-import {Loading} from '@/features/shared/components/Loading';
-import {FirestoreMetadata} from '@/lib/dataSource/firebase/firestoreMetadata';
-import {QueryKeys} from '@/lib/dataSource/queryKeys';
-import {useListDocuments} from '@/lib/dataSource/useListDocuments';
-import {ifLoading} from '@/styles/shared/LanguageDropdown.styles';
+import { Loading } from '@/features/shared/components/Loading';
+import { FirestoreMetadata } from '@/lib/dataSource/firebase/firestoreMetadata';
+import { QueryKeys } from '@/lib/dataSource/queryKeys';
+import { useListDocuments } from '@/lib/dataSource/useListDocuments';
+import { ifLoading } from '@/styles/shared/LanguageDropdown.styles';
 import type { SelectItem, SelectProps } from '@mantine/core';
 import type { UseFormReturnType } from '@mantine/form';
 
@@ -26,18 +26,23 @@ function createValues(decks: DeckWithID[]): SelectItem[] {
 }
 
 export function DeckDropdown<T>({ topLevelForm, name, ...rest }: Props<T>) {
-	const {isFetching, data} = useListDocuments<DeckWithID>(QueryKeys.DECK_LISTING, FirestoreMetadata.deckCollection.name);
+	const { isFetching, data } = useListDocuments<DeckWithID>(
+		QueryKeys.DECK_LISTING,
+		FirestoreMetadata.deckCollection.name,
+	);
 
 	return (
 		<div css={ifLoading(isFetching)}>
 			<Loading visible={isFetching} />
-			{!isFetching && data && <Select
-				{...rest}
-				label="Choose a deck"
-				{...topLevelForm.getInputProps(name)}
-				placeholder="Pick one"
-				data={createValues(data)}
-			/>}
+			{!isFetching && data && (
+				<Select
+					{...rest}
+					label="Choose a deck"
+					{...topLevelForm.getInputProps(name)}
+					placeholder="Pick one"
+					data={createValues(data)}
+				/>
+			)}
 		</div>
 	);
 }

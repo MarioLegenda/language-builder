@@ -28,55 +28,58 @@ export function Root() {
 	);
 	const query = useSingleQuery<DeckWithID>();
 
-	const onSubmit = useCallback(async (submitData: CreateDeckForm) => {
-		if (!data || !params.id) {
-			return;
-		}
+	const onSubmit = useCallback(
+		async (submitData: CreateDeckForm) => {
+			if (!data || !params.id) {
+				return;
+			}
 
-		setExistsError(false);
-		setIsSubmitting(true);
+			setExistsError(false);
+			setIsSubmitting(true);
 
-		const exists = await query(
-			'decks',
-			{
-				fieldPath: 'name',
-				opStr: '==',
-				value: submitData.name,
-			},
-			{
-				fieldPath: 'language',
-				opStr: '==',
-				value: submitData.language,
-			},
-		);
-
-		console.log(exists, data);
-
-		if (exists && exists.id !== params.id) {
-			setExistsError(true);
-			setIsSubmitting(false);
-			return;
-		}
-
-		try {
-			await mutateAsync({
-				segment: params.id,
-				model: {
-					...submitData,
-					updatedAt: new Date(),
+			const exists = await query(
+				'decks',
+				{
+					fieldPath: 'name',
+					opStr: '==',
+					value: submitData.name,
 				},
-			});
+				{
+					fieldPath: 'language',
+					opStr: '==',
+					value: submitData.language,
+				},
+			);
 
-			setIsSubmitting(false);
-		} catch {
-			// a trick not to crash the program, useMutateDocument already handles errors
-		}
+			console.log(exists, data);
 
-		invalidateRelated([QueryKeys.DECK_LISTING]);
-		invalidateRelated([QueryKeys.DECK_SINGLE_DOCUMENT]);
+			if (exists && exists.id !== params.id) {
+				setExistsError(true);
+				setIsSubmitting(false);
+				return;
+			}
 
-		navigate('/decks');
-	}, [params.id, data]);
+			try {
+				await mutateAsync({
+					segment: params.id,
+					model: {
+						...submitData,
+						updatedAt: new Date(),
+					},
+				});
+
+				setIsSubmitting(false);
+			} catch {
+				// a trick not to crash the program, useMutateDocument already handles errors
+			}
+
+			invalidateRelated([QueryKeys.DECK_LISTING]);
+			invalidateRelated([QueryKeys.DECK_SINGLE_DOCUMENT]);
+
+			navigate('/decks');
+		},
+		[params.id, data],
+	);
 
 	return (
 		<>

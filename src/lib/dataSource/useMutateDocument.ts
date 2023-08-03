@@ -1,10 +1,14 @@
-import {updateDoc} from '@firebase/firestore';
+import { updateDoc } from '@firebase/firestore';
 import { useMutation, useQueryClient } from 'react-query';
-import {getDocRef} from '@/lib/dataSource/firebase/getDocRef';
-import {useDocumentMutator} from '@/lib/dataSource/firebase/useDocumentMutator';
+import { getDocRef } from '@/lib/dataSource/firebase/getDocRef';
+import { useDocumentMutator } from '@/lib/dataSource/firebase/useDocumentMutator';
 import type { DocumentData } from '@firebase/firestore';
 
-export function useMutateDocument<T extends DocumentData>(path: string, type: 'set' | 'add' | 'update' = 'set', update = false) {
+export function useMutateDocument<T extends DocumentData>(
+	path: string,
+	type: 'set' | 'add' | 'update' = 'set',
+	update = false,
+) {
 	const queryClient = useQueryClient();
 	const { set, add } = useDocumentMutator();
 
