@@ -1,5 +1,5 @@
 import {collection, getDocs} from '@firebase/firestore';
-import {getFirestoreDB, useFirestore} from '@/lib/dataSource/firebase/firebase';
+import {getFirestoreDB} from '@/lib/dataSource/firebase/firebase';
 import type { DocumentData } from '@firebase/firestore';
 
 export function useGetAll<T extends DocumentData>() {

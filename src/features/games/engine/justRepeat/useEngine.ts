@@ -24,7 +24,7 @@ export function useEngine() {
 
 	engineRef.current = {
 		deck: deck,
-		words: createEngine(deck.name, doShuffle),
+		words: createEngine(deck.id as string, doShuffle),
 	};
 
 	return {

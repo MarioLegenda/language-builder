@@ -1,5 +1,5 @@
 import { CloseButton, TextInput, Title } from '@mantine/core';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { GlobalError } from '@/features/shared/components/GlobalError';
 import { Loading } from '@/features/shared/components/Loading';

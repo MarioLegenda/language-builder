@@ -1,5 +1,5 @@
 import { addDoc, collection, doc, setDoc } from '@firebase/firestore';
-import { getFirestoreDB, useFirestore } from '@/lib/dataSource/firebase/firebase';
+import { getFirestoreDB } from '@/lib/dataSource/firebase/firebase';
 import type { DocumentData, PartialWithFieldValue, WithFieldValue } from '@firebase/firestore';
 
 export function useDocumentMutator<T extends DocumentData>() {
