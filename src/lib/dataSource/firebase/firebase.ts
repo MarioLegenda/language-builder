@@ -8,13 +8,13 @@ let firestore: Firestore;
 
 export const initializeFirebase = () => {
 	const firebaseConfig = {
-		apiKey: 'AIzaSyDDOhV3xFVJF6ZH_4BZOnx09J0TRUlzOX0',
-		authDomain: 'vocully-1dd72.firebaseapp.com',
-		projectId: 'vocully-1dd72',
-		storageBucket: 'vocully-1dd72.appspot.com',
-		messagingSenderId: '404593529042',
-		appId: '1:404593529042:web:7b3fdbe2e50a37fdf9dd0b',
-		measurementId: 'G-EZXZFXJ1K2',
+		apiKey: process.env.NEXT_PUBLIC_API_KEY,
+		authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+		projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+		storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+		messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+		appId: process.env.NEXT_PUBLIC_APP_ID,
+		measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID,
 	};
 
 	app = initializeApp(firebaseConfig);
