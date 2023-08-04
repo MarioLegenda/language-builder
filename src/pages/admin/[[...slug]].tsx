@@ -90,7 +90,7 @@ export default function Home() {
 									path="/admin/games/pick-one/:deckId/:shuffle/:allDecks"
 									element={<PickOneRoot />}
 								/>
-								<Route path="/admin/games/time-escape/:deckId/:timer" element={<TimeEscapeRoot />} />
+								<Route path="/admin/games/time-escape/:deckId/:timer/:allDecks" element={<TimeEscapeRoot />} />
 								<Route path="/admin/games/just-show-me/:deckId/:infinite" element={<JustShowMe />} />
 								<Route path="/admin/games/just-show-me/:deckId" element={<JustShowMe />} />
 								<Route path="/admin/games/let-me-guess/:deckId" element={<LetMeGuess />} />

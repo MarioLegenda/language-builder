@@ -1,4 +1,4 @@
-import { Button, Card, TextInput, Title } from '@mantine/core';
+import {Button, Card, Checkbox, TextInput, Title} from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import { DeckDropdown } from '@/features/shared/components/forms/DeckDropdown';
 import { Form } from '@/features/shared/components/forms/Form';
@@ -18,6 +18,7 @@ export function TimeEscapeItem() {
 				initialValues={{
 					deck: '',
 					timer: '4',
+					allDecks: false,
 				}}
 				validate={{
 					deck: (value: string) => requiredAndLimited('deck', value, 1, 200),
@@ -33,12 +34,16 @@ export function TimeEscapeItem() {
 					},
 				}}
 				onSubmit={(data) => {
-					navigate(`/admin/games/time-escape/${data.deck}/${data.timer}`);
+					navigate(`/admin/games/time-escape/${data.deck}/${data.timer}${data.allDecks ? '/all-decks' : '/single-deck'}`);
 				}}
 				fields={(form) => (
 					<>
 						<DeckDropdown css={utilStyles.spacing('bottom', 12)} topLevelForm={form} name="deck" />
-
+						<Checkbox
+							css={[utilStyles.spacing('bottom', 12), utilStyles.spacing('top', 12)]}
+							label="All decks?"
+							{...form.getInputProps('allDecks')}
+						/>
 						<TextInput
 							label="Interval in seconds"
 							placeholder="Type your seconds..."
