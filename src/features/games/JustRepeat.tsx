@@ -18,21 +18,32 @@ export function JustRepeat() {
 				initialValues={{
 					deck: '',
 					shuffle: false,
+					allDecks: false,
 				}}
 				validate={{
 					deck: (value: string) => requiredAndLimited('deck', value, 1, 200),
 				}}
 				onSubmit={(data) => {
-					navigate(`/admin/games/just-repeat/${data.deck}${data.shuffle ? '/shuffle' : '/no-shuffle'}`);
+					navigate(
+						`/admin/games/just-repeat/${data.deck}${data.shuffle ? '/shuffle' : '/no-shuffle'}${
+							data.allDecks ? '/all-decks' : '/single-deck'
+						}`,
+					);
 				}}
 				fields={(form) => (
 					<>
-						<DeckDropdown topLevelForm={form} name="deck" />
+						<DeckDropdown topLevelForm={form} name="deck" searchable={true} />
 
 						<Checkbox
 							css={[utilStyles.spacing('bottom', 12), utilStyles.spacing('top', 12)]}
 							label="Shuffle?"
 							{...form.getInputProps('shuffle')}
+						/>
+
+						<Checkbox
+							css={[utilStyles.spacing('bottom', 12), utilStyles.spacing('top', 12)]}
+							label="All decks?"
+							{...form.getInputProps('allDecks')}
 						/>
 
 						<Button

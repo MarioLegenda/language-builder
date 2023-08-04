@@ -13,7 +13,6 @@ export class auth {
 		if (item) {
 			this.user = JSON.parse(item) as User;
 		}
-
 	}
 	login(user: User) {
 		if (typeof localStorage === 'undefined') {

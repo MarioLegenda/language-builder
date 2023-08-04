@@ -8,7 +8,7 @@ function createVisualCards(cardName: string, exclude: string[]): Translation[] {
 	return getRandomTranslations(5, getTranslations(card.toLanguage), exclude);
 }
 
-export function createEngine(deckName: string): PickOneEngineWord[] {
+export function createEngine(deckName: string, doShuffle = false): PickOneEngineWord[] {
 	const cardNames = CardStore.findBy((item) => item.deck === deckName).map((item) => item.id) as string[];
 	const shuffledCards = shuffle<string>(cardNames);
 
@@ -25,5 +25,5 @@ export function createEngine(deckName: string): PickOneEngineWord[] {
 		});
 	}
 
-	return words;
+	return doShuffle ? shuffle(words) : words;
 }

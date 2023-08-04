@@ -5,7 +5,9 @@ import { useDeck } from '@/lib/dataSource/hooks/useDeck';
 
 export function useEngine() {
 	const { store } = useDeck();
-	const { deckId } = useParams();
+	const { deckId, allDecks, shuffle } = useParams();
+	const doAllDecks = allDecks === 'all-decks';
+	const doShuffle = shuffle === 'shuffle';
 	const engineRef = useRef<PickOneEngine>();
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [_, setReset] = useState(0);
@@ -23,7 +25,19 @@ export function useEngine() {
 
 	engineRef.current = {
 		deck: deck,
-		words: createEngine(deck.id as string),
+		words: (function () {
+			if (doAllDecks) {
+				const allDecks = Object.values(store.all());
+				let words: PickOneEngineWord[] = [];
+				for (const deck of allDecks) {
+					words = [...words, ...createEngine(deck.id as string, doShuffle)];
+				}
+
+				return words;
+			}
+
+			return createEngine(deck.id as string, doShuffle);
+		})(),
 	};
 
 	return {

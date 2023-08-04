@@ -11,6 +11,7 @@ import type { UseFormReturnType } from '@mantine/form';
 interface Props<T> extends Omit<SelectProps, 'data'> {
     topLevelForm: UseFormReturnType<T>;
     name: string;
+    searchable?: boolean;
 }
 
 function createValues(decks: DeckWithID[]): SelectItem[] {
@@ -25,7 +26,7 @@ function createValues(decks: DeckWithID[]): SelectItem[] {
 	return values;
 }
 
-export function DeckDropdown<T>({ topLevelForm, name, ...rest }: Props<T>) {
+export function DeckDropdown<T>({ topLevelForm, name, searchable = false, ...rest }: Props<T>) {
 	const { isFetching, data } = useListDocuments<DeckWithID>(
 		QueryKeys.DECK_LISTING,
 		FirestoreMetadata.deckCollection.name,
@@ -37,6 +38,7 @@ export function DeckDropdown<T>({ topLevelForm, name, ...rest }: Props<T>) {
 			{!isFetching && data && (
 				<Select
 					{...rest}
+					searchable={searchable}
 					label="Choose a deck"
 					{...topLevelForm.getInputProps(name)}
 					placeholder="Pick one"

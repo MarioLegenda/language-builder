@@ -1,4 +1,4 @@
-import { Button, Card, Title } from '@mantine/core';
+import { Button, Card, Checkbox, Title } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import { DeckDropdown } from '@/features/shared/components/forms/DeckDropdown';
 import { Form } from '@/features/shared/components/forms/Form';
@@ -17,16 +17,34 @@ export function PickOneItem() {
 				validateInputOnChange={true}
 				initialValues={{
 					deck: '',
+					allDecks: false,
+					shuffle: false,
 				}}
 				validate={{
 					deck: (value: string) => requiredAndLimited('deck', value, 1, 200),
 				}}
 				onSubmit={(data) => {
-					navigate(`/admin/games/pick-one/${data.deck}`);
+					navigate(
+						`/admin/games/pick-one/${data.deck}${data.shuffle ? '/shuffle' : '/no-shuffle'}${
+							data.allDecks ? '/all-decks' : '/single-deck'
+						}`,
+					);
 				}}
 				fields={(form) => (
 					<>
 						<DeckDropdown topLevelForm={form} name="deck" />
+
+						<Checkbox
+							css={[utilStyles.spacing('bottom', 12), utilStyles.spacing('top', 12)]}
+							label="Shuffle?"
+							{...form.getInputProps('shuffle')}
+						/>
+
+						<Checkbox
+							css={[utilStyles.spacing('bottom', 12), utilStyles.spacing('top', 12)]}
+							label="All decks?"
+							{...form.getInputProps('allDecks')}
+						/>
 
 						<Button
 							type="submit"
