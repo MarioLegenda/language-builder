@@ -1,6 +1,7 @@
-import { Title } from '@mantine/core';
 import { useCallback, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Success } from '@/features/games/components/Success';
+import { Word } from '@/features/games/components/Word';
 import { useInterval } from '@/lib/helpers/useInterval';
 import * as styles from '@/styles/games/PickOne.styles';
 import * as utilStyles from '@/styles/shared/Util.styles';
@@ -40,8 +41,8 @@ export function Item({ engine, onDone }: Props) {
 		setStatus((s) => ({ ...s, isTried: true, isCorrect: true, chosenIndex: chosenIndex }));
 	};
 
-	const setTried = () => {
-		setStatus((s) => ({ ...s, isTried: true, isCorrect: false, chosenIndex: null }));
+	const setTried = (chosenIdx: number) => {
+		setStatus((s) => ({ ...s, isTried: true, isCorrect: false, chosenIndex: chosenIdx }));
 	};
 
 	useInterval({
@@ -88,7 +89,7 @@ export function Item({ engine, onDone }: Props) {
 				return;
 			}
 
-			setTried();
+			setTried(transIdx);
 		},
 		[status],
 	);
@@ -96,11 +97,9 @@ export function Item({ engine, onDone }: Props) {
 	return (
 		<>
 			<div css={[utilStyles.column(12), utilStyles.spacing('bottom', 64)]}>
-				<Title css={utilStyles.flex('space-between')} order={1}>
-					<p>{Boolean(engine.words[status.currentIndex]) && engine.words[status.currentIndex].word} </p>
-
-					<p css={styles.timer(status.timer)}>{status.timer}</p>
-				</Title>
+				<Word name={engine.words[status.currentIndex].word}>
+					<span css={styles.timer(status.timer)}>{status.timer}</span>
+				</Word>
 			</div>
 
 			<div css={[utilStyles.column(12), utilStyles.spacing('bottom', 32)]}>
@@ -113,6 +112,9 @@ export function Item({ engine, onDone }: Props) {
                     			status.isTried && status.isCorrect && status.chosenIndex === i
                     				? styles.correctItem
                     				: undefined,
+                    			status.isTried && !status.isCorrect && status.chosenIndex === i
+                    				? styles.incorrectItem
+                    				: undefined,
                     		]}
                     		key={item.id}>
                     		{item.name}
@@ -121,13 +123,7 @@ export function Item({ engine, onDone }: Props) {
 			</div>
 
 			<div css={[utilStyles.column(12), utilStyles.spacing('bottom', 64)]}>
-				{status.isTried && status.isCorrect && (
-					<p css={styles.status(status.isTried && status.isCorrect)}>CORRECT</p>
-				)}
-
-				{status.isTried && !status.isCorrect && (
-					<p css={styles.status(status.isTried && status.isCorrect)}>FAILED</p>
-				)}
+				{status.isTried && status.isCorrect && <Success />}
 			</div>
 		</>
 	);

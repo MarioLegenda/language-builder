@@ -6,7 +6,7 @@ interface PickOneEngine {
 interface PickOneEngineWord {
     word: string;
     choices: TranslationWithID[];
-    correctTranslation: Translation;
+    correctTranslation: TranslationWithID;
 }
 
 interface AnswerStatus {

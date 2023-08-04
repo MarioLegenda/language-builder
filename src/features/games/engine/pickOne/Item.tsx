@@ -1,5 +1,7 @@
-import { Button, Group, Title } from '@mantine/core';
+import { Button, Group } from '@mantine/core';
 import { useCallback, useState } from 'react';
+import { Success } from '@/features/games/components/Success';
+import { Word } from '@/features/games/components/Word';
 import * as styles from '@/styles/games/PickOne.styles';
 import * as utilStyles from '@/styles/shared/Util.styles';
 
@@ -35,7 +37,7 @@ export function Item({ engine, onDone }: Props) {
 			setStatus({
 				isTried: true,
 				isCorrect: false,
-				idx: null,
+				idx: transIdx,
 			});
 		},
 		[status],
@@ -50,9 +52,7 @@ export function Item({ engine, onDone }: Props) {
 	return (
 		<>
 			<div css={[utilStyles.column(12), utilStyles.spacing('bottom', 64)]}>
-				<Title align="center" order={1}>
-					{engine.words[index].word}
-				</Title>
+				<Word name={engine.words[index].word} />
 			</div>
 
 			<div css={[utilStyles.column(12), utilStyles.spacing('bottom', 32)]}>
@@ -62,6 +62,7 @@ export function Item({ engine, onDone }: Props) {
 						css={[
 							styles.item,
 							status.isTried && status.isCorrect && status.idx === i ? styles.correctItem : undefined,
+							status.isTried && !status.isCorrect && status.idx === i ? styles.incorrectItem : undefined,
 						]}
 						key={item.id}>
 						{item.name}
@@ -70,31 +71,27 @@ export function Item({ engine, onDone }: Props) {
 			</div>
 
 			<div css={[utilStyles.column(12), utilStyles.spacing('bottom', 64)]}>
-				{status.isTried && status.isCorrect && (
-					<p css={styles.status(status.isTried && status.isCorrect)}>CORRECT</p>
-				)}
-
-				{status.isTried && !status.isCorrect && (
-					<p css={styles.status(status.isTried && status.isCorrect)}>FAILED</p>
-				)}
+				{status.isTried && status.isCorrect && <Success />}
 			</div>
 
-			<div css={utilStyles.column(12)}>
-				<Group position="right">
-					<Button
-						disabled={!status.isCorrect}
-						onClick={() => {
-							setStatus({
-								isCorrect: false,
-								isTried: false,
-								idx: null,
-							});
-							setIndex((idx) => idx + 1);
-						}}>
-                        Next
-					</Button>
-				</Group>
-			</div>
+			{status.isCorrect && (
+				<div css={utilStyles.column(12)}>
+					<Group position="center">
+						<Button
+							size="xl"
+							onClick={() => {
+								setStatus({
+									isCorrect: false,
+									isTried: false,
+									idx: null,
+								});
+								setIndex((idx) => idx + 1);
+							}}>
+                            Next
+						</Button>
+					</Group>
+				</div>
+			)}
 		</>
 	);
 }

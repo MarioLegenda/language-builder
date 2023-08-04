@@ -28,7 +28,7 @@ export const startAt = (num: number) => css`
 `;
 
 export const flex = (
-	justifyContent: 'space-between' | 'left' | 'right' | 'space-around',
+	justifyContent: 'space-between' | 'left' | 'right' | 'space-around' | 'start',
 	gap = 'auto',
 	align = 'center',
 ) => css`
