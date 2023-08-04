@@ -2,12 +2,12 @@ export function getDefaultTranslationValues() {
 	return [
 		{
 			name: '',
-			type: '',
-			gender: '',
+			type: 'Noun',
+			gender: 'Feminine',
 			language: '',
 			example: '',
 			hint: '',
-			isMain: false,
+			isMain: true,
 		},
 	];
 }
