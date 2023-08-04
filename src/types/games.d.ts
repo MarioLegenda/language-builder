@@ -5,7 +5,7 @@ interface PickOneEngine {
 
 interface PickOneEngineWord {
     word: string;
-    choices: Translation[];
+    choices: TranslationWithID[];
     correctTranslation: Translation;
 }
 

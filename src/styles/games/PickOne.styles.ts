@@ -6,8 +6,9 @@ export const item = css`
     border: 1px solid var(--color-lightText);
     border-radius: 4px;
     padding: 8px;
+    display: inline-block;
 
-    margin-right: 8px;
+    margin: 0 8px 8px 0;
 
     cursor: pointer;
     transition: color 0.3s, border 0.3s;

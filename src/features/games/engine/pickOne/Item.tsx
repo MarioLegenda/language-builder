@@ -56,16 +56,16 @@ export function Item({ engine, onDone }: Props) {
 			</div>
 
 			<div css={[utilStyles.column(12), utilStyles.spacing('bottom', 32)]}>
-				{engine.words[index].choices.map((item: Translation, i: number) => (
-					<label
+				{engine.words[index].choices.map((item: TranslationWithID, i: number) => (
+					<p
 						onClick={() => onTranslationChoice(index, i)}
 						css={[
 							styles.item,
 							status.isTried && status.isCorrect && status.idx === i ? styles.correctItem : undefined,
 						]}
-						key={i}>
+						key={item.id}>
 						{item.name}
-					</label>
+					</p>
 				))}
 			</div>
 
@@ -84,12 +84,12 @@ export function Item({ engine, onDone }: Props) {
 					<Button
 						disabled={!status.isCorrect}
 						onClick={() => {
-							setIndex((idx) => idx + 1);
 							setStatus({
 								isCorrect: false,
 								isTried: false,
 								idx: null,
 							});
+							setIndex((idx) => idx + 1);
 						}}>
                         Next
 					</Button>

@@ -61,3 +61,5 @@ interface EditTranslationForm {
     example: string;
     isMain: boolean;
 }
+
+type TranslationWithID = Translation & WithID;

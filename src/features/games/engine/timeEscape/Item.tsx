@@ -105,8 +105,8 @@ export function Item({ engine, onDone }: Props) {
 
 			<div css={[utilStyles.column(12), utilStyles.spacing('bottom', 32)]}>
 				{Boolean(engine.words[status.currentIndex]) &&
-                    engine.words[status.currentIndex].choices.map((item: Translation, i: number) => (
-                    	<label
+                    engine.words[status.currentIndex].choices.map((item: TranslationWithID, i: number) => (
+                    	<p
                     		onClick={() => onTranslationChoice(status.currentIndex, i)}
                     		css={[
                     			styles.item,
@@ -114,9 +114,9 @@ export function Item({ engine, onDone }: Props) {
                     				? styles.correctItem
                     				: undefined,
                     		]}
-                    		key={i}>
+                    		key={item.id}>
                     		{item.name}
-                    	</label>
+                    	</p>
                     ))}
 			</div>
 

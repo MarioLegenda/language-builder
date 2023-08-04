@@ -1,4 +1,4 @@
-import {Button, Card, Checkbox, TextInput, Title} from '@mantine/core';
+import { Button, Card, Checkbox, TextInput, Title } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import { DeckDropdown } from '@/features/shared/components/forms/DeckDropdown';
 import { Form } from '@/features/shared/components/forms/Form';
@@ -34,7 +34,11 @@ export function TimeEscapeItem() {
 					},
 				}}
 				onSubmit={(data) => {
-					navigate(`/admin/games/time-escape/${data.deck}/${data.timer}${data.allDecks ? '/all-decks' : '/single-deck'}`);
+					navigate(
+						`/admin/games/time-escape/${data.deck}/${data.timer}${
+							data.allDecks ? '/all-decks' : '/single-deck'
+						}`,
+					);
 				}}
 				fields={(form) => (
 					<>

@@ -1,8 +1,8 @@
-import { getRandomTranslations, getTranslations } from '@/features/games/engine/util';
+import { createMainTranslationWithID, getRandomTranslations, getTranslations } from '@/features/games/engine/util';
 import { CardStore } from '@/lib/dataSource/cards';
 import { shuffle } from '@/lib/helpers/shuffle';
 
-function createVisualCards(cardName: string, exclude: string[]): Translation[] {
+function createVisualCards(cardName: string, exclude: string[]): TranslationWithID[] {
 	const card = CardStore.get(cardName);
 
 	return getRandomTranslations(5, getTranslations(card.toLanguage), exclude);
@@ -15,12 +15,11 @@ export function createEngine(deckName: string, doShuffle = false): PickOneEngine
 	const words: PickOneEngineWord[] = [];
 	for (const card of shuffledCards) {
 		const foundCard = CardStore.get(card);
-		const translations = Object.values(foundCard.translations);
-		const mainTranslation = translations.filter((item) => item.isMain)[0];
+		const mainTranslation: TranslationWithID = createMainTranslationWithID(foundCard.translations);
 
 		words.push({
 			word: CardStore.get(card).word,
-			choices: shuffle([...createVisualCards(card, [mainTranslation.name]), mainTranslation]),
+			choices: shuffle([...createVisualCards(card, [mainTranslation.id]), mainTranslation]),
 			correctTranslation: mainTranslation,
 		});
 	}
