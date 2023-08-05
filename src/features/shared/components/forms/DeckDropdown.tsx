@@ -3,7 +3,7 @@ import { Select } from '@mantine/core';
 import { Loading } from '@/features/shared/components/Loading';
 import { FirestoreMetadata } from '@/lib/dataSource/firebase/firestoreMetadata';
 import { QueryKeys } from '@/lib/dataSource/queryKeys';
-import { useListDocuments } from '@/lib/dataSource/useListDocuments';
+import {useGetAllDocuments} from '@/lib/dataSource/useGetAllDocuments';
 import { ifLoading } from '@/styles/shared/LanguageDropdown.styles';
 import type { SelectItem, SelectProps } from '@mantine/core';
 import type { UseFormReturnType } from '@mantine/form';
@@ -27,7 +27,7 @@ function createValues(decks: DeckWithID[]): SelectItem[] {
 }
 
 export function DeckDropdown<T>({ topLevelForm, name, searchable = false, ...rest }: Props<T>) {
-	const { isFetching, data } = useListDocuments<DeckWithID>(
+	const { isFetching, data } = useGetAllDocuments<DeckWithID>(
 		QueryKeys.DECK_LISTING,
 		FirestoreMetadata.deckCollection.name,
 	);

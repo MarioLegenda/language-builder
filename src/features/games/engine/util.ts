@@ -96,3 +96,26 @@ export function createMainTranslationWithID(translations: Record<string, Transla
 
 	throw new Error('ID for main translation not found.');
 }
+
+export function speak(text: string, lang: string, onEnd?: () => void) {
+	const utterance = new SpeechSynthesisUtterance();
+
+	utterance.text = text;
+	utterance.lang = lang;
+	utterance.voice = speechSynthesis.getVoices()[0];
+
+	// Speak the utterance
+	speechSynthesis.speak(utterance);
+
+	if (onEnd) {
+		utterance.onend = onEnd;
+	}
+}
+
+export function langToBCP(lang: string) {
+	if (lang === 'it') {
+		return 'it-IT';
+	}
+
+	return 'it-IT';
+}

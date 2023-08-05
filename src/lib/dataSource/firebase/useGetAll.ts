@@ -1,4 +1,4 @@
-import { collection, getDocs } from '@firebase/firestore';
+import {collection, getDocs, orderBy, query} from '@firebase/firestore';
 import { getFirestoreDB } from '@/lib/dataSource/firebase/firebase';
 import type { DocumentData, QuerySnapshot } from '@firebase/firestore';
 
@@ -7,9 +7,9 @@ export function useGetAll<T extends DocumentData>() {
 		let snapshot: QuerySnapshot<DocumentData, DocumentData>;
 
 		if (segment) {
-			snapshot = await getDocs(collection(getFirestoreDB(), path, segment));
+			snapshot = await getDocs(query(collection(getFirestoreDB(), path, segment), orderBy('createdAt', 'desc')));
 		} else {
-			snapshot = await getDocs(collection(getFirestoreDB(), path));
+			snapshot = await getDocs(query(collection(getFirestoreDB(), path), orderBy('createdAt', 'desc')));
 		}
 
 		const data: T[] = [];
