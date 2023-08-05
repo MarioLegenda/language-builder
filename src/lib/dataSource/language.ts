@@ -21,14 +21,18 @@ class ThisStore<T> implements DataSource<T> {
 	findBy(filterFn: (item: T, idx: number) => void): T[] {
 		return Object.values(this.all()).filter(filterFn);
 	}
-	createNextID(): number {
-		return 0;
-	}
 	all(): Store<T> {
 		return this.store;
 	}
 	remove(id: string) {
 		delete this.store[id];
+	}
+	removeBy(filterFn: (item: T, idx: number) => void) {
+		const cards = Object.values(this.store).filter(filterFn) as Card[];
+
+		for (const card of cards) {
+			this.remove(card.id as string);
+		}
 	}
 	get(id: string): T {
 		return this.store[id];

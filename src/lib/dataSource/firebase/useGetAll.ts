@@ -1,10 +1,16 @@
 import { collection, getDocs } from '@firebase/firestore';
 import { getFirestoreDB } from '@/lib/dataSource/firebase/firebase';
-import type { DocumentData } from '@firebase/firestore';
+import type { DocumentData, QuerySnapshot } from '@firebase/firestore';
 
 export function useGetAll<T extends DocumentData>() {
-	return async (path: string) => {
-		const snapshot = await getDocs(collection(getFirestoreDB(), path));
+	return async (path: string, segment?: string) => {
+		let snapshot: QuerySnapshot<DocumentData, DocumentData>;
+
+		if (segment) {
+			snapshot = await getDocs(collection(getFirestoreDB(), path, segment));
+		} else {
+			snapshot = await getDocs(collection(getFirestoreDB(), path));
+		}
 
 		const data: T[] = [];
 		snapshot.forEach((doc) => {

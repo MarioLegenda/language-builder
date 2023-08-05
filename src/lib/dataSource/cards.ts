@@ -27,6 +27,13 @@ class ThisStore<T> implements DataSource<T> {
 	remove(id: string) {
 		delete this.store[id];
 	}
+	removeBy(filterFn: (item: T, idx: number) => void) {
+		const cards = Object.values(this.store).filter(filterFn) as Card[];
+
+		for (const card of cards) {
+			this.remove(card.id as string);
+		}
+	}
 	all(): Store<T> {
 		return this.store;
 	}

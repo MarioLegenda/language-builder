@@ -8,6 +8,7 @@ interface DataSource<T> {
     paginate(offset: number, limit: number): T[];
     has(id: string): boolean;
     persist(): void;
+    removeBy(filterFn: (item: T, idx: number) => void): void;
     count(): number;
     all(): Store<T>;
     findBy(filterFn: (item: T, idx: number) => void): T[];

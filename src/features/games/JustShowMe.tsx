@@ -1,5 +1,6 @@
-import { Button, Card, Checkbox, Title } from '@mantine/core';
+import { Button, Card, Checkbox } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
+import { GameHeader } from '@/features/games/components/GameHeader';
 import { DeckDropdown } from '@/features/shared/components/forms/DeckDropdown';
 import { Form } from '@/features/shared/components/forms/Form';
 import { requiredAndLimited } from '@/lib/validation/requiredAndLimited';
@@ -9,9 +10,7 @@ export function JustShowMe() {
 
 	return (
 		<Card shadow="sm" css={[utilStyles.column(6), utilStyles.overflow('inherit'), utilStyles.resizeOn(680, 12)]}>
-			<Title order={4} align="center" css={utilStyles.spacing('bottom', 64)}>
-                Just show me
-			</Title>
+			<GameHeader game="just-show-me" title="Just show me" />
 
 			<Form
 				validateInputOnChange={true}

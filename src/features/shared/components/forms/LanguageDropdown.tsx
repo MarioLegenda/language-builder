@@ -9,10 +9,10 @@ import type { SelectItem } from '@mantine/core';
 import type { UseFormReturnType } from '@mantine/form';
 
 interface Props<T> {
+    name: string;
     form: UseFormReturnType<T>;
     defaultValue?: string;
     label?: string;
-    name: string;
 }
 
 function createValues(languages: Language[]): SelectItem[] {
