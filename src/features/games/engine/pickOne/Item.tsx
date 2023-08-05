@@ -60,7 +60,8 @@ export function Item({ engine, onDone }: Props) {
 
 			<div css={[utilStyles.column(12), utilStyles.spacing('bottom', 32)]}>
 				{engine.words[index].choices.map((item: TranslationWithID, i: number) => (
-					<p
+					<Button
+						variant="outline"
 						onClick={() => onTranslationChoice(index, i)}
 						css={[
 							styles.item,
@@ -69,7 +70,7 @@ export function Item({ engine, onDone }: Props) {
 						]}
 						key={item.id}>
 						{item.name}
-					</p>
+					</Button>
 				))}
 			</div>
 

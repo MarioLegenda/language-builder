@@ -1,3 +1,4 @@
+import {Button} from '@mantine/core';
 import { useCallback, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Success } from '@/features/games/components/Success';
@@ -110,7 +111,8 @@ export function Item({ engine, onDone }: Props) {
 			<div css={[utilStyles.column(12), utilStyles.spacing('bottom', 32)]}>
 				{Boolean(engine.words[status.currentIndex]) &&
                     engine.words[status.currentIndex].choices.map((item: TranslationWithID, i: number) => (
-                    	<p
+                    	<Button
+                    		variant="outline"
                     		onClick={() => onTranslationChoice(status.currentIndex, i)}
                     		css={[
                     			styles.item,
@@ -123,7 +125,7 @@ export function Item({ engine, onDone }: Props) {
                     		]}
                     		key={item.id}>
                     		{item.name}
-                    	</p>
+                    	</Button>
                     ))}
 			</div>
 

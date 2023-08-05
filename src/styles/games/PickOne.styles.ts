@@ -5,11 +5,11 @@ export const root = css``;
 export const item = css`
     border: 1px solid var(--color-darkLight);
     border-radius: 4px;
-    padding: 8px;
     display: inline-block;
     font-size: 24px;
     min-width: 100px;
     text-align: center;
+  color: white;
 
     margin: 0 12px 12px 0;
 
