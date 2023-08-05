@@ -2,6 +2,7 @@ import { Button, Group, Title } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Translation } from '@/features/games/engine/justShowMe/Translation';
+import {langToBCP, speak} from '@/features/games/engine/util';
 import * as utilStyles from '@/styles/shared/Util.styles';
 
 interface Props {
@@ -26,6 +27,16 @@ export function Item({ engine, onDone }: Props) {
 	}, [index, isInfinite]);
 
 	const translations = engine[index] && engine[index].translationsArray ? engine[index].translationsArray : [];
+
+	useEffect(() => {
+		if (engine[index] && translations) {
+			const mainTranslation = translations.find(item => item.isMain);
+
+			if (mainTranslation) {
+				speak(mainTranslation.name, langToBCP(mainTranslation.language));
+			}
+		}
+	}, [index, translations]);
 
 	return (
 		<>

@@ -110,6 +110,11 @@ export function speak(text: string, lang: string, onEnd?: () => void) {
 	if (onEnd) {
 		utterance.onend = onEnd;
 	}
+
+	utterance.onerror = () => {
+		console.log('sadflkasjdfčljaskdf');
+		onEnd?.();
+	};
 }
 
 export function langToBCP(lang: string) {
