@@ -1,9 +1,12 @@
 import { css } from '@emotion/react';
 
 export const root = css`
+  min-width: 640px;
+  
+  @media (max-width: 480px) {
     min-width: 480px;
-  margin: 0 auto;
-  overflow: scroll;
+    overflow-x: scroll;
+  }
 `;
 
 export const nothingFound = css`
