@@ -1,15 +1,20 @@
 import { Button } from '@mantine/core';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Listing } from '@/features/shared/components/Listing';
 import { ReactiveButton } from '@/features/shared/components/ReactiveButton';
 import { FirestoreMetadata } from '@/lib/dataSource/firebase/firestoreMetadata';
 import { QueryKeys } from '@/lib/dataSource/queryKeys';
 import { useDeleteDocument } from '@/lib/dataSource/useDeleteDocument';
-import { useListDocuments } from '@/lib/dataSource/useListDocuments';
+import { usePagination } from '@/lib/dataSource/usePagination';
 
 export function Root() {
-	const { isFetching, isRefetching, data } = useListDocuments<Language>(QueryKeys.LANGUAGE_LISTING, 'languages');
+	const [direction, setDirection] = useState<'next' | 'previous'>('next');
+	const { isFetching, isRefetching, data, refetch } = usePagination<Language>(
+		QueryKeys.LANGUAGE_LISTING,
+		'languages',
+		direction,
+	);
 	const { mutateAsync, invalidateRelated } = useDeleteDocument();
 
 	const renderRows = useCallback(() => {
@@ -66,6 +71,14 @@ export function Root() {
 				isLoading: isFetching && !isRefetching,
 			}}
 			tableRows={['Name', 'Short name', 'Edit', 'Delete']}
+			onNext={() => {
+				setDirection('next');
+				refetch();
+			}}
+			onPrev={() => {
+				setDirection('previous');
+				refetch();
+			}}
 		/>
 	);
 }

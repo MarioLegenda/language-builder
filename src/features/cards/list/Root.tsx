@@ -13,9 +13,11 @@ export function Root() {
 	const [fromLanguageFilter, setFromLanguageFilter] = useState<string>('');
 	const [listing, setListing] = useState<Card[] | null>(null);
 
-	const { data, isFetching, isRefetching } = usePagination<Card>(
+	const [direction, setDirection] = useState<'next' | 'previous'>('next');
+	const { data, isFetching, isRefetching, refetch } = usePagination<Card>(
 		QueryKeys.CARDS_LISTING,
 		FirestoreMetadata.cardsCollection.name,
+		direction,
 	);
 	const { mutateAsync, invalidateRelated } = useDeleteDocument();
 
@@ -102,6 +104,14 @@ export function Root() {
 					isLoading: isFetching && !isRefetching,
 				}}
 				tableRows={['ID', 'Word', 'From language', 'To language', 'Deck ID', 'Edit', 'Delete']}
+				onNext={() => {
+					setDirection('next');
+					refetch();
+				}}
+				onPrev={() => {
+					setDirection('previous');
+					refetch();
+				}}
 			/>
 		</>
 	);

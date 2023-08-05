@@ -1,4 +1,4 @@
-import { Table } from '@mantine/core';
+import { Button, Table } from '@mantine/core';
 import React from 'react';
 import { Header } from '@/features/shared/components/Header';
 import { Loading } from '@/features/shared/components/Loading';
@@ -18,6 +18,8 @@ interface Props {
         isLoading: boolean;
     };
     tableRows: string[];
+    onNext: VoidFn;
+    onPrev: VoidFn;
 }
 export const Listing = ({
 	rows,
@@ -26,6 +28,8 @@ export const Listing = ({
 	tableRows,
 	header: { createTo, title, showLoading },
 	globalLoader: { isLoading },
+	onNext,
+	onPrev,
 }: Props) => (
 	<div>
 		<Header createTo={createTo} title={title} showLoading={showLoading} />
@@ -47,5 +51,16 @@ export const Listing = ({
 		)}
 
 		{showNothing && <p css={styles.nothingFound}>Nothing found</p>}
+
+		{!isLoading && (
+			<div css={styles.paginationRoot}>
+				<Button onClick={onNext} color="gray" variant="outline">
+                    Previous
+				</Button>
+				<Button onClick={onPrev} color="gray" variant="outline">
+                    Next
+				</Button>
+			</div>
+		)}
 	</div>
 );

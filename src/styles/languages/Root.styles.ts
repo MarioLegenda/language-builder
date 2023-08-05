@@ -24,3 +24,10 @@ export const filtersList = css`
 
     margin-bottom: 64px;
 `;
+
+export const paginationRoot = css`
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin: 64px 0 64px 0;
+`;
