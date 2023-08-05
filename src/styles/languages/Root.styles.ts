@@ -1,5 +1,11 @@
 import { css } from '@emotion/react';
 
+export const root = css`
+    min-width: 480px;
+  margin: 0 auto;
+  overflow: scroll;
+`;
+
 export const nothingFound = css`
     color: var(--color-lightText);
     text-align: center;

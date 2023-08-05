@@ -31,7 +31,7 @@ export const Listing = ({
 	onNext,
 	onPrev,
 }: Props) => (
-	<div>
+	<div css={styles.root}>
 		<Header createTo={createTo} title={title} showLoading={showLoading} />
 
 		<Loading visible={isLoading} />
