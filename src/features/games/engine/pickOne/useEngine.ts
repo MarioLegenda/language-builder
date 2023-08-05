@@ -1,7 +1,9 @@
 import { useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { createEngine } from '@/features/games/engine/pickOne/engine';
+import { DeckStore } from '@/lib/dataSource/deck';
 import { useDeck } from '@/lib/dataSource/hooks/useDeck';
+import { Storage } from '@/lib/dataSource/storage';
 
 export function useEngine() {
 	const { store } = useDeck();
@@ -26,6 +28,19 @@ export function useEngine() {
 	engineRef.current = {
 		deck: deck,
 		words: (function () {
+			if (deckId === 'anonymous-decks') {
+				const storage = new Storage('anonymous-decks');
+				const deckIds = storage.get('ids') as string[];
+
+				let words: PickOneEngineWord[] = [];
+				for (const deckId of deckIds) {
+					const deck = DeckStore.get(deckId);
+					words = [...words, ...createEngine(deck.id as string, doShuffle)];
+				}
+
+				return words;
+			}
+
 			if (doAllDecks) {
 				const allDecks = Object.values(store.all());
 				let words: PickOneEngineWord[] = [];

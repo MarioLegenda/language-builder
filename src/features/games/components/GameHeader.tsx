@@ -1,7 +1,7 @@
 import { Modal, MultiSelect } from '@mantine/core';
 import { IconArticle, IconAtom } from '@tabler/icons';
 
-import {useCallback, useState} from 'react';
+import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Loading } from '@/features/shared/components/Loading';
 import { FieldRow } from '@/features/shared/components/forms/FieldRow';
@@ -42,27 +42,30 @@ function createSelectValue(values: Deck[] | Card[]): SelectItem[] {
 export function GameHeader({ title, game }: Props) {
 	const navigate = useNavigate();
 
-	const redirect = useCallback(() => {
-		if (game === 'time-escape') {
-			navigate(`/admin/games/${game}/anonymous/4/single-deck`);
+	const redirect = useCallback(
+		(id: 'anonymous' | 'anonymous-decks') => {
+			if (game === 'time-escape') {
+				navigate(`/admin/games/${game}/${id}/4/single-deck`);
 
-			return;
-		}
+				return;
+			}
 
-		if (game === 'pick-one') {
-			navigate(`/admin/games/${game}/anonymous/shuffle/single-deck`);
+			if (game === 'pick-one') {
+				navigate(`/admin/games/${game}/${id}/shuffle/single-deck`);
 
-			return;
-		}
+				return;
+			}
 
-		if (game === 'just-repeat') {
-			navigate(`/admin/games/${game}/anonymous/shuffle/single-deck`);
+			if (game === 'just-repeat') {
+				navigate(`/admin/games/${game}/${id}/shuffle/single-deck`);
 
-			return;
-		}
+				return;
+			}
 
-		navigate(`/admin/games/${game}/anonymous`);
-	}, [game]);
+			navigate(`/admin/games/${game}/${id}`);
+		},
+		[game],
+	);
 
 	const [isAnonymousOpen, setIsAnonymousOpen] = useState(false);
 	const [isDeckChooserOpen, setIsDeckChooserOpen] = useState(false);
@@ -105,7 +108,7 @@ export function GameHeader({ title, game }: Props) {
 		DeckStore.persist();
 		CardStore.persist();
 
-		redirect();
+		redirect('anonymous');
 	};
 
 	const onCreateDeckChooser = (data: SelectForm) => {
@@ -114,7 +117,7 @@ export function GameHeader({ title, game }: Props) {
 		storage.set('ids', data.data);
 		storage.persist();
 
-		redirect();
+		redirect('anonymous-decks');
 	};
 
 	const onFetchDecks = async () => {
@@ -141,10 +144,10 @@ export function GameHeader({ title, game }: Props) {
 				<span>{title}</span>
 
 				<div css={styles.actions}>
-					{isFetchingCards && <Loading visible={isFetchingDecks} />}
+					{isFetchingCards && <Loading visible={isFetchingCards} />}
 					{!isFetchingCards && <IconAtom onClick={() => onFetchCards()} />}
 
-					{isFetchingDecks && <Loading visible={isFetchingCards} />}
+					{isFetchingDecks && <Loading visible={isFetchingDecks} />}
 					{!isFetchingDecks && <IconArticle onClick={() => onFetchDecks()} />}
 				</div>
 			</h2>
@@ -238,7 +241,7 @@ export function GameHeader({ title, game }: Props) {
 											disabled: false,
 										}}
 										group={{ position: 'right' }}>
-										Play
+                                        Play
 									</SubmitButton>
 								</FieldRow>
 							</>

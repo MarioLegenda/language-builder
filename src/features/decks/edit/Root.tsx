@@ -51,8 +51,6 @@ export function Root() {
 				},
 			);
 
-			console.log(exists, data);
-
 			if (exists && exists.id !== params.id) {
 				setExistsError(true);
 				setIsSubmitting(false);

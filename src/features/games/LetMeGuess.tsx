@@ -1,6 +1,6 @@
-import { Button, Card, Title } from '@mantine/core';
+import { Button, Card } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
-import {GameHeader} from '@/features/games/components/GameHeader';
+import { GameHeader } from '@/features/games/components/GameHeader';
 import { DeckDropdown } from '@/features/shared/components/forms/DeckDropdown';
 import { Form } from '@/features/shared/components/forms/Form';
 import { requiredAndLimited } from '@/lib/validation/requiredAndLimited';

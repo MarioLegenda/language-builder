@@ -42,7 +42,6 @@ export function getRandomTranslations(num: number, translations: TranslationWith
 	while (count > 0 && num > 0) {
 		shuffled = shuffle<number>(possibilities);
 		const chosenIdx = shuffled[0];
-		shuffled.splice(0, 1);
 
 		if (!selectedIds.includes(withoutExclude[chosenIdx].id)) {
 			num--;
@@ -50,6 +49,7 @@ export function getRandomTranslations(num: number, translations: TranslationWith
 
 			selectedIds.push(withoutExclude[chosenIdx].id);
 			chosenIndexes.push(chosenIdx);
+			shuffled.splice(0, 1);
 		}
 	}
 

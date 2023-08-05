@@ -1,4 +1,4 @@
-import {Storage} from './storage';
+import { Storage } from './storage';
 
 class ThisStore<T> extends Storage<T> {}
 

@@ -48,8 +48,6 @@ export function Item({ engine, onDone }: Props) {
 		return null;
 	}
 
-	console.log(status);
-
 	return (
 		<>
 			<div css={[utilStyles.column(12), utilStyles.spacing('bottom', 64)]}>
