@@ -1,7 +1,7 @@
 import { Modal, MultiSelect } from '@mantine/core';
 import { IconArticle, IconAtom } from '@tabler/icons';
 
-import { useState } from 'react';
+import {useCallback, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Loading } from '@/features/shared/components/Loading';
 import { FieldRow } from '@/features/shared/components/forms/FieldRow';
@@ -10,6 +10,7 @@ import { SubmitButton } from '@/features/shared/components/forms/SubmitButton';
 import { CardStore } from '@/lib/dataSource/cards';
 import { DeckStore } from '@/lib/dataSource/deck';
 import { useGetAll } from '@/lib/dataSource/firebase/useGetAll';
+import { Storage } from '@/lib/dataSource/storage';
 import { isDeck } from '@/lib/dataSource/typeCheck/isDeck';
 import * as styles from '@/styles/games/GameHeader.styles';
 import type { SelectItem } from '@mantine/core';
@@ -40,6 +41,28 @@ function createSelectValue(values: Deck[] | Card[]): SelectItem[] {
 }
 export function GameHeader({ title, game }: Props) {
 	const navigate = useNavigate();
+
+	const redirect = useCallback(() => {
+		if (game === 'time-escape') {
+			navigate(`/admin/games/${game}/anonymous/4/single-deck`);
+
+			return;
+		}
+
+		if (game === 'pick-one') {
+			navigate(`/admin/games/${game}/anonymous/shuffle/single-deck`);
+
+			return;
+		}
+
+		if (game === 'just-repeat') {
+			navigate(`/admin/games/${game}/anonymous/shuffle/single-deck`);
+
+			return;
+		}
+
+		navigate(`/admin/games/${game}/anonymous`);
+	}, [game]);
 
 	const [isAnonymousOpen, setIsAnonymousOpen] = useState(false);
 	const [isDeckChooserOpen, setIsDeckChooserOpen] = useState(false);
@@ -79,17 +102,19 @@ export function GameHeader({ title, game }: Props) {
 			count++;
 		}
 
-		if (game === 'time-escape') {
-			navigate(`/admin/games/${game}/anonymous/4/single-deck`);
+		DeckStore.persist();
+		CardStore.persist();
 
-			return;
-		}
-
-		navigate(`/admin/games/${game}/anonymous`);
+		redirect();
 	};
 
 	const onCreateDeckChooser = (data: SelectForm) => {
-		console.log(data);
+		const storage = new Storage('anonymous-decks');
+		storage.remove('ids');
+		storage.set('ids', data.data);
+		storage.persist();
+
+		redirect();
 	};
 
 	const onFetchDecks = async () => {
@@ -213,7 +238,7 @@ export function GameHeader({ title, game }: Props) {
 											disabled: false,
 										}}
 										group={{ position: 'right' }}>
-                                        Create
+										Play
 									</SubmitButton>
 								</FieldRow>
 							</>
