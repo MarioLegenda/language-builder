@@ -96,11 +96,11 @@ export function Item({ engine, onDone }: Props) {
 
 	return (
 		<>
-			<div css={[utilStyles.column(12), utilStyles.spacing('bottom', 64)]}>
+			{engine.words[status.currentIndex] && <div css={[utilStyles.column(12), utilStyles.spacing('bottom', 64)]}>
 				<Word name={engine.words[status.currentIndex].word}>
 					<span css={styles.timer(status.timer)}>{status.timer}</span>
 				</Word>
-			</div>
+			</div>}
 
 			<div css={[utilStyles.column(12), utilStyles.spacing('bottom', 32)]}>
 				{Boolean(engine.words[status.currentIndex]) &&
