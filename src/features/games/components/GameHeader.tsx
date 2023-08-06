@@ -153,10 +153,15 @@ export function GameHeader({ title, game }: Props) {
 			<h2 css={styles.root}>
 				<span>{title}</span>
 
-				{game && <div css={styles.actions}>
-					<ActionButton icon={<IconAtom onClick={() => onFetchCards()}/>} isLoading={isFetchingCards}/>
-					<ActionButton icon={<IconArticle onClick={() => onFetchDecks()}/>} isLoading={isFetchingDecks}/>
-				</div>}
+				{game && (
+					<div css={styles.actions}>
+						<ActionButton icon={<IconAtom onClick={() => onFetchCards()} />} isLoading={isFetchingCards} />
+						<ActionButton
+							icon={<IconArticle onClick={() => onFetchDecks()} />}
+							isLoading={isFetchingDecks}
+						/>
+					</div>
+				)}
 			</h2>
 
 			<Modal
