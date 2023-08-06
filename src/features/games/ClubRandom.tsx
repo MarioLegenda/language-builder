@@ -9,7 +9,7 @@ export function ClubRandom() {
 
 	return (
 		<Card shadow="sm" css={[utilStyles.column(6), utilStyles.overflow('inherit'), utilStyles.resizeOn(680, 12)]}>
-			<GameHeader title="Club random" game="club-random" />
+			<GameHeader title="Club random" />
 
 			<Form
 				validateInputOnChange={true}
