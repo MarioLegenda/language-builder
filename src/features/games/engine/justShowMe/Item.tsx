@@ -1,5 +1,5 @@
 import { Button, Group, Title } from '@mantine/core';
-import {useEffect, useLayoutEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
 import { Translation } from '@/features/games/engine/justShowMe/Translation';
 import {langToBCP, speak} from '@/features/games/engine/util';
@@ -33,9 +33,7 @@ export function Item({ engine, onDone }: Props) {
 			const mainTranslation = translations.find(item => item.isMain);
 
 			if (mainTranslation) {
-				setTimeout(() => {
-					speak(mainTranslation.name, langToBCP(mainTranslation.language));
-				}, 1000);
+				speak(mainTranslation.name, langToBCP(mainTranslation.language));
 			}
 		}
 	}, [index, translations]);
