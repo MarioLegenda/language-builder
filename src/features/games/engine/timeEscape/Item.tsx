@@ -1,9 +1,9 @@
-import {Button} from '@mantine/core';
+import { Button } from '@mantine/core';
 import { useCallback, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Success } from '@/features/games/components/Success';
 import { Word } from '@/features/games/components/Word';
-import {langToBCP, speak} from '@/features/games/engine/util';
+import { langToBCP, speak } from '@/features/games/engine/util';
 import { useInterval } from '@/lib/helpers/useInterval';
 import * as styles from '@/styles/games/PickOne.styles';
 import * as utilStyles from '@/styles/shared/Util.styles';

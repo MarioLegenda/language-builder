@@ -1,7 +1,7 @@
 import { Button, Group, Title } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { Translation } from '@/features/games/engine/justShowMe/Translation';
-import {langToBCP, speak} from '@/features/games/engine/util';
+import { langToBCP, speak } from '@/features/games/engine/util';
 import * as utilStyles from '@/styles/shared/Util.styles';
 
 interface Props {
@@ -44,15 +44,18 @@ export function Item({ engine, onDone }: Props) {
 				<div css={utilStyles.column(12)}>
 					{!isShown && (
 						<Group position="right">
-							<Button onClick={() => {
-								const trans = translations && translations.find(item => item.isMain);
+							<Button
+								onClick={() => {
+									const trans = translations && translations.find((item) => item.isMain);
 
-								if (trans) {
-									speak(trans.name, langToBCP(trans.language));
-								}
+									if (trans) {
+										speak(trans.name, langToBCP(trans.language));
+									}
 
-								setIsShown(true);
-							}}>Show me</Button>
+									setIsShown(true);
+								}}>
+                                Show me
+							</Button>
 						</Group>
 					)}
 

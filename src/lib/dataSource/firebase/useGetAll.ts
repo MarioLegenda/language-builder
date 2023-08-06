@@ -1,4 +1,4 @@
-import {collection, getDocs, orderBy, query} from '@firebase/firestore';
+import { collection, getDocs, orderBy, query } from '@firebase/firestore';
 import { getFirestoreDB } from '@/lib/dataSource/firebase/firebase';
 import type { DocumentData, QuerySnapshot } from '@firebase/firestore';
 

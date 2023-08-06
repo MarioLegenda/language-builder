@@ -9,7 +9,7 @@ export const item = css`
     font-size: 24px;
     min-width: 100px;
     text-align: center;
-  color: white;
+    color: white;
 
     margin: 0 12px 12px 0;
 

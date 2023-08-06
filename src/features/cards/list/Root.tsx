@@ -9,8 +9,6 @@ import { useDeleteDocument } from '@/lib/dataSource/useDeleteDocument';
 import { usePagination } from '@/lib/dataSource/usePagination';
 
 export function Root() {
-	const [toLanguageFilter, setToLanguageFilter] = useState<string>('');
-	const [fromLanguageFilter, setFromLanguageFilter] = useState<string>('');
 	const [listing, setListing] = useState<Card[] | null>(null);
 
 	const [direction, setDirection] = useState<'next' | 'previous'>('next');
@@ -28,16 +26,6 @@ export function Root() {
 			setListing(null);
 		}
 	}, [data, isFetching]);
-
-	useEffect(() => {
-		if (toLanguageFilter) {
-			// to language filter
-		}
-
-		if (fromLanguageFilter) {
-			// from language filter
-		}
-	}, [toLanguageFilter, fromLanguageFilter]);
 
 	const rows = useCallback(() => {
 		if (listing) {

@@ -3,7 +3,7 @@ import { Select } from '@mantine/core';
 import { Loading } from '@/features/shared/components/Loading';
 import { FirestoreMetadata } from '@/lib/dataSource/firebase/firestoreMetadata';
 import { QueryKeys } from '@/lib/dataSource/queryKeys';
-import {useGetAllDocuments} from '@/lib/dataSource/useGetAllDocuments';
+import { useGetAllDocuments } from '@/lib/dataSource/useGetAllDocuments';
 import { ifLoading } from '@/styles/shared/LanguageDropdown.styles';
 import type { SelectItem, SelectProps } from '@mantine/core';
 import type { UseFormReturnType } from '@mantine/form';

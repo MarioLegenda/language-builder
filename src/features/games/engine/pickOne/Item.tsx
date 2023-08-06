@@ -2,7 +2,7 @@ import { Button, Group } from '@mantine/core';
 import { useCallback, useState } from 'react';
 import { Success } from '@/features/games/components/Success';
 import { Word } from '@/features/games/components/Word';
-import {langToBCP, speak} from '@/features/games/engine/util';
+import { langToBCP, speak } from '@/features/games/engine/util';
 import * as styles from '@/styles/games/PickOne.styles';
 import * as utilStyles from '@/styles/shared/Util.styles';
 
