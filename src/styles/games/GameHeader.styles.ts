@@ -14,7 +14,7 @@ export const actions = css`
     display: flex;
     justify-content: right;
     gap: 12px;
-  
+
     svg {
         cursor: pointer;
     }
@@ -22,5 +22,5 @@ export const actions = css`
 
 export const action = css`
     width: 24px;
-  height: 24px;
+    height: 24px;
 `;

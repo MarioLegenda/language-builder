@@ -14,3 +14,7 @@ interface AnswerStatus {
     isTried: boolean;
     idx: number | null;
 }
+
+interface ClubRandomEngine {
+    words: PickOneEngineWord[];
+}

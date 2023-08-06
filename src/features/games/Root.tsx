@@ -1,3 +1,4 @@
+import { ClubRandom } from '@/features/games/ClubRandom';
 import { JustRepeat } from '@/features/games/JustRepeat';
 import { JustShowMe } from '@/features/games/JustShowMe';
 import { LetMeGuess } from '@/features/games/LetMeGuess';
@@ -12,6 +13,7 @@ export function Root() {
 			<PickOneItem />
 			<JustRepeat />
 			<TimeEscapeItem />
+			<ClubRandom />
 		</div>
 	);
 }

@@ -1,7 +1,7 @@
 import { Modal, MultiSelect } from '@mantine/core';
 import { IconArticle, IconAtom } from '@tabler/icons';
 
-import { useCallback, useState} from 'react';
+import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Loading } from '@/features/shared/components/Loading';
 import { FieldRow } from '@/features/shared/components/forms/FieldRow';
@@ -14,7 +14,7 @@ import { Storage } from '@/lib/dataSource/storage';
 import { isDeck } from '@/lib/dataSource/typeCheck/isDeck';
 import * as styles from '@/styles/games/GameHeader.styles';
 import type { SelectItem } from '@mantine/core';
-import type {ReactNode} from 'react';
+import type { ReactNode } from 'react';
 
 interface Props {
     title: string;
@@ -41,12 +41,13 @@ function createSelectValue(values: Deck[] | Card[]): SelectItem[] {
 	}));
 }
 
-function ActionButton({isLoading, icon}: {isLoading: boolean, icon: ReactNode}) {
-	return <div css={styles.action}>
-		{isLoading && <Loading visible={isLoading} />}
-		{!isLoading && icon}
-	</div>;
-
+function ActionButton({ isLoading, icon }: { isLoading: boolean; icon: ReactNode }) {
+	return (
+		<div css={styles.action}>
+			{isLoading && <Loading visible={isLoading} />}
+			{!isLoading && icon}
+		</div>
+	);
 }
 export function GameHeader({ title, game }: Props) {
 	const navigate = useNavigate();
@@ -153,7 +154,7 @@ export function GameHeader({ title, game }: Props) {
 				<span>{title}</span>
 
 				<div css={styles.actions}>
-					<ActionButton icon={<IconAtom  onClick={() => onFetchCards()} />} isLoading={isFetchingCards} />
+					<ActionButton icon={<IconAtom onClick={() => onFetchCards()} />} isLoading={isFetchingCards} />
 					<ActionButton icon={<IconArticle onClick={() => onFetchDecks()} />} isLoading={isFetchingDecks} />
 				</div>
 			</h2>

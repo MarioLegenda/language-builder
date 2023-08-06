@@ -6,6 +6,7 @@ import { Root as CreateDeckRoot } from '@/features/decks/create/Root';
 import { Root as EditDeckRoot } from '@/features/decks/edit/Root';
 import { Root as DecksRoot } from '@/features/decks/list/Root';
 import { Root as GamesRoot } from '@/features/games/Root';
+import { Root as ClubRandom } from '@/features/games/clubRandom/Root';
 import { Root as JustRepeat } from '@/features/games/justRepeat/Root';
 import { Root as JustShowMe } from '@/features/games/justShowMe/Root';
 import { Root as LetMeGuess } from '@/features/games/letMeGuess/Root';
@@ -101,6 +102,8 @@ export default function Home() {
 									path="/admin/games/just-repeat/:deckId/:shuffle/:allDecks"
 									element={<JustRepeat />}
 								/>
+
+								<Route path="/admin/games/club-random/:num" element={<ClubRandom />} />
 
 								<Route path="/admin/languages/create" element={<CreateLanguageRoot />} />
 								<Route path="/admin/languages/edit/:id" element={<EditLanguageRoot />} />
