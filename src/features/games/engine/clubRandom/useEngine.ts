@@ -25,13 +25,21 @@ export function useEngine() {
 			const allDecks = Object.values(DeckStore.all());
 			let random = parseInt(num as string);
 
-			if (!random || random === 0) {
+			if (!random || random === 0 || random > DeckStore.count()) {
 				random = 5;
 			}
 
-			for (let i = 0; i < random; i++) {
+			const picked: number[] = [];
+			for (;;) {
+				if (picked.length === random) {
+					break;
+				}
+
 				const idx = Math.floor(Math.random() * allDecks.length);
 
+				if (picked.includes(idx)) continue;
+
+				picked.push(idx);
 				const deck = allDecks[idx];
 
 				words = [...words, ...createEngine(deck.id as string, true)];

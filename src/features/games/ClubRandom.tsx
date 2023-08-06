@@ -2,6 +2,7 @@ import { Button, Card, TextInput } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import { GameHeader } from '@/features/games/components/GameHeader';
 import { Form } from '@/features/shared/components/forms/Form';
+import {DeckStore} from '@/lib/dataSource/deck';
 import { requiredAndLimited } from '@/lib/validation/requiredAndLimited';
 import * as utilStyles from '@/styles/shared/Util.styles';
 export function ClubRandom() {
@@ -17,7 +18,17 @@ export function ClubRandom() {
 					num: '',
 				}}
 				validate={{
-					num: (value: string) => requiredAndLimited('deck', value, 1, 2000),
+					num: (value: string) => {
+						const invalid = requiredAndLimited('deck', value, 1, 2000);
+
+						if (invalid) return invalid;
+
+						const parsed = parseInt(value);
+
+						if (parsed > DeckStore.count()) {
+							return `There are ${DeckStore.count()} decks but you specified ${parsed}`;
+						}
+					},
 				}}
 				onSubmit={(data) => {
 					navigate(`/admin/games/club-random/${data.num}`);
