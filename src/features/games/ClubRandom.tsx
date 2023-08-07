@@ -2,7 +2,7 @@ import { Button, Card, TextInput } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import { GameHeader } from '@/features/games/components/GameHeader';
 import { Form } from '@/features/shared/components/forms/Form';
-import {DeckStore} from '@/lib/dataSource/deck';
+import { DeckStore } from '@/lib/dataSource/deck';
 import { requiredAndLimited } from '@/lib/validation/requiredAndLimited';
 import * as utilStyles from '@/styles/shared/Util.styles';
 export function ClubRandom() {

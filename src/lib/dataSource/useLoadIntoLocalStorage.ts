@@ -1,16 +1,16 @@
-import {FirestoreMetadata} from '@/lib/dataSource/firebase/firestoreMetadata';
-import {useGetAll} from '@/lib/dataSource/firebase/useGetAll';
-import {useCard} from '@/lib/dataSource/hooks/useCard';
-import {useDeck} from '@/lib/dataSource/hooks/useDeck';
-import {isCard} from '@/lib/dataSource/typeCheck/isCard';
-import {isDeck} from '@/lib/dataSource/typeCheck/isDeck';
+import { FirestoreMetadata } from '@/lib/dataSource/firebase/firestoreMetadata';
+import { useGetAll } from '@/lib/dataSource/firebase/useGetAll';
+import { useCard } from '@/lib/dataSource/hooks/useCard';
+import { useDeck } from '@/lib/dataSource/hooks/useDeck';
+import { isCard } from '@/lib/dataSource/typeCheck/isCard';
+import { isDeck } from '@/lib/dataSource/typeCheck/isDeck';
 
 export function useLoadIntoLocalStorage() {
 	const getAllDecks = useGetAll<DeckWithID>();
 	const getAllCards = useGetAll<CardWithID>();
 	const { store: deckStore } = useDeck();
 	const { store: cardStore } = useCard();
-    
+
 	return (onSuccess: VoidFn) => {
 		Promise.allSettled([
 			getAllDecks(FirestoreMetadata.deckCollection.name),

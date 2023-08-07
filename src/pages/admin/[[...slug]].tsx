@@ -18,7 +18,7 @@ import { Root as LanguageRoot } from '@/features/languages/list/Root';
 import { Layout } from '@/features/shared/Layout';
 import { Content } from '@/features/shared/components/Content';
 import { Navigation } from '@/features/shared/components/Navigation';
-import {useInitApp} from '@/lib/dataSource/useInitApp';
+import { useInitApp } from '@/lib/dataSource/useInitApp';
 
 export default function Home() {
 	const [isReady, setIsReady] = useState(false);

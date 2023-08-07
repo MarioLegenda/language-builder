@@ -8,7 +8,7 @@ interface Props {
 export function authChangeListener({ onSuccess, onError }: Props) {
 	const auth = getAuth();
 	onAuthStateChanged(auth, (user) => {
-		if (user) {
+		if (user && user.email === 'marioskrlec222@gmail.com') {
 			onSuccess(user);
 			return;
 		}
