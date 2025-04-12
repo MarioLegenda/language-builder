@@ -36,50 +36,6 @@ export function FormFields({ form }: Props) {
 					</div>
 
 					<div css={styles.column(12)}>
-						<Select
-							placeholder="Type"
-							data={[
-								{ value: 'Noun', label: 'Noun' },
-								{ value: 'Adjective', label: 'Adjective' },
-								{ value: 'Adverb', label: 'Adverb' },
-								{ value: 'Pronoun', label: 'Pronoun' },
-							]}
-							{...form.getInputProps(`translations.${index}.type`)}
-						/>
-					</div>
-
-					<div css={styles.column(12)}>
-						<Select
-							placeholder="Gender"
-							data={[
-								{ value: 'Feminine', label: 'Feminine' },
-								{ value: 'Masculine', label: 'Masculine' },
-							]}
-							{...form.getInputProps(`translations.${index}.gender`)}
-						/>
-					</div>
-
-					<div css={styles.column(12)}>
-						<Textarea
-							autosize
-							placeholder="Example"
-							withAsterisk
-							sx={{ flex: 1 }}
-							{...form.getInputProps(`translations.${index}.example`)}
-						/>
-					</div>
-
-					<div css={styles.column(12)}>
-						<Textarea
-							autosize
-							placeholder="Hint"
-							withAsterisk
-							sx={{ flex: 1 }}
-							{...form.getInputProps(`translations.${index}.hint`)}
-						/>
-					</div>
-
-					<div css={styles.column(12)}>
 						<Checkbox
 							checked={form.values.translations[index].isMain}
 							label="Is main translation?"

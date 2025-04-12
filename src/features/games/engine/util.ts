@@ -26,7 +26,21 @@ export function getTranslations(lang: string): TranslationWithID[] {
 		}
 	}
 
-	return translations;
+	const realTranslations: TranslationWithID[] = [];
+	for (const translation of translations) {
+		let found = false;
+		for (const realTranslation of realTranslations) {
+			if (realTranslation.id === translation.id) {
+				found = true;
+			}
+		}
+
+		if (!found) {
+			realTranslations.push(translation);
+		}
+	}
+
+	return realTranslations;
 }
 export function getRandomTranslations(num: number, translations: TranslationWithID[], exclude: string[]) {
 	const chosenIndexes: number[] = [];
@@ -39,18 +53,17 @@ export function getRandomTranslations(num: number, translations: TranslationWith
 	let shuffled = shuffle<number>(possibilities);
 	let count = shuffled.length;
 	const selectedIds: string[] = [];
+
 	while (count > 0 && num > 0) {
 		shuffled = shuffle<number>(possibilities);
 		const chosenIdx = shuffled[0];
 
-		if (!selectedIds.includes(withoutExclude[chosenIdx].id)) {
-			num--;
-			count--;
+		num--;
+		count--;
 
-			selectedIds.push(withoutExclude[chosenIdx].id);
-			chosenIndexes.push(chosenIdx);
-			shuffled.splice(0, 1);
-		}
+		selectedIds.push(withoutExclude[chosenIdx].id);
+		chosenIndexes.push(chosenIdx);
+		shuffled.splice(0, 1);
 	}
 
 	const chosenTranslations: TranslationWithID[] = [];
@@ -112,7 +125,6 @@ export function speak(text: string, lang: string, onEnd?: () => void) {
 	}
 
 	utterance.onerror = () => {
-		console.log('sadflkasjdfčljaskdf');
 		onEnd?.();
 	};
 }

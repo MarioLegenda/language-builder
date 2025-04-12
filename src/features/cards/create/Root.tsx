@@ -12,7 +12,6 @@ import { FirestoreMetadata } from '@/lib/dataSource/firebase/firestoreMetadata';
 import { getDocRef } from '@/lib/dataSource/firebase/getDocRef';
 import { QueryKeys } from '@/lib/dataSource/queryKeys';
 import { useMutateDocument } from '@/lib/dataSource/useMutateDocument';
-import { limited } from '@/lib/validation/limited';
 import { requiredAndLimited } from '@/lib/validation/requiredAndLimited';
 import * as utilStyles from '@/styles/shared/Util.styles';
 function buildModel(model: CreateCardForm) {
@@ -134,11 +133,7 @@ export function Root() {
 				},
 				translations: {
 					name: (value: string) => requiredAndLimited('translation', value, 1, 200),
-					type: (value: string) => requiredAndLimited('type', value, 1, 100),
 					language: (value: string) => requiredAndLimited('language', value, 2, 2),
-					gender: (value: string) => limited('gender', value, 1, 10),
-					example: (value: string) => limited('example', value, 0, 500),
-					hint: (value: string) => limited('hint', value, 0, 500),
 					isMain: (value: boolean, values: CreateCardForm) => {
 						const hasMain = values.translations.filter((item) => item.isMain).length;
 						if (!hasMain) return 'At least one translation has to be the main translation.';
