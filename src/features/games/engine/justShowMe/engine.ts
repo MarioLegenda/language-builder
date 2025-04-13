@@ -32,5 +32,5 @@ function createCardTranslation(cards: Card[]) {
 		});
 	}
 
-	return shuffle(cards);
+	return cards;
 }
