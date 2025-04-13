@@ -4,11 +4,11 @@
     "private": true,
     "scripts": {
         "dev": "next dev",
-        "build": "yarn pretty && yarn es-lint && next build",
+        "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "pretty": "yarn prettier --loglevel='warn' --loglevel='error' --write .",
-        "es-lint": "yarn eslint --fix ."
+        "pretty": "npm run prettier --loglevel='warn' --loglevel='error' --write .",
+        "es-lint": "npm run eslint --fix ."
     },
     "dependencies": {
         "@emotion/server": "11.10.0",

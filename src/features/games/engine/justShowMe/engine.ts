@@ -1,7 +1,6 @@
 import { CardStore } from '@/lib/dataSource/cards';
 import { DeckStore } from '@/lib/dataSource/deck';
 import { Storage } from '@/lib/dataSource/storage';
-import { shuffle } from '@/lib/helpers/shuffle';
 
 export function createEngine(deckName: string) {
 	if (deckName === 'anonymous-decks') {

@@ -1,4 +1,4 @@
-import { Button, Checkbox, Group, Select, Textarea, TextInput } from '@mantine/core';
+import { Button, Checkbox, Group, TextInput } from '@mantine/core';
 import { IconCircleMinus } from '@tabler/icons';
 import React from 'react';
 import { LanguageDropdown } from '@/features/shared/components/forms/LanguageDropdown';

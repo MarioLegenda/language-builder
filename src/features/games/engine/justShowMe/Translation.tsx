@@ -10,16 +10,6 @@ export function Translation({ translation }: Props) {
 				{translation.isMain && <span css={styles.isMain} />}
 				{translation.name}
 			</h1>
-
-			<p>
-				<span css={styles.example}>Example:</span> <span>{translation.example}</span>
-			</p>
-			<p>
-				<span css={styles.example}>Type:</span> <span>{translation.type}</span>
-			</p>
-			<p>
-				<span css={styles.example}>Gender:</span> <span>{translation.gender}</span>
-			</p>
 		</div>
 	);
 }

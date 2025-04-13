@@ -19,10 +19,6 @@ type Translations = {
 interface Translation {
     name: string;
     language: string;
-    hint: string;
-    type: string;
-    gender: string;
-    example: string;
     isMain: boolean;
 }
 
@@ -37,10 +33,6 @@ interface CreateCardForm {
 interface CreateTranslationForm {
     name: string;
     language: string;
-    hint: string;
-    type: string;
-    gender: string;
-    example: string;
     isMain: boolean;
 }
 
@@ -55,10 +47,6 @@ interface EditCardForm {
 interface EditTranslationForm {
     name: string;
     language: string;
-    hint: string;
-    type: string;
-    gender: string;
-    example: string;
     isMain: boolean;
 }
 
