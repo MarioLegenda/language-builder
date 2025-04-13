@@ -29,12 +29,8 @@ export function Item({ engine, onDone }: Props) {
 	const translations = engine[index] && engine[index].translationsArray ? engine[index].translationsArray : [];
 
 	useEffect(() => {
-		if (engine[index] && translations) {
-			const mainTranslation = translations.find((item) => item.isMain);
-
-			if (mainTranslation) {
-				speak(mainTranslation.name, langToBCP(mainTranslation.language));
-			}
+		if (engine[index] && engine[index].word) {
+			speak(engine[index].word, langToBCP('de'));
 		}
 	}, [index, translations]);
 

@@ -134,5 +134,9 @@ export function langToBCP(lang: string) {
 		return 'it-IT';
 	}
 
-	return 'it-IT';
+	if (lang === 'de') {
+		return 'de-DE';
+	}
+
+	return 'de-DE';
 }
