@@ -2,7 +2,6 @@ import { Button, Group } from '@mantine/core';
 import { useCallback, useState } from 'react';
 import { Success } from '@/features/games/components/Success';
 import { Word } from '@/features/games/components/Word';
-import { langToBCP, speak } from '@/features/games/engine/util';
 import * as styles from '@/styles/games/PickOne.styles';
 import * as utilStyles from '@/styles/shared/Util.styles';
 
@@ -26,12 +25,10 @@ export function Item({ engine, onDone }: Props) {
 			const chosenTranslation = word.choices[transIdx];
 
 			if (word.correctTranslation.name === chosenTranslation.name) {
-				speak(word.correctTranslation.name, langToBCP(word.correctTranslation.language), () => {
-					setStatus({
-						isTried: true,
-						isCorrect: true,
-						idx: transIdx,
-					});
+				setStatus({
+					isTried: true,
+					isCorrect: true,
+					idx: transIdx,
 				});
 
 				return;

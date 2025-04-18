@@ -3,7 +3,6 @@ import { useCallback, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Success } from '@/features/games/components/Success';
 import { Word } from '@/features/games/components/Word';
-import { langToBCP, speak } from '@/features/games/engine/util';
 import { useInterval } from '@/lib/helpers/useInterval';
 import * as styles from '@/styles/games/PickOne.styles';
 import * as utilStyles from '@/styles/shared/Util.styles';
@@ -86,8 +85,6 @@ export function Item({ engine, onDone }: Props) {
 			const chosenTranslation = word.choices[transIdx];
 
 			if (word.correctTranslation.name === chosenTranslation.name) {
-				speak(word.correctTranslation.name, langToBCP(word.correctTranslation.language));
-
 				setCorrect(transIdx);
 
 				return;
