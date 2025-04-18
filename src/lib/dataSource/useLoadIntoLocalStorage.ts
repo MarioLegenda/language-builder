@@ -16,6 +16,8 @@ export function useLoadIntoLocalStorage() {
 			getAllDecks(FirestoreMetadata.deckCollection.name),
 			getAllCards(FirestoreMetadata.cardsCollection.name),
 		]).then((data) => {
+			deckStore.clear();
+			cardStore.clear();
 			for (const item of data) {
 				if (item.status === 'fulfilled' && isDeck(item.value)) {
 					for (const part of item.value) {

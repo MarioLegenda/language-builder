@@ -60,4 +60,8 @@ export class Storage<T> implements DataSource<T> {
 	persist() {
 		localStorage.setItem(this.key, JSON.stringify(this.store));
 	}
+
+	clear() {
+		localStorage.removeItem(this.key);
+	}
 }

@@ -13,4 +13,5 @@ interface DataSource<T> {
     all(): Store<T>;
     findBy(filterFn: (item: T, idx: number) => void): T[];
     update(oldId: string, newId: string, item: T);
+    clear(): void;
 }
