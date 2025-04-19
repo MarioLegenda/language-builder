@@ -79,7 +79,7 @@ export function Root() {
 					showLoading: isRefetching,
 				}}
 				globalLoader={{
-					isLoading: isFetching && !isRefetching,
+					isLoading: isFetching || isRefetching,
 				}}
 				tableRows={['Name', 'Language', 'Edit', 'Delete']}
 				onNext={() => {

@@ -58,6 +58,10 @@ class ThisStore<T> implements DataSource<T> {
 	persist() {
 		localStorage.setItem(this.key, JSON.stringify(this.store));
 	}
+
+	clear() {
+		// NOOP OPERATION
+	}
 }
 
 export const LanguageStore = new ThisStore<Language>();

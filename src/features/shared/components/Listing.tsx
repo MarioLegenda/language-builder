@@ -30,37 +30,33 @@ export const Listing = ({
 	globalLoader: { isLoading },
 	onNext,
 	onPrev,
-}: Props) => (
-	<div css={styles.root}>
-		<Header createTo={createTo} title={title} showLoading={showLoading} />
+}: Props) => <div css={styles.root}>
+	<Header createTo={createTo} title={title} showLoading={showLoading} />
 
-		<Loading visible={isLoading} />
+	<Loading visible={isLoading} />
 
-		{showTable && (
-			<Table>
-				<thead>
-					<tr>
-						{tableRows.map((item) => (
-							<th key={item}>{item}</th>
-						))}
-					</tr>
-				</thead>
+	{showTable && (
+		<Table>
+			<thead>
+				<tr>
+					{tableRows.map((item) => (
+						<th key={item}>{item}</th>
+					))}
+				</tr>
+			</thead>
 
-				<TableBody rows={rows()} />
-			</Table>
-		)}
+			<TableBody rows={rows()} />
+		</Table>
+	)}
 
-		{showNothing && <p css={styles.nothingFound}>Nothing found</p>}
+	{showNothing && <p css={styles.nothingFound}>Nothing found</p>}
 
-		{!showNothing && (
-			<div css={styles.paginationRoot}>
-				<Button onClick={onNext} color="gray" variant="outline" disabled={isLoading}>
-                    Previous
-				</Button>
-				<Button onClick={onPrev} color="gray" variant="outline" disabled={isLoading}>
-                    Next
-				</Button>
-			</div>
-		)}
+	<div css={styles.paginationRoot}>
+		<Button onClick={onNext} color="gray" variant="outline" disabled={isLoading}>
+				Previous
+		</Button>
+		<Button onClick={onPrev} color="gray" variant="outline" disabled={isLoading}>
+				Next
+		</Button>
 	</div>
-);
+</div>;

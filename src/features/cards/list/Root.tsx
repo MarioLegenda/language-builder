@@ -1,4 +1,3 @@
-import {doc, getDoc} from "@firebase/firestore";
 import { Button } from '@mantine/core';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -109,7 +108,7 @@ export function Root() {
 					showLoading: isRefetching,
 				}}
 				globalLoader={{
-					isLoading: isFetching && !isRefetching,
+					isLoading: isFetching || isRefetching,
 				}}
 				tableRows={['Word', 'From language', 'To language', 'Deck', 'Translation', 'Edit', 'Delete']}
 				onNext={() => {
