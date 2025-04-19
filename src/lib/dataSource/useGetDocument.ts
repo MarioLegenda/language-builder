@@ -1,6 +1,7 @@
 import { useQuery } from 'react-query';
 import { useGetDocument as useGetSingleDocument } from '@/lib/dataSource/firebase/useGetDocument';
 import type { DocumentData } from '@firebase/firestore';
+
 export function useGetDocument<T extends DocumentData>(query: string, path: string, segment: string) {
 	const getDocument = useGetSingleDocument<T>();
 

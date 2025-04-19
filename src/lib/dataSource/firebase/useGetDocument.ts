@@ -9,7 +9,7 @@ export function useGetDocument<T extends DocumentData>() {
 		const snapshot = await getDoc(doc(db, path, segment));
 
 		if (snapshot.exists()) {
-			return snapshot.data() as T;
+			return {id: snapshot.id, ...snapshot.data() as T};
 		}
 
 		return null;

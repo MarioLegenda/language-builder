@@ -1,4 +1,4 @@
-import { collection, getDocs, limit, orderBy, query, startAfter, endBefore } from '@firebase/firestore';
+import { collection, getDocs, limit, orderBy, query, startAfter, endBefore, doc, getDoc } from '@firebase/firestore';
 import { useRef } from 'react';
 import { getFirestoreDB } from '@/lib/dataSource/firebase/firebase';
 import type { DocumentData, Query, QueryDocumentSnapshot } from '@firebase/firestore';
@@ -28,10 +28,12 @@ export function usePagination<T>(path: string) {
 			lastRef.current = querySnapshot.docs[querySnapshot.docs.length - 1];
 			previousRef.current = querySnapshot.docs[0];
 
-			querySnapshot.forEach((doc) => {
+			querySnapshot.forEach((documentSnapshot) => {
+				const d = documentSnapshot.data();
+
 				data.push({
-					id: doc.id,
-					...(doc.data() as T),
+					id: documentSnapshot.id,
+					...(d as T),
 				});
 			});
 

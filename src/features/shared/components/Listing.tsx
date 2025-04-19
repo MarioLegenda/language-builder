@@ -52,12 +52,12 @@ export const Listing = ({
 
 		{showNothing && <p css={styles.nothingFound}>Nothing found</p>}
 
-		{!isLoading && (
+		{!showNothing && (
 			<div css={styles.paginationRoot}>
-				<Button onClick={onNext} color="gray" variant="outline">
+				<Button onClick={onNext} color="gray" variant="outline" disabled={isLoading}>
                     Previous
 				</Button>
-				<Button onClick={onPrev} color="gray" variant="outline">
+				<Button onClick={onPrev} color="gray" variant="outline" disabled={isLoading}>
                     Next
 				</Button>
 			</div>

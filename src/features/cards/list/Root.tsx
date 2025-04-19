@@ -1,22 +1,43 @@
+import {doc, getDoc} from "@firebase/firestore";
 import { Button } from '@mantine/core';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Listing } from '@/features/shared/components/Listing';
 import { ReactiveButton } from '@/features/shared/components/ReactiveButton';
 import { FirestoreMetadata } from '@/lib/dataSource/firebase/firestoreMetadata';
+import { useGetDocument } from '@/lib/dataSource/firebase/useGetDocument';
 import { QueryKeys } from '@/lib/dataSource/queryKeys';
 import { useDeleteDocument } from '@/lib/dataSource/useDeleteDocument';
 import { usePagination } from '@/lib/dataSource/usePagination';
 
 export function Root() {
 	const [listing, setListing] = useState<Card[] | null>(null);
+	const getDocument = useGetDocument<Deck>();
 
 	const [direction, setDirection] = useState<'next' | 'previous'>('next');
 	const { data, isFetching, isRefetching, refetch } = usePagination<Card>(
 		QueryKeys.CARDS_LISTING,
 		FirestoreMetadata.cardsCollection.name,
 		direction,
+		async (data) => {
+			const deckIds = data.map((d) => d.deck);
+			const docPromises = deckIds.map(id => getDocument('decks', id));
+			const docs = await Promise.all(docPromises);
+
+			docs.forEach(documentData => {
+				if (!documentData) return;
+
+				for (const d of data) {
+					if (d.deck === documentData.id) {
+						d.deck = documentData.name;
+					}
+				}
+			});
+
+			return data;
+		}
 	);
+
 	const { mutateAsync, invalidateRelated } = useDeleteDocument();
 
 	useEffect(() => {
@@ -31,7 +52,6 @@ export function Root() {
 		if (listing) {
 			return listing.map((item) => (
 				<tr key={item.id}>
-					<td>{item.id}</td>
 					<td>{item.word}</td>
 					<td>{item.fromLanguage}</td>
 					<td>{item.toLanguage}</td>
@@ -91,13 +111,13 @@ export function Root() {
 				globalLoader={{
 					isLoading: isFetching && !isRefetching,
 				}}
-				tableRows={['ID', 'Word', 'From language', 'To language', 'Deck ID', 'Edit', 'Delete']}
+				tableRows={['Word', 'From language', 'To language', 'Deck', 'Translation', 'Edit', 'Delete']}
 				onNext={() => {
-					setDirection('next');
+					setDirection('previous');
 					refetch();
 				}}
 				onPrev={() => {
-					setDirection('previous');
+					setDirection('next');
 					refetch();
 				}}
 			/>
